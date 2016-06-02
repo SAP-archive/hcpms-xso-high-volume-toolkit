@@ -1,2 +1,3 @@
-# Delta_Skip_Token_in_XSOData_HCPms
-The project is limited to basic examples to help app developer to implement delta token and skip token support to an existing XSOData service in context of SAP HANA Cloud Platform mobile services
+# xsodata-wrapper
+
+Sample implementation of skiptoken/deltatoken enablement on top of [OData Utility Library](https://github.wdf.sap.corp/D053411/sap-odata-util).
