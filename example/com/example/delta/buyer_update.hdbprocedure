@@ -1,0 +1,23 @@
+PROCEDURE "ODATA_UTIL_EXAMPLE"."com.example.delta::buyer_update" (IN new "ODATA_UTIL_EXAMPLE"."BUSINESSPARTNER_DELTA", IN old "ODATA_UTIL_EXAMPLE"."BUSINESSPARTNER_DELTA", OUT error "com.example.delta::error") 
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER
+	DEFAULT SCHEMA "ODATA_UTIL_EXAMPLE" AS
+BEGIN
+	DECLARE id VARCHAR(10);
+	DECLARE email VARCHAR(255);
+	
+	SELECT PARTNERID INTO id FROM :old;
+	SELECT EMAILADDRESS INTO email FROM :new;
+	
+	UPDATE BUSINESSPARTNER AS bp
+		SET EMAILADDRESS = :email
+		WHERE bp.PARTNERID = :id;
+		
+	IF 0 > 1 THEN
+		-- Room for error handling
+	    error = SELECT 500 AS http_status_code, 
+	    'Internal server error' error_message, 
+	    'Internal server error' detail FROM dummy;
+	    ROLLBACK;
+	END IF;
+END;

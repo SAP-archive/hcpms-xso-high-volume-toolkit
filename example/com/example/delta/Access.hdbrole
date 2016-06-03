@@ -1,0 +1,4 @@
+role com.example.delta::Access
+{
+    application privilege: com.example.delta::Access;    
+}

@@ -1,0 +1,17 @@
+service namespace "odata" {
+
+	"ODATA_UTIL_EXAMPLE"."BUSINESSPARTNER_DELTA"
+	as "Buyer"
+	key ("PARTNERID")
+	navigates ("BuyerSalesOrder" as "SALESORDERS")
+	create using "com.example.delta::buyer_insert"
+	update using "com.example.delta::buyer_update"
+	delete using "com.example.delta::buyer_delete";
+	
+	"ODATA_UTIL_EXAMPLE"."SALESORDER"
+	as "SalesOrder";
+	
+	association "BuyerSalesOrder" principal "Buyer"("PARTNERID")
+     multiplicity "1" dependent "SalesOrder"("PARTNERID.PARTNERID") multiplicity "*";
+
+}

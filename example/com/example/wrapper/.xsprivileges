@@ -1,0 +1,5 @@
+{
+  "privileges" : [
+   { "name" : "Access", "description" : "XSOData Wrapper Named User Access" }
+  ]
+}

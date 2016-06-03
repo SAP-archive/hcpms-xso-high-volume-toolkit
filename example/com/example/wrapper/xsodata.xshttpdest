@@ -1,0 +1,7 @@
+host = "";
+port = 443;
+pathPrefix = "/com/example/delta";
+authType = AssertionTicket;
+useSSL = true;
+remoteSID = "";
+remoteClient = "000";

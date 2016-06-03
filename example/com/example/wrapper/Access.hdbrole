@@ -1,0 +1,4 @@
+role com.example.wrapper::Access
+{
+    application privilege: com.example.wrapper::Access;    
+}

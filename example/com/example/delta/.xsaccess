@@ -1,0 +1,23 @@
+{
+     "exposed" : true,  
+                  
+     "authentication" :                                            
+            {
+               "method": "Basic"   
+            },
+     "authorization": [
+       "com.example.delta::Access"
+     ],
+  
+     "cache_control" : "must-revalidate", 
+
+     "cors": {
+     	"enabled":true,
+     	"allowMethods": ["GET", "POST", "HEAD", "OPTIONS", "PUT", "DELETE"], "allowOrigin": ["*"], "maxAge":"3600"}, 
+                     
+     "enable_etags" : false,
+
+     "force_ssl" : false,
+     
+     "prevent_xsrf" : false
+}
