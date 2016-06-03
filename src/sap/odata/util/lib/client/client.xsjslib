@@ -58,30 +58,6 @@ Client.prototype.apply = function() {
 	}.bind(this));
 	
 	response.applyToOutboundResponse();
-	
-//	this.copyHeadersToCurrentResponse(response);
-//	
-//	$.trace.debug('Got response with status ' + response.status);
-//	
-//	if(response.status <= 201) {
-//		var data;
-//		if(this.utils.isMetadataRequest()) {
-//			var data = response.body ? response.body.asString() : undefined;
-//			data = this.decorator.postRequest($.request, data) || data;
-//			$.response.setBody(data);
-//		} else {
-//			data = response.body ? JSON.parse(response.body.asString()) : undefined;
-//			data.d = this.decorator.postRequest($.request, data.d) || data.d;
-//			$.response.setBody(data ? JSON.stringify(data) : response.body.asString());
-//		}
-//	} else {
-//		var body = response.body.asString();
-//		$.trace.debug('Skipping deep inspection due to response status. Length: ' + body.length);
-//		$.response.setBody(body);
-//	}
-//	$.response.status = response.status === 500 ? 502 : response.status;
-//	
-//	$.response.contentType = response.contentType;
 };
 
 /**
@@ -141,34 +117,5 @@ function log(requestOrResponse, type) {
 						+ tupleList[i].value);
 			}
 		}
-	}
-};
-
-/**
- * Applies the current request parameters to the specified request.
- */
-Client.prototype.applyParametersTo = function(outboundEntity) {
-	Object.getOwnPropertyNames(this.parameters).forEach(function(key) {
-		outboundEntity.parameters.set(key, this.parameters[key] + '');
-	}.bind(this));
-};
-
-/**
- * Copies the current request headers to the specified web request.
- */
-Client.prototype.copyRequestHeaders = function(inboundEntity, outboundEntity) {
-	for(var i = 0; i < inboundEntity.headers.length; i++) {
-		var header = inboundEntity.headers[i];
-		outboundEntity.headers.set(header.name, header.value);
-	}
-};
-
-/**
- * Copies the headers (except content length) of the specified response to the current server response.
- */
-Client.prototype.copyHeadersToCurrentResponse = function(fromResponse) {
-	for(var i = 0; i < fromResponse.headers.length; i++) {
-		if($.request.headers[i].name === 'content-length') continue;
-		$.response.headers.set($.request.headers[i].name, $.request.headers[i].value);
 	}
 };

@@ -31,7 +31,7 @@ CompositeDecorator.prototype.constructor = CompositeDecorator;
  * Add a decorator to this decorator list.
  */
 CompositeDecorator.prototype.addDecorator = function(decoratorClass) {
-	this.decorators.push(new decoratorClass(this.request, this.metadataClient, this.parameters));
+	this.decorators.push(new decoratorClass(this.request, this.metadataClient));
 };
 
 /**
