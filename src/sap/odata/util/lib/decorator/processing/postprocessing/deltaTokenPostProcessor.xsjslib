@@ -66,7 +66,7 @@ DeltaTokenPostProcessor.prototype.apply = function(response) {
  * Returns the URL to the next page, relative to the server base URL.
  */
 DeltaTokenPostProcessor.prototype.getDeltaUrl = function() {
-	return this.request.getPath() + '?' + this.querify(this.getDeltaRequestParameters());
+	return this.request.getFullPath() + '?' + this.querify(this.getDeltaRequestParameters());
 };
 
 /**

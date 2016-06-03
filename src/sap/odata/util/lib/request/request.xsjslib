@@ -103,6 +103,21 @@ Request.prototype.getTargetServicePath = notImplemented;
 Request.prototype.getPath = notImplemented;
 
 /**
+ * Returns the full request path, including the query path
+ * 
+ * <pre><code>
+ * 
+ * http://myhost:8000/my/service.xsjs/MyCollection
+ * ^---------------------------------------------^
+ * </code></pre>
+ */
+Request.prototype.getFullPath = function() {
+	return this.getPath().indexOf('http') === 0 ? this.getPath() :
+		$.request.headers.get('clientprotocol') + '://' +
+		$.request.headers.get('host') + this.getPath();
+};
+
+/**
  * Returns the request method
  * 
  */
