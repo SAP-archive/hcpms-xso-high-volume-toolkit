@@ -57,6 +57,7 @@ WebRequest.prototype.copy = function(propertyName, writable) {
 	for(var i = 0; i < this.webRequest[propertyName].length; i++) {
 		var property = this.webRequest[propertyName][i];
 		
+		if(copy[property.name]) continue; // FIXME duplicate headers
 		Object.defineProperty(copy, property.name, {
 			value: property.value,
 			writable: writable,
