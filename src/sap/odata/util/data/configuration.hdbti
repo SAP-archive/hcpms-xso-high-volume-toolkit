@@ -1,0 +1,9 @@
+import = [
+ {
+ table = "sap.odata.util.data::odata.config.Configuration";
+ schema = "ODATA_UTIL";
+ file = "sap.odata.util.data:configuration.csv";
+ delimField = ","; 
+ header = true;
+ }
+];

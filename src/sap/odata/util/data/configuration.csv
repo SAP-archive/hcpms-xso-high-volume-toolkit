@@ -1,0 +1,7 @@
+SERVICE_ID,COLLECTION_NAME,KEY,VALUE
+,,skiptoken.pageSize,10000
+,,deltatoken.deltaPropertyName,DELTATOKEN
+,,deltatoken.deletedPropertyName,IS_DELETED
+,,deltatoken.deletedPropertyYesValue,Y
+,,deltatoken.stripDeltaFields,Y
+,,deltatoken.replaceDeletedEntities,Y

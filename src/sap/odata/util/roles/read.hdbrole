@@ -1,0 +1,3 @@
+role sap.odata.util.roles::read {
+	schema sap.odata.util.data:ODATA_UTIL.hdbschema: SELECT;
+}

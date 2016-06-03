@@ -1,0 +1,28 @@
+namespace sap.odata.util.data;
+
+@Schema : 'ODATA_UTIL'
+context odata
+
+{
+	context config {
+	
+
+		entity Configuration {
+			key SERVICE_ID: String(512) default '';
+			key COLLECTION_NAME: String(512) default '';
+			key KEY: String(50);
+			VALUE: String(256);
+		};
+	
+	};
+	
+	context metadata {
+	
+		entity ServiceMetadata {
+			key SERVICE_ID: String(512);
+			METADATA: LargeString;
+		};
+	
+	};
+	
+};
