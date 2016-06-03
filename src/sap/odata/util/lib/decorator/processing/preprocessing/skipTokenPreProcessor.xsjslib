@@ -59,16 +59,16 @@ SkipTokenPreProcessor.prototype.constructor = SkipTokenPreProcessor;
 SkipTokenPreProcessor.prototype.apply = function() {
 	var parameters = this.request.parameters;
 	
-	delete parameters.$skiptoken;
+	parameters.remove('$skiptoken');
 	
 	var pageFilter = this.createFilter();
 	
 	if(pageFilter) {
-		parameters.$filter = (parameters.$filter ? parameters.$filter + ' and ' : '') +
-			pageFilter;
+		parameters.set('$filter', (parameters.contains('$filter') ? parameters.get('$filter') + ' and ' : '') +
+			pageFilter)
 	}
-	parameters.$top = this.pageSize;
-	parameters.$inlinecount = 'allpages';
+	parameters.set('$top', this.pageSize);
+	parameters.set('$inlinecount', 'allpages');
 };
 
 SkipTokenPreProcessor.prototype.createFilter = function() {

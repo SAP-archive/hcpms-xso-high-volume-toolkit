@@ -1,4 +1,5 @@
 var Request = $.import('sap.odata.util.lib.request', 'request').Request;
+var MultiMap = $.import('sap.odata.util.lib', 'multiMap').MultiMap;
 
 /**
  * 
@@ -25,13 +26,13 @@ function WebRequest(webRequest) {
 			value: webRequest.path
 		},
 		'originalParameters': {
-			value: this.copyParameters(false)
+			value: Object.freeze(this.copyParameters())
 		},
 		'parameters': {
 			value: this.copyParameters()
 		},
 		'headers': {
-			value: this.copyHeaders(false)
+			value: Object.freeze(this.copyHeaders())
 		},
 		'id': {
 			value: 'root'
@@ -41,7 +42,7 @@ function WebRequest(webRequest) {
 	Object.defineProperties(this, {
 		'boundary': {
 			value: this.isMultipartRequest()
-					? this.headers['content-type'].match(/boundary=(.*)$/)[1]
+					? this.headers.get('content-type').match(/boundary=(.*)$/)[1]
 					: null
 		}
 	});
@@ -50,37 +51,22 @@ function WebRequest(webRequest) {
 WebRequest.prototype = new Request();
 WebRequest.prototype.constructor = WebRequest;
 
-WebRequest.prototype.copy = function(propertyName, writable) {
-	if(writable === undefined) writable = true;
-	
-	var copy = {};
-	for(var i = 0; i < this.webRequest[propertyName].length; i++) {
-		var property = this.webRequest[propertyName][i];
-		
-		if(copy[property.name]) continue; // FIXME duplicate headers
-		Object.defineProperty(copy, property.name, {
-			value: property.value,
-			writable: writable,
-			configurable: writable,
-			enumerable: true
-		})
-	}
-	
-	return copy;
+WebRequest.prototype.copy = function(propertyName) {
+	return MultiMap.from(this.webRequest[propertyName]);
 };
 
 /*
  * See sap.odata.util.lib.request.Request#copyParameters
  */
-WebRequest.prototype.copyParameters = function(writable) {
-	return this.copy('parameters', writable);
+WebRequest.prototype.copyParameters = function() {
+	return this.copy('parameters');
 };
 
 /*
  * See sap.odata.util.lib.request.Request#copyParameters
  */
 WebRequest.prototype.copyHeaders = function(writable) {
-	return this.copy('headers', writable);
+	return this.copy('headers');
 };
 
 /*
@@ -129,18 +115,14 @@ WebRequest.prototype.getQueryPath = function() {
  * See sap.odata.util.lib.request.Request#applyParametersTo
  */
 WebRequest.prototype.applyParametersTo = function(outboundEntity) {
-	Object.getOwnPropertyNames(this.parameters).forEach(function(key) {
-		outboundEntity.parameters.set(key, this.parameters[key] + '');
-	}.bind(this));
+	this.parameters.copyToTupleList(outboundEntity.parameters);
 };
 
 /*
  * See sap.odata.util.lib.request.Request#copyRequestHeadersTo
  */
 WebRequest.prototype.copyRequestHeadersTo = function(upstreamRequest) {
-	Object.getOwnPropertyNames(this.headers).forEach(function(headerName) {
-		upstreamRequest.headers.set(headerName, this.headers[headerName]);
-	}.bind(this));
+	this.headers.copyToTupleList(upstreamRequest.headers);
 };
 
 /*

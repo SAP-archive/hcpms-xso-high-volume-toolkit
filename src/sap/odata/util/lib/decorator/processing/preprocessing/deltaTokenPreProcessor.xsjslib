@@ -28,13 +28,14 @@ DeltaTokenPreProcessor.prototype.constructor = DeltaTokenPreProcessor;
 
 DeltaTokenPreProcessor.prototype.apply = function() {
 	var parameters = this.request.parameters;
-	delete parameters['!deltatoken'];
+	parameters.remove('!deltatoken');
 	
-	var filter = parameters.$filter ? parameters.$filter + ' and ' : '';
+	var filter = parameters.contains('$filter') ?
+			parameters.get('$filter') + ' and ' : '';
 	
 	if(this.request.isDeltaRequest()) {
-		parameters.$filter = filter + this.deltaPropertyName + ' ge datetime\'' +
-			new Date(this.getCurrentDeltaToken()).toODataV2String() + '\'';
+		parameters.set('$filter', filter + this.deltaPropertyName + ' ge datetime\'' +
+			new Date(this.getCurrentDeltaToken()).toODataV2String() + '\'');
 	}
 };
 
@@ -46,5 +47,5 @@ DeltaTokenPreProcessor.prototype.apply = function() {
  * @returns {number} The current delta token (default 0).
  */
 DeltaTokenPreProcessor.prototype.getCurrentDeltaToken = function() {
-	return parseInt(this.request.originalParameters['!deltatoken'], 10) || 0;
+	return parseInt(this.request.originalParameters.get('!deltatoken'), 10) || 0;
 };

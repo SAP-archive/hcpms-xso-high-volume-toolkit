@@ -27,7 +27,8 @@ TombstoneFilterPreProcessor.prototype.constructor = TombstoneFilterPreProcessor;
 TombstoneFilterPreProcessor.prototype.apply = function() {
 	var parameters = this.request.parameters;
 	
-	var filter = parameters.$filter ? parameters.$filter + ' and ' : '';
+	var filter = parameters.contains('$filter') ? parameters.get('$filter') + ' and ' : '';
 	
-	parameters.$filter = filter + this.deletedPropertyName + ' ne \'' + this.deletedPropertyYesValue + '\'';
+	parameters.set('$filter',
+			filter + this.deletedPropertyName + ' ne \'' + this.deletedPropertyYesValue + '\'');
 };

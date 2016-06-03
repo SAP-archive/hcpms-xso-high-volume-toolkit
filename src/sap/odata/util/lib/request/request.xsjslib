@@ -252,7 +252,7 @@ Request.prototype.isGetRequest = function() {
  * Tells if the current request is a delta request. 
  */
 Request.prototype.isDeltaRequest = function() {
-	return this.originalParameters['!deltatoken'];
+	return this.originalParameters.contains('!deltatoken');
 };
 
 

@@ -1,4 +1,5 @@
 var Response = $.import('sap.odata.util.lib.response', 'response').Response;
+var MultiMap = $.import('sap.odata.util.lib', 'multiMap').MultiMap;
 
 /**
  * 
@@ -18,9 +19,9 @@ function WebResponse(webRequest, webResponse) {
 	
 	Response.call(this, webRequest, webResponse);
 	
-	var headers = this.copyHeaders(false),
+	var headers = this.copyHeaders(),
 		json = webResponse.status < 300 &&
-			headers['content-type'] === 'application/json',
+			headers.get('content-type') === 'application/json',
 		data = this.webResponse.body ? json ? JSON.parse(this.webResponse.body.asString()) :
 			this.webResponse.body.asString() : null;
 			
@@ -39,7 +40,7 @@ function WebResponse(webRequest, webResponse) {
 	Object.defineProperties(this, {
 		'boundary': {
 			value: this.isMultipartResponse()
-					? this.headers['content-type'].match(/boundary=(.*)$/)[1]
+					? this.headers.get('content-type').match(/boundary=(.*)$/)[1]
 					: null
 		}
 	});
@@ -51,34 +52,19 @@ WebResponse.prototype.constructor = WebResponse;
 /*
  * See sap.odata.util.lib.request.Request#copyRequestHeadersTo
  */
-WebResponse.prototype.copy = function(propertyName, writable, excludes) {
-	if(writable === undefined) writable = true;
-	var copy = {};
-	var cookie = false;
-	for(var i = 0; i < this.webResponse[propertyName].length; i++) {
-		var property = this.webResponse[propertyName][i];
-		
-		if(excludes.indexOf(property.name) !== -1) continue;
-		Object.defineProperty(copy, property.name, {
-			value: property.value,
-			writable: writable,
-			configurable: writable,
-			enumerable: true
-		})
-	}
-	
-	return copy;
+WebResponse.prototype.copy = function(propertyName) {
+	return MultiMap.from(this.webResponse[propertyName]);
 };
 
-WebResponse.prototype.copyHeaders = function(writable) {
-	return this.copy('headers', writable, ['set-cookie']);
+WebResponse.prototype.copyHeaders = function() {
+	return this.copy('headers');
 };
 
 WebResponse.prototype.copyResponseHeadersTo = function(upstreamResponse) {
-	Object.getOwnPropertyNames(this.headers).forEach(function(headerName) {
-		if(['content-length', 'content-encoding'].indexOf(headerName) !== -1) return; // HANA will set those
-		upstreamResponse.headers.set(headerName, this.headers[headerName]);
-	}.bind(this));
+	this.headers.filter(function(entry) {
+		// HANA will take care of this
+		return ['content-length', 'content-encoding'].indexOf(entry.key) !== -1;
+	}).copyToTupleList(upstreamResponse.headers);
 };
 
 WebResponse.prototype.applyToOutboundResponse = function() {

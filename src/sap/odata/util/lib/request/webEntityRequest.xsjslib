@@ -1,5 +1,6 @@
 var Request = $.import('sap.odata.util.lib.request', 'request').Request;
 var WebRequest = $.import('sap.odata.util.lib.request', 'webRequest').WebRequest;
+var MultiMap = $.import('sap.odata.util.lib', 'multiMap').MultiMap;
 
 /**
  * 
@@ -64,21 +65,21 @@ function WebEntityRequest(webRequest, id) {
 		//				   ^method    ^path	  ^query			   ^headers	^2x newline	  ^body
 		var pieces = body.match(parseRegex);
 		var headerLines = pieces[4].split(/\r\n?|\n/).filter(function(pair) { return pair.length; });
-		var headers = {};
+		var headers = new MultiMap();
 		headerLines.forEach(function(line) {
 			var keyAndValue = line.split(': '),
 				key = keyAndValue[0],
 				value = keyAndValue[1];
-			headers[key] = value;
+			headers.set(key, value);
 		});
 		headers['Accept'] = 'application/json;charset=UTF-8;q=0.9,*/*;q=0.8';
 		
 		var parameterPairs = (pieces[3] || '').split(/&/).filter(function(pair) { return pair.length; });
-		var parameters = {};
+		var parameters = new MultiMap();
 		
 		parameterPairs.forEach(function(pair) {
 			var split = pair.split(/=/);
-			parameters[split[0]] = split[1];
+			parameters.set(split[0], split[1]);
 		});
 		
 		var parsedBody = {
@@ -93,13 +94,13 @@ function WebEntityRequest(webRequest, id) {
 		
 		Object.defineProperties(this, {
 			'originalParameters': {
-				value: this.copyParameters(false)
+				value: Object.freeze(this.copyParameters())
 			},
 			'parameters': {
 				value: this.copyParameters()
 			},
 			'headers': {
-				value: this.copyHeaders(false)
+				value: Object.freeze(this.copyHeaders())
 			},
 			'methodMap': {
 				value: {
@@ -129,34 +130,22 @@ function WebEntityRequest(webRequest, id) {
 WebEntityRequest.prototype = new Request();
 WebEntityRequest.prototype.constructor = WebEntityRequest;
 
-WebEntityRequest.prototype.copy = function(propertyName, writable) {
-	if(writable === undefined) writable = true;
-	var copy = {};
-	var property = this.parsedBody[propertyName];
-	Object.getOwnPropertyNames(property).forEach(function(propertyName) {
-		Object.defineProperty(copy, propertyName, {
-			value: property[propertyName],
-			writable: writable,
-			configurable: writable,
-			enumerable: true
-		})
-	});
-	
-	return copy;
+WebEntityRequest.prototype.copy = function(propertyName) {
+	return MultiMap.from(this.parsedBody[propertyName]);
 };
 
 /*
  * See sap.odata.util.lib.request.Request#copyParameters
  */
-WebEntityRequest.prototype.copyParameters = function(writable) {
-	return this.copy('parameters', writable);
+WebEntityRequest.prototype.copyParameters = function() {
+	return this.copy('parameters');
 };
 
 /*
  * See sap.odata.util.lib.request.Request#copyParameters
  */
-WebEntityRequest.prototype.copyHeaders = function(writable) {
-	return this.copy('headers', writable);
+WebEntityRequest.prototype.copyHeaders = function() {
+	return this.copy('headers');
 };
 
 /*
@@ -206,9 +195,7 @@ WebEntityRequest.prototype.getQueryPath = function() {
  * See sap.odata.util.lib.request.Request#applyParametersTo
  */
 WebEntityRequest.prototype.applyParametersTo = function(outboundEntity) {
-	Object.getOwnPropertyNames(this.parameters).forEach(function(key) {
-		outboundEntity.parameters.set(key, this.parameters[key] + '');
-	}.bind(this));
+	this.parameters.copyToTupleList(outboundEntity.parameters);
 };
 
 /*
@@ -247,12 +234,9 @@ WebEntityRequest.prototype.getOutboundRequestLine = function() {
 };
 
 WebEntityRequest.prototype.getOutboundBodyHeaderString = function() {
-	var bodyHeaderLines = [];
-	Object.getOwnPropertyNames(this.parsedBody.headers).forEach(function(header) {
-		bodyHeaderLines.push(header + ': ' + this.parsedBody.headers[header]);
-	}.bind(this));
-	
-	return bodyHeaderLines.join('\n') + '\n';
+	return this.parsedBody.headers.map(function(entry) {
+		return entry.key + ': ' + entry.value;
+	}.bind(this)).join('\n') + '\n';
 };
 
 /**
@@ -260,7 +244,7 @@ WebEntityRequest.prototype.getOutboundBodyHeaderString = function() {
  * Values are URL-encoded.
  */
 WebEntityRequest.prototype.querify = function(parameters) {
-	return Object.getOwnPropertyNames(parameters).map(function(key) {
-		return key + '=' + escape(parameters[key]);
+	return parameters.map(function(entry) {
+		return entry.key + '=' + escape(entry.value);
 	}).join('&');
 };

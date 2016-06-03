@@ -21,7 +21,6 @@ function Processor(request, metadataClient) {
  * @returns {string} The most specific configuration value
  */
 Processor.prototype.getConfiguredValue = function(key) {
-	throw this.request.getServicePath();
 	return Configuration.getProperty(key, this.request.getServicePath(),
 			this.request.isCollectionRequest() ? this.request.getCollectionName() : undefined);
 };
@@ -35,7 +34,7 @@ Processor.prototype.getMetadata = function() {
  * Values are URL-encoded.
  */
 Processor.prototype.querify = function(parameters) {
-	return Object.getOwnPropertyNames(parameters).map(function(key) {
-		return key + '=' + escape(parameters[key]);
+	return parameters.map(function(entry) {
+		return entry.key + '=' + escape(entry.value);
 	}).join('&');
 };

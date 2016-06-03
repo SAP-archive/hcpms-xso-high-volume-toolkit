@@ -1,5 +1,6 @@
 var Response = $.import('sap.odata.util.lib.response', 'response').Response;
 var WebResponse = $.import('sap.odata.util.lib.response', 'webResponse').WebResponse;
+var MultiMap = $.import('sap.odata.util.lib', 'multiMap').MultiMap;
 
 /**
  * 
@@ -25,12 +26,12 @@ function WebEntityResponse(webRequest, webResponse) {
 		//				                ^status		^status msg    ^headers	^2x newline			^body
 		var pieces = body.match(parseRegex);
 		var headerLines = pieces[3].split(/\r\n?|\n/);
-		var headers = {};
+		var headers = new MultiMap();
 		headerLines.forEach(function(line) {
 			var keyAndValue = line.split(': '),
 				key = keyAndValue[0],
 				value = keyAndValue[1];
-			headers[key] = value;
+			headers.add(key, value);
 		});
 		
 		var parsedBody = {
@@ -73,27 +74,12 @@ WebEntityResponse.prototype.constructor = WebEntityResponse;
 /*
  * See sap.odata.util.lib.request.Request#copyRequestHeadersTo
  */
-WebEntityResponse.prototype.copy = function(propertyName, writable, excludes) {
-	if(writable === undefined) writable = true;
-	var copy = {};
-	var cookie = false;
-	for(var i = 0; i < this.webResponse[propertyName].length; i++) {
-		var property = this.webResponse[propertyName][i];
-		
-		if(excludes.indexOf(property.name) !== -1) continue;
-		Object.defineProperty(copy, property.name, {
-			value: property.value,
-			writable: writable,
-			configurable: writable,
-			enumerable: true
-		});
-	}
-	
-	return copy;
+WebEntityResponse.prototype.copy = function(propertyName) {
+	return MultiMap.from(webResponse[propertyName]);
 };
 
-WebEntityResponse.prototype.copyHeaders = function(writable) {
-	return this.copy('headers', writable, ['set-cookie']);
+WebEntityResponse.prototype.copyHeaders = function() {
+	return this.copy('headers');
 }
 
 WebEntityResponse.prototype.getOutboundBody = function() {
@@ -124,10 +110,7 @@ WebEntityResponse.prototype.getOutboundResponseLine = function() {
 };
 
 WebEntityResponse.prototype.getOutboundBodyHeaderString = function() {
-	var bodyHeaderLines = [];
-	Object.getOwnPropertyNames(this.parsedBody.headers).forEach(function(header) {
-		bodyHeaderLines.push(header + ': ' + this.parsedBody.headers[header]);
-	}.bind(this));
-	
-	return bodyHeaderLines.join('\n') + '\n';
+	return this.parsedBody.headers.map(function(entry) {
+		return entry.key + ': ' + entry.value;
+	}.bind(this)).join('\n') + '\n';
 };

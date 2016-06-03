@@ -42,9 +42,9 @@ SkipTokenPostProcessor.prototype.getNextPageUrl = function(lastObject) {
  * skip token value.
  */
 SkipTokenPostProcessor.prototype.getNextPageRequestParameters = function(lastObject) {
-	var parameters = this.request.copyParameters(true);
+	var parameters = this.request.copyParameters();
 	
-	parameters.$skiptoken = this.getNextSkipToken(lastObject);
+	parameters.set('$skiptoken', this.getNextSkipToken(lastObject));
 	
 	return parameters;
 };
@@ -56,7 +56,7 @@ SkipTokenPostProcessor.prototype.getNextSkipToken = function(lastObject) {
 	var currentToken = this.getCurrentSkipToken();
 	
 	var token = '' + (currentToken ? currentToken.timestamp :
-		this.request.originalParameters['!deltatoken'] || Date.latestSafeTimestamp().getTime());
+		this.request.originalParameters.get('!deltatoken') || Date.latestSafeTimestamp().getTime());
 	
 	this.getMetadata().keys.forEach(function(key) {
 		token += '-' + encodeURIComponent('' + lastObject[key.name]);

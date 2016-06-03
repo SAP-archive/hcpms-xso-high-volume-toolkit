@@ -24,7 +24,7 @@ SkipTokenProcessor.prototype.constructor = SkipTokenProcessor;
  * @returns {number} The current skip token (default 0).
  */
 SkipTokenProcessor.prototype.getCurrentSkipToken = function(request) {
-	var encodedToken = this.request.originalParameters['$skiptoken'];
+	var encodedToken = this.request.originalParameters.get('$skiptoken');
 	
 	if(!encodedToken) return null;
 	

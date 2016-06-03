@@ -26,6 +26,8 @@ DeltaTokenPostProcessor.prototype = new Processor();
 DeltaTokenPostProcessor.prototype.constructor = DeltaTokenPostProcessor;
 
 DeltaTokenPostProcessor.prototype.apply = function(response) {
+	if(!response.json) return;
+	
 	var data = response.data.d;
 	
 	data.__delta = this.getDeltaUrl();
@@ -74,12 +76,12 @@ DeltaTokenPostProcessor.prototype.getDeltaUrl = function() {
  * skip token value. 
  */
 DeltaTokenPostProcessor.prototype.getDeltaRequestParameters = function() {
-	var parameters = this.request.copyParameters(true);
+	var parameters = this.request.copyParameters();
 	
-	parameters['!deltatoken'] = this.getNextDeltaToken();
-	delete parameters.$skiptoken;
-	delete parameters.$top;
-	delete parameters.$skip;
+	parameters.set('!deltatoken', this.getNextDeltaToken());
+	parameters.remove('$skiptoken');
+	parameters.remove('$top');
+	parameters.remove('$skip');
 	
 	return parameters;
 };
@@ -92,7 +94,7 @@ DeltaTokenPostProcessor.prototype.getDeltaRequestParameters = function() {
  * @returns {number} The current delta token (default 0).
  */
 DeltaTokenPostProcessor.prototype.getNextDeltaToken = function() {
-	if(this.request.originalParameters['$skiptoken']) {
+	if(this.request.originalParameters.contains('$skiptoken')) {
 		return SkipTokenPostProcessor.prototype.getCurrentSkipToken.call(this).timestamp;
 	}
 	return Date.latestSafeTimestamp().getTime();

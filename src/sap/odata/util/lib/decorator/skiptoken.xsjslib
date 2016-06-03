@@ -32,13 +32,13 @@ SkipTokenDecorator.prototype.isActive = function() {
  * Tells if this request does <b>not</b> use client-driven paging.
  */
 SkipTokenDecorator.prototype.isNotClientDrivenPagingRequest = function(request) {
-	return this.request.originalParameters['$skip'] === undefined &&
-		this.request.originalParameters['$top'] === undefined;
+	return !this.request.originalParameters.contains('$skip') &&
+		!this.request.originalParameters.contains('$top');
 };
 
 /**
  * Tells if this request does <b>not</b> use $orderby.
  */
 SkipTokenDecorator.prototype.isNotCustomOrderingRequest = function(request) {
-	return this.request.originalParameters['$orderby'] === undefined;
+	return this.request.originalParameters.contains('$orderby');
 };
