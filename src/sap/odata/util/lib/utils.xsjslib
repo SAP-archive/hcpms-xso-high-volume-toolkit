@@ -76,8 +76,6 @@ Utils.prototype.getRequestPath = function() {
 Utils.prototype.getServicePath = function() {
 	var servicePathRegex = /(.*xsjs)/;
 	
-	if(!servicePathRegex.exec(this.getRequestPath())) throw this.getRequestPath() + new Error().stack;
-	
 	var servicePath = servicePathRegex.exec(this.getRequestPath())[1];
 	
 	if(!servicePath) throw 'Unable to extract service path for OData decorator'
