@@ -107,14 +107,16 @@ Request.prototype.getPath = notImplemented;
  * 
  * <pre><code>
  * 
- * http://myhost:8000/my/service.xsjs/MyCollection
- * ^---------------------------------------------^
+ * http://myhost:8000/my/service.xsodata/MyCollection
+ * ^------------------------------------------------^
  * </code></pre>
  */
-Request.prototype.getFullPath = function() {
-	return this.getPath().indexOf('http') === 0 ? this.getPath() :
+Request.prototype.getFullTargetServicePath = function() {
+	var fullPath = this.getPath().indexOf('http') === 0 ? this.getPath() :
 		$.request.headers.get('clientprotocol') + '://' +
 		$.request.headers.get('host') + this.getPath();
+	
+	return fullPath.replace(/\.xsjs/, '.xsodata');
 };
 
 /**

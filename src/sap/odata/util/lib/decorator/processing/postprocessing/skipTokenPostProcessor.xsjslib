@@ -34,7 +34,7 @@ SkipTokenPostProcessor.prototype.applyNextPageLink = function(data) {
  * Returns the URL to the next page, relative to the server base URL.
  */
 SkipTokenPostProcessor.prototype.getNextPageUrl = function(lastObject) {
-	return this.request.getFullPath() + '?' + this.querify(this.getNextPageRequestParameters(lastObject));
+	return this.request.getFullTargetServicePath() + '?' + this.querify(this.getNextPageRequestParameters(lastObject));
 };
 
 /**
