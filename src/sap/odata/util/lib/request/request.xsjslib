@@ -246,7 +246,8 @@ Request.prototype.isGetRequest = function() {
 
 /**
  * Tells if the current request is a $batch request. 
- */Request.prototype.isMultipartRequest = function() {
+ */
+Request.prototype.isMultipartRequest = function() {
 	return !!this.webRequest.entities.length;
 };
 
