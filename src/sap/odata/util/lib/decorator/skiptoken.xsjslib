@@ -23,7 +23,11 @@ SkipTokenDecorator.prototype.constructor = SkipTokenDecorator;
  * See Decorator.isActive
  */
 SkipTokenDecorator.prototype.isActive = function() {
-	return Decorator.prototype.isActive.call(this) &&
+	return !this.request.isMultipartRequest() &&
+		this.request.isGetRequest() &&
+		!this.request.isMetadataRequest() &&
+		!this.request.isCountRequest() &&
+		this.request.isCollectionRequest() &&
 		this.isNotClientDrivenPagingRequest() &&
 		this.isNotCustomOrderingRequest();
 };
