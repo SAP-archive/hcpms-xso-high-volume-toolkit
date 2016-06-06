@@ -137,7 +137,7 @@ WebRequest.prototype.toUpstreamRequest = function() {
 	outboundRequest.headers.set('Accept', 'application/json;charset=UTF-8;q=0.9,*/*;q=0.8');
 	
 	var body = this.getOutboundBody();
-	outboundRequest.setBody(body);
+	if(body) outboundRequest.setBody(body);
 	
 	$.trace.debug('Outbound entity body:\n' + body);
 	
@@ -145,8 +145,8 @@ WebRequest.prototype.toUpstreamRequest = function() {
 };
 
 WebRequest.prototype.getOutboundBody = function() {
-	if(!this.isMultipartRequest() && this.webRequest.body) {
-		return this.webRequest.body.asString();
+	if(!this.isMultipartRequest()) {
+		return this.webRequest.body ? this.webRequest.body.asString() : '';
 	}
 	
 	return this.getOutboundChildEntityBody();
