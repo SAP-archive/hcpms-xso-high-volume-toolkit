@@ -196,7 +196,7 @@ Request.prototype.getQueryPath = notImplemented;
  * </code></pre>
  */
 Request.prototype.getCollectionName = function() {
-	if(!this.isCollectionRequest()) {
+	if(!this.isCollectionRequest() && !this.isSingleEntityRequest()) {
 		throw 'Cannot extract collection name from non-entity set request ' + this.id + ' \nat: ' + new Error().stack;
 	}
 	var collectionNameRegex = /(?:\/)([a-zA-Z_][a-zA-Z0-9_]+)/;
