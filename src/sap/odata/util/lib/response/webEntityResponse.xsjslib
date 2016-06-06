@@ -44,10 +44,10 @@ function WebEntityResponse(webRequest, webResponse) {
 		this.parsedBody = parsedBody;
 		
 		var json = parsedBody.status < 300 &&
-				headers['Content-Type'] === 'application/json',
+				headers.get('Content-Type') === 'application/json',
 			data = json ? JSON.parse(parsedBody.body) :
 				parsedBody.body;
-				
+		
 		Object.defineProperties(this, {
 			'data': {
 				value: data
