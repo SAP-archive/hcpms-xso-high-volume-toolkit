@@ -65,7 +65,7 @@ WebRequest.prototype.copyParameters = function() {
 /*
  * See sap.odata.util.lib.request.Request#copyParameters
  */
-WebRequest.prototype.copyHeaders = function(writable) {
+WebRequest.prototype.copyHeaders = function() {
 	return this.copy('headers');
 };
 
