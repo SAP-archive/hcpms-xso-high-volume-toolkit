@@ -120,10 +120,16 @@ Request.prototype.getFullTargetServicePath = function() {
 };
 
 /**
- * Returns the request method
+ * Returns the request method.
  * 
  */
 Request.prototype.getMethod = notImplemented;
+
+/**
+ * Returns the request method name.
+ * 
+ */
+Request.prototype.getMethodName = notImplemented;
 
 /**
  * Returns wrapper service path.
@@ -278,7 +284,11 @@ Request.prototype.toUpstreamRequest = notImplemented;
  * More speaking toString implementation that prints the class name and entity id.
  */
 Request.prototype.toString = function() {
-	return '[' + this.constructor.name + ' ' + this.id + ']';
+	return '[' + this.constructor.name + ' ' + this.id + ' (' + this.getRequestDetailMessage() + ')]';
+};
+
+Request.prototype.getRequestDetailMessage = function() {
+    return this.isMultipartRequest() ? 'multipart ' + this.boundary : this.getMethodName() + ' ' + this.getQueryPath();
 };
 
 // At bottom due to circular reference

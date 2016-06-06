@@ -178,6 +178,13 @@ WebEntityRequest.prototype.getMethod = function() {
 };
 
 /*
+ * See sap.odata.util.lib.request.Request#getMethodName
+ */
+WebRequest.prototype.getMethodName = function() {
+	return this.parsedBody.method;
+};
+
+/*
  * See sap.odata.util.lib.request.Request#getQueryPath
  */
 WebEntityRequest.prototype.getQueryPath = function() {
