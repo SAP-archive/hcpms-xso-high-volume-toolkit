@@ -222,7 +222,7 @@ Request.prototype.isSingleEntityRequest = function() {
  * Tells if the current request is requesting the service root.
  */
 Request.prototype.isServiceRootRequest = function() {
-	var metadataRegex = /\.xsjs$/;
+	var metadataRegex = /\.xsjs\/?(\?[^?]*)?$/;
 	return this.getPath().match(metadataRegex);
 };
 
