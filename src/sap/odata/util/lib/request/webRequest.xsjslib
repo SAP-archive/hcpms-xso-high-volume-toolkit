@@ -98,6 +98,13 @@ WebRequest.prototype.getMethod = function() {
 };
 
 /*
+ * See sap.odata.util.lib.request.Request#getMethodName
+ */
+WebRequest.prototype.getMethodName = function() {
+	return this.headers.get('~request_method');
+};
+
+/*
  * See sap.odata.util.lib.request.Request#getTargetServicePath
  */
 WebRequest.prototype.getTargetServicePath = function() {
