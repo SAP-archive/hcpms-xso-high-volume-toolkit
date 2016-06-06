@@ -52,12 +52,16 @@ MultiMap.prototype.remove = function(key) {
 }
 
 MultiMap.prototype.set = function(key, value) {
-	if(this.contains(key)) this.get(key).value = value;
+	if(this.contains(key)) this._find(key).value = value;
 	else this.add(key, value);
 }
 
+MultiMap.prototype._find = function(key) {
+	return this.values.find(function(entry) { return entry.key.toUpperCase() === key.toUpperCase(); });
+}
+
 MultiMap.prototype.get = function(key) {
-	return (this.values.find(function(entry) { return entry.key === key; }) || {}).value;
+	return (this._find(key) || {}).value;
 }
 
 MultiMap.prototype.contains = function(key) {
