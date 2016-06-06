@@ -17,14 +17,14 @@ function WebResponse(webRequest, webResponse) {
 	if(!webRequest) throw 'Missing required attribute webRequest\nat: ' + new Error().stack;
 	if(!webResponse) throw 'Missing required attribute webResponse for request ' + webRequest.id + '\nat: ' + new Error().stack;
 	
-	Response.call(this, webRequest, webResponse);
+	Response.call(this, webRequest, webResponse); 
 	
 	var headers = this.copyHeaders(),
 		json = webResponse.status < 300 &&
 			headers.get('content-type') === 'application/json',
 		data = this.webResponse.body ? json ? JSON.parse(this.webResponse.body.asString()) :
 			this.webResponse.body.asString() : null;
-			
+	
 	Object.defineProperties(this, {
 		'data': {
 			value: data
