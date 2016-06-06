@@ -23,7 +23,7 @@ UrlRewritingPostProcessor.prototype.apply = function (response) {
 	var servicePath = this.request.getServicePath();
 	
 	data.traverse(function(object, parent, name) {
-		if(object && name === 'uri') {
+		if(object && ~['uri', 'id', '__delta', '__next'].indexOf(name)) {
 			parent[name] = object.replace(this.replacementRegex, '$1' + this.request.getServicePath() + '$3');
 		}
 	}.bind(this));
