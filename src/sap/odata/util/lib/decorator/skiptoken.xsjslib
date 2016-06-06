@@ -40,5 +40,5 @@ SkipTokenDecorator.prototype.isNotClientDrivenPagingRequest = function(request) 
  * Tells if this request does <b>not</b> use $orderby.
  */
 SkipTokenDecorator.prototype.isNotCustomOrderingRequest = function(request) {
-	return this.request.originalParameters.contains('$orderby');
+	return !this.request.originalParameters.contains('$orderby');
 };
