@@ -69,4 +69,12 @@ Decorator.prototype.preRequest = function() { return this.preprocessor.apply(); 
  * 
  * @returns Transformed data. If a falsy value is returned, the original data is sent to the client.
  */
-Decorator.prototype.postRequest = function(response) { return this.postprocessor.apply(response); };
+Decorator.prototype.postRequest = function(response) {
+	try {
+		return this.postprocessor.apply(response);
+	} catch(e) {
+		if(e && e.code) {
+			response.setPostProcessingError(e);
+		} else throw e;
+	}
+};

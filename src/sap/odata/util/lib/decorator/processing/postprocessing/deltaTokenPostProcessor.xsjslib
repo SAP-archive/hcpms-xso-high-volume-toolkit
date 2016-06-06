@@ -54,6 +54,7 @@ DeltaTokenPostProcessor.prototype.apply = function(response) {
 				'@odata.context': '$metadata#' + this.utils.getCollectionName() + '/$deletedEntity',
 				id: object.__metadata.uri
 			};
+			if(!parentArray) throw { "code": "410", "message": { "lang": "en-US", "value": "The requested resource no longer exists."}}
 			
 			// replace tombstone entry
 			parentArray.splice(parentArray.indexOf(object), 1);

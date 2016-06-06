@@ -70,12 +70,14 @@ WebResponse.prototype.copyResponseHeadersTo = function(upstreamResponse) {
 
 WebResponse.prototype.applyToOutboundResponse = function() {
 	this.copyResponseHeadersTo($.response);
-	$.response.status = this.webResponse.status;
+	$.response.status = this.hasPostProcessingError() ? +this.error.code : this.webResponse.status;
 	
 	$.response.setBody(this.getOutboundBody());
 };
 
 WebResponse.prototype.getOutboundBody = function() {
+	if(this.hasPostProcessingError()) return JSON.stringify({error: this.error});
+	
 	if(!this.isMultipartResponse()) {
 		return this.json ? JSON.stringify(this.data) : this.data || '';
 	}

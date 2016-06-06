@@ -12,6 +12,10 @@ function Response(webRequest, webResponse) {
 			},
 			'children': {
 				value: []
+			},
+			'error': {
+				value: null,
+				writable: true
 			}
 		});
 	}
@@ -40,6 +44,27 @@ Response.prototype.traverse = function(visitor) {
  */
 Response.prototype.isMultipartResponse = function() {
 	return !!this.webResponse.entities.length;
+};
+
+/**
+ * Tells if the current request is in a erroneous state due to postprocessing. 
+ */
+Response.prototype.hasPostProcessingError = function() {
+	return !!this.error;
+};
+
+/**
+ * Tells if the current request is in a erroneous state due to postprocessing. 
+ */
+Response.prototype.getPostProcessingError = function() {
+	return this.error;
+};
+
+/**
+ * Tells if the current request is in a erroneous state due to postprocessing. 
+ */
+Response.prototype.setPostProcessingError = function(error) {
+	this.error = error;
 };
 
 /**
