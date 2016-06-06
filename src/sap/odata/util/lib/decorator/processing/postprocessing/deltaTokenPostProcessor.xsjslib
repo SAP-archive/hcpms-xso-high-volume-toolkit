@@ -33,7 +33,7 @@ DeltaTokenPostProcessor.prototype.apply = function(response) {
 	data.__delta = this.getDeltaUrl();
 	this.metadata = this.getMetadata();
 	
-	if (this.replaceDeletedEntities && !this.stripDeltaFields) {
+	if (!this.replaceDeletedEntities && !this.stripDeltaFields) {
 	    return data;
 	}
 	
