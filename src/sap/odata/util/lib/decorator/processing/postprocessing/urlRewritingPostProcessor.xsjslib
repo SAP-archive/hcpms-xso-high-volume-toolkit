@@ -27,6 +27,4 @@ UrlRewritingPostProcessor.prototype.apply = function (response) {
 			parent[name] = object.replace(this.replacementRegex, '$1' + this.request.getServicePath() + '$3');
 		}
 	}.bind(this));
-	
-	return data;
 };

@@ -60,8 +60,6 @@ DeltaTokenPostProcessor.prototype.apply = function(response) {
 			parentArray.push(deletedObject);
 		}
 	}.bind(this));
-	
-	return data;
 };
 
 /**
