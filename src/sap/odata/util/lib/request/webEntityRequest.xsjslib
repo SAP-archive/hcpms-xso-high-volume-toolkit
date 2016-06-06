@@ -72,7 +72,7 @@ function WebEntityRequest(webRequest, id) {
 				value = keyAndValue[1];
 			headers.set(key, value);
 		});
-		headers['Accept'] = 'application/json;charset=UTF-8;q=0.9,*/*;q=0.8';
+		headers.add('Accept', 'application/json;charset=UTF-8;q=0.9,*/*;q=0.8');
 		
 		var parameterPairs = (pieces[3] || '').split(/&/).filter(function(pair) { return pair.length; });
 		var parameters = new MultiMap();
