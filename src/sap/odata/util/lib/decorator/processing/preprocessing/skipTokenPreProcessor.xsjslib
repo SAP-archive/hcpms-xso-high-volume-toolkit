@@ -65,7 +65,7 @@ SkipTokenPreProcessor.prototype.apply = function() {
 	
 	if(pageFilter) {
 		parameters.set('$filter', (parameters.contains('$filter') ? parameters.get('$filter') + ' and ' : '') +
-			pageFilter)
+			pageFilter);
 	}
 	parameters.set('$top', this.pageSize);
 	parameters.set('$inlinecount', 'allpages');
