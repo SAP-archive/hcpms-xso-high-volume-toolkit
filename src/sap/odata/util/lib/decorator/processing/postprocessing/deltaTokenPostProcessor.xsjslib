@@ -18,6 +18,12 @@ function DeltaTokenPostProcessor(request, metadataClient) {
 		},
 		"deletedPropertyYesValue": {
 			value: this.getConfiguredValue('deltatoken.deletedPropertyYesValue')
+		},
+		"stripDeltaFields": {
+			value: this.getConfiguredValue('deltatoken.stripDeltaFields')
+		},
+		"replaceDeletedEntities": {
+			value: this.getConfiguredValue('deltatoken.replaceDeletedEntities')
 		}
 	});
 }
