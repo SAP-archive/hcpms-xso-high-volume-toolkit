@@ -65,6 +65,7 @@ WebResponse.prototype.copyResponseHeadersTo = function(upstreamResponse) {
 		// HANA will take care of this
 		return ['content-length', 'content-encoding'].indexOf(entry.key) !== -1;
 	}).copyToTupleList(upstreamResponse.headers);
+	upstreamResponse.contentType = this.headers.get('content-type');
 };
 
 WebResponse.prototype.applyToOutboundResponse = function() {
