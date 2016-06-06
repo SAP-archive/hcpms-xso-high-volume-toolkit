@@ -50,15 +50,12 @@ DeltaTokenPostProcessor.prototype.apply = function(response) {
 		else if(this.replaceDeletedEntities && isDeleted(object)) replaceWithDeletedEntity.call(this, object, parent);
 		
 		function replaceWithDeletedEntity(object, parentArray) {
-			var deletedObject = {
-				'@odata.context': '$metadata#' + this.utils.getCollectionName() + '/$deletedEntity',
-				id: object.__metadata.uri
-			};
 			if(!parentArray) throw { "code": "410", "message": { "lang": "en-US", "value": "The requested resource no longer exists."}}
 			
-			// replace tombstone entry
-			parentArray.splice(parentArray.indexOf(object), 1);
-			parentArray.push(deletedObject);
+			var id = object.__metadata.uri;
+			Object.getOwnPropertyNames(object).forEach(function(property) { delete object[property]; });
+			object['@odata.context'] = '$metadata#' + this.request.getCollectionName() + '/$deletedEntity';
+			object.id = id;
 		}
 	}.bind(this));
 };
