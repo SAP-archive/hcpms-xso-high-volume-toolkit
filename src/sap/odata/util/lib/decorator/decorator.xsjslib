@@ -46,7 +46,7 @@ Decorator.prototype.toString = function() {
  */
 Decorator.prototype.isActive = function() {
 	return !this.request.isMultipartRequest() &&
-		this.request.isCollectionRequest() &&
+		(this.request.isSingleEntityRequest() || this.request.isCollectionRequest()) &&
 		this.request.isGetRequest() &&
 		!this.request.isMetadataRequest() &&
 		!this.request.isCountRequest();
