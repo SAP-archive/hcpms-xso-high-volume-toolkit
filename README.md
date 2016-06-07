@@ -17,7 +17,7 @@ The XS OData Utils expose a simple API that lets you add delta query and server-
 # Installation
 
 1. Implement change tracking for your data (see "getting started" guide)
-2. Import and configure the XS OData Utils Delivery Unit
+2. [Import](https://help.sap.com/saphelp_hanaplatform/helpdata/en/e6/c0c1f7373f417894e1f73be9f0e2fd/content.htm) and configure the XS OData Utils Delivery Unit
 3. Wrap your XS OData service in XSJS
 ```
 // com/example/wrapper/delta.xsjs
