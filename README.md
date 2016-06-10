@@ -19,8 +19,8 @@ These additional features are implemented in terms of a XS JavaScript service (g
 # Getting Started
 
 1. [Download the latest release Delivery Unit](https://github.com/SAP/hcpms-odata-skip-token-pagination/tree/master/dist)
-2. [Import](https://help.sap.com/saphelp_hanaplatform/helpdata/en/e6/c0c1f7373f417894e1f73be9f0e2fd/content.htm) and configure (see "Further Documentation") the XS OData Utils Delivery Unit
-3. (Optional for delta queries) Implement change tracking for your data (see "Further Documentation")
+2. [Import](https://help.sap.com/saphelp_hanaplatform/helpdata/en/e6/c0c1f7373f417894e1f73be9f0e2fd/content.htm) and [configure](https://github.com/SAP/hcpms-xso-high-volume-toolkit#further-documentation) the XS OData Utils Delivery Unit
+3. (Optional for delta queries) [Implement change tracking for your data](https://github.com/SAP/hcpms-xso-high-volume-toolkit#further-documentation)
 4. Wrap your XS OData service in XSJS
 ```
 // com/example/wrapper/delta.xsjs
