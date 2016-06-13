@@ -18,6 +18,7 @@ UrlRewritingPostProcessor.prototype.constructor = UrlRewritingPostProcessor;
 
 UrlRewritingPostProcessor.prototype.apply = function (response) {
 	if(!response.json) return;
+	
 	var data = response.data.d;
 	
 	var servicePath = this.request.getServicePath();
