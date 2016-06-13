@@ -14,7 +14,7 @@ MetadataClient.prototype.loadMetadata = function() {
 	
 	var metadata =  new MetadataParser().parse(response.body.asString());
 	
-	if(!metadata[this.request.getCollectionName()]) throw this.request.getCollectionName() + ' does not refer to an existing entity set.';
+	if(!metadata.collections[this.request.getCollectionName()]) throw this.request.getCollectionName() + ' does not refer to an existing entity set.';
 	
 	Metadata.saveMetadata(this.request.getServicePath(), metadata);
 	
