@@ -6,6 +6,7 @@ var Database = $.import('sap.odata.util.lib.db', 'database').Database;
 var Configuration = (function() {
 	function Configuration() {
 		this.db = new Database();
+		this.cache = {};
 	}
 	
 	/**
@@ -43,6 +44,10 @@ var Configuration = (function() {
 	 */
 	Configuration.prototype.getProperty = function(propertyName, serviceId, collectionName) {
 		var args = [propertyName, serviceId, collectionName];
+		var cacheKey = args.join('\\');
+		
+		if(this.cache[cacheKey]) return this.cache[cacheKey]; 
+		
 		var resultSet;
 		
 		do {
@@ -51,7 +56,9 @@ var Configuration = (function() {
 		} while(!resultSet.next() && args.length);
 		
 		try {
-			return resultSet.getNString(1);
+			var result = resultSet.getNString(1);
+			this.cache[cacheKey] = result;
+			return result;
 		} catch(e) {
 			throw 'OData Utility Configuration parameter ' + propertyName + ' could not be found.';
 		}
