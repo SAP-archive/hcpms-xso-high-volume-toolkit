@@ -1,0 +1,46 @@
+import = [
+	{
+		table = "com.example.delta.data::hcpms_xso_hvt.demo.Addresses";
+		schema = "HCPMS_XSO_HVT_DEMO";
+		file = "com.example.delta.data:addresses.csv";
+		delimField = ",";
+		header = true;
+		useHeaderNames = true;
+	}, {
+		table = "com.example.delta.data::hcpms_xso_hvt.demo.Addresses_Shadow";
+		schema = "HCPMS_XSO_HVT_DEMO";
+		file = "com.example.delta.data:addresses_shadow.csv";
+		delimField = ",";
+		header = true;
+		useHeaderNames = true;
+	}, {
+		table = "com.example.delta.data::hcpms_xso_hvt.demo.BusinessPartner";
+		schema = "HCPMS_XSO_HVT_DEMO";
+		file = "com.example.delta.data:businesspartner.csv";
+		delimField = ",";
+		header = true;
+		useHeaderNames = true;
+	}, {
+		table = "com.example.delta.data::hcpms_xso_hvt.demo.BusinessPartner_Shadow";
+		schema = "HCPMS_XSO_HVT_DEMO";
+		file = "com.example.delta.data:businesspartner_shadow.csv";
+		delimField = ",";
+		header = true;
+		useHeaderNames = true;
+	}, {
+		table = "com.example.delta.data::hcpms_xso_hvt.demo.SalesOrderHeader";
+		schema = "HCPMS_XSO_HVT_DEMO";
+		file = "com.example.delta.data:salesorder.csv";
+		delimField = ",";
+		header = true;
+		useHeaderNames = true;
+	}, {
+		table = "com.example.delta.data::hcpms_xso_hvt.demo.SalesOrderHeader_Shadow";
+		schema = "HCPMS_XSO_HVT_DEMO";
+		file = "com.example.delta.data:salesorder_shadow.csv";
+		delimField = ",";
+		header = true;
+		useHeaderNames = true;
+	}
+];
+ 

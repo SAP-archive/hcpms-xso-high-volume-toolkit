@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dimension:dimension xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" schemaVersion="1.2" id="BusinessPartner_Delta" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="internal" dimensionType="Standard">
+  <descriptions defaultDescription="BusinessPartner_Delta"/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <attributes>
+    <attribute id="PARTNERID" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="PARTNERID"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.BusinessPartner" columnName="PARTNERID"/>
+    </attribute>
+    <attribute id="PARTNERROLE" order="2" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="PARTNERROLE"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.BusinessPartner" columnName="PARTNERROLE"/>
+    </attribute>
+    <attribute id="PHONENUMBER" order="3" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="PHONENUMBER"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.BusinessPartner" columnName="PHONENUMBER"/>
+    </attribute>
+    <attribute id="EMAILADDRESS" order="4" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="EMAILADDRESS"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.BusinessPartner" columnName="EMAILADDRESS"/>
+    </attribute>
+    <attribute id="FAXNUMBER" order="5" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="FAXNUMBER"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.BusinessPartner" columnName="FAXNUMBER"/>
+    </attribute>
+    <attribute id="WEBADDRESS" order="6" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="WEBADDRESS"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.BusinessPartner" columnName="WEBADDRESS"/>
+    </attribute>
+    <attribute id="ADDRESSID_ADDRESSID" order="7" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="ADDRESSID_ADDRESSID"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.BusinessPartner" columnName="ADDRESSID.ADDRESSID"/>
+    </attribute>
+    <attribute id="COMPANYNAME" order="8" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="COMPANYNAME"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.BusinessPartner" columnName="COMPANYNAME"/>
+    </attribute>
+    <attribute id="LEGALFORM" order="9" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="LEGALFORM"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.BusinessPartner" columnName="LEGALFORM"/>
+    </attribute>
+    <attribute id="CURRENCY" order="10" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="CURRENCY"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.BusinessPartner" columnName="CURRENCY"/>
+    </attribute>
+    <attribute id="IS_DELETED" order="11" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="IS_DELETED"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.BusinessPartner_Shadow" columnName="IS_DELETED"/>
+    </attribute>
+    <attribute id="DELTATOKEN" order="12" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="DELTATOKEN"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.BusinessPartner_Shadow" columnName="DELTATOKEN"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <privateDataFoundation>
+    <tableProxies>
+      <tableProxy>
+        <table schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.BusinessPartner"/>
+      </tableProxy>
+      <tableProxy>
+        <table schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.BusinessPartner_Shadow"/>
+      </tableProxy>
+    </tableProxies>
+    <joins>
+      <join>
+        <leftTable schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.BusinessPartner"/>
+        <rightTable schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.BusinessPartner_Shadow"/>
+        <leftColumns>
+          <columnName>PARTNERID</columnName>
+        </leftColumns>
+        <rightColumns>
+          <columnName>ID.PARTNERID</columnName>
+        </rightColumns>
+        <properties cardinality="C1_N" joinOperator="Equal" joinType="referential"/>
+      </join>
+    </joins>
+    <layout>
+      <shapes>
+        <shape modelObjectName="com.example.delta.data::hcpms_xso_hvt.demo.BusinessPartner" modelObjectNameSpace="HCPMS_XSO_HVT_DEMO" modelObjectType="catalog">
+          <upperLeftCorner x="70" y="30"/>
+        </shape>
+        <shape modelObjectName="com.example.delta.data::hcpms_xso_hvt.demo.BusinessPartner_Shadow" modelObjectNameSpace="HCPMS_XSO_HVT_DEMO" modelObjectType="catalog">
+          <upperLeftCorner x="669" y="30"/>
+        </shape>
+        <shape modelObjectName="DataFoundation" modelObjectNameSpace="DataFoundation" modelObjectType="repository">
+          <upperLeftCorner x="40" y="85"/>
+          <rectangleSize height="0" width="0"/>
+        </shape>
+      </shapes>
+    </layout>
+  </privateDataFoundation>
+  <hierarchies/>
+</Dimension:dimension>

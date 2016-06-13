@@ -1,0 +1,20 @@
+PROCEDURE "HCPMS_XSO_HVT_DEMO"."com.example.delta.data::businesspartner_insert" (
+		IN new "_SYS_BIC"."com.example.delta.data/BusinessPartner_Delta",
+		OUT error "com.example.delta.data::error"
+	) 
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER
+	DEFAULT SCHEMA "HCPMS_XSO_HVT_DEMO" AS
+BEGIN
+	INSERT INTO "com.example.delta.data::hcpms_xso_hvt.demo.BusinessPartner"
+		(PARTNERID, PARTNERROLE, EMAILADDRESS, PHONENUMBER, FAXNUMBER, WEBADDRESS, "ADDRESSID.ADDRESSID", COMPANYNAME, LEGALFORM, CURRENCY)
+			SELECT PARTNERID, PARTNERROLE, EMAILADDRESS, PHONENUMBER, FAXNUMBER, WEBADDRESS, ADDRESSID_ADDRESSID, COMPANYNAME, LEGALFORM, CURRENCY FROM :new;
+	
+	IF 0 > 1 THEN
+		-- Room for error handling
+	    error = SELECT 500 AS http_status_code, 
+	    'Internal server error' error_message, 
+	    'Internal server error' detail FROM dummy;
+	    ROLLBACK;
+	END IF;
+END;

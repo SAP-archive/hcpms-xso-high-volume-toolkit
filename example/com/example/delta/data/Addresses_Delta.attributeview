@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dimension:dimension xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" schemaVersion="1.2" id="Addresses_Delta" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="internal" dimensionType="Standard">
+  <descriptions defaultDescription="Addresses_Delta"/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <attributes>
+    <attribute id="IS_DELETED" order="1" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="IS_DELETED"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.Addresses_Shadow" columnName="IS_DELETED"/>
+    </attribute>
+    <attribute id="DELTATOKEN" order="2" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="DELTATOKEN"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.Addresses_Shadow" columnName="DELTATOKEN"/>
+    </attribute>
+    <attribute id="ADDRESSID" key="true" order="3" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="ADDRESSID"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.Addresses" columnName="ADDRESSID"/>
+    </attribute>
+    <attribute id="CITY" order="4" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="CITY"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.Addresses" columnName="CITY"/>
+    </attribute>
+    <attribute id="POSTALCODE" order="5" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="POSTALCODE"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.Addresses" columnName="POSTALCODE"/>
+    </attribute>
+    <attribute id="STREET" order="6" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="STREET"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.Addresses" columnName="STREET"/>
+    </attribute>
+    <attribute id="BUILDING" order="7" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="BUILDING"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.Addresses" columnName="BUILDING"/>
+    </attribute>
+    <attribute id="COUNTRY" order="8" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="COUNTRY"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.Addresses" columnName="COUNTRY"/>
+    </attribute>
+    <attribute id="REGION" order="9" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="REGION"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.Addresses" columnName="REGION"/>
+    </attribute>
+    <attribute id="ADDRESSTYPE" order="10" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="ADDRESSTYPE"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.Addresses" columnName="ADDRESSTYPE"/>
+    </attribute>
+    <attribute id="VALIDITY_STARTDATE" order="11" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="VALIDITY_STARTDATE"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.Addresses" columnName="VALIDITY.STARTDATE"/>
+    </attribute>
+    <attribute id="VALIDITY_ENDDATE" order="12" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="VALIDITY_ENDDATE"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.Addresses" columnName="VALIDITY.ENDDATE"/>
+    </attribute>
+    <attribute id="LATITUDE" order="13" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="LATITUDE"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.Addresses" columnName="LATITUDE"/>
+    </attribute>
+    <attribute id="LONGITUDE" order="14" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="LONGITUDE"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.Addresses" columnName="LONGITUDE"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <privateDataFoundation>
+    <tableProxies>
+      <tableProxy>
+        <table schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.Addresses"/>
+      </tableProxy>
+      <tableProxy>
+        <table schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.Addresses_Shadow"/>
+      </tableProxy>
+    </tableProxies>
+    <joins>
+      <join>
+        <leftTable schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.Addresses"/>
+        <rightTable schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.Addresses_Shadow"/>
+        <leftColumns>
+          <columnName>ADDRESSID</columnName>
+        </leftColumns>
+        <rightColumns>
+          <columnName>ID.ADDRESSID</columnName>
+        </rightColumns>
+        <properties cardinality="C1_N" joinOperator="Equal" joinType="referential"/>
+      </join>
+    </joins>
+    <layout>
+      <shapes>
+        <shape modelObjectName="com.example.delta.data::hcpms_xso_hvt.demo.Addresses" modelObjectNameSpace="HCPMS_XSO_HVT_DEMO" modelObjectType="catalog">
+          <upperLeftCorner x="70" y="30"/>
+        </shape>
+        <shape modelObjectName="com.example.delta.data::hcpms_xso_hvt.demo.Addresses_Shadow" modelObjectNameSpace="HCPMS_XSO_HVT_DEMO" modelObjectType="catalog">
+          <upperLeftCorner x="599" y="30"/>
+        </shape>
+        <shape modelObjectName="DataFoundation" modelObjectNameSpace="DataFoundation" modelObjectType="repository">
+          <upperLeftCorner x="40" y="85"/>
+          <rectangleSize height="0" width="0"/>
+        </shape>
+      </shapes>
+    </layout>
+  </privateDataFoundation>
+  <hierarchies/>
+</Dimension:dimension>

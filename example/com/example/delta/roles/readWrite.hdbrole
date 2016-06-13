@@ -1,0 +1,3 @@
+role com.example.delta.roles::readWrite {
+	schema com.example.delta.data:HCPMS_XSO_HVT_DEMO.hdbschema: SELECT, DELETE, UPDATE, INSERT, EXECUTE;
+}

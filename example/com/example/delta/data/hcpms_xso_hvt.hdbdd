@@ -1,0 +1,91 @@
+namespace com.example.delta.data;
+
+// Excerpt from HANA SHINE Model: https://github.com/SAP/hana-shine
+// You may use this as a simple starting point and extend your demo
+// on top of a full-fledged SHINE release
+
+@Schema : 'HCPMS_XSO_HVT_DEMO'
+context hcpms_xso_hvt
+{
+
+	context demo {
+		type SString  : hana.VARCHAR(40);
+		type MString  : String(60);
+		type LString  : String(255);
+		type BusinessKey : String(10);
+		type PhoneT : String(30);
+		type VLString : String(1024);
+		type CurrencyT : String(5);
+		type SDate : UTCDateTime; 
+		type AmountT : Decimal(15,2);
+		type StatusT: String(1);
+		type LifeCycleStatusT: String(1);
+		
+		Type ValidityT {
+			STARTDATE : SDate;
+			ENDDATE : SDate;
+		};
+		
+		@Catalog.tableType : #COLUMN 
+	    Entity BusinessPartner {
+	        key  PARTNERID: BusinessKey;
+	        PARTNERROLE: String(3); //Business Partner Role
+	        EMAILADDRESS: LString;
+	        PHONENUMBER: PhoneT;
+	        FAXNUMBER: PhoneT null;
+	        WEBADDRESS: VLString;
+	        ADDRESSID: Association to Addresses null;
+	        COMPANYNAME: String(80);
+	        LEGALFORM: BusinessKey;
+	        CURRENCY: CurrencyT;
+	    };
+	    
+	    Entity BusinessPartner_Shadow {
+	        key  ID: Association to BusinessPartner;
+	        DELTATOKEN: UTCTimestamp;
+	        IS_DELETED: LifeCycleStatusT;
+	    };
+		    
+		@Catalog.tableType : #COLUMN 
+		Entity Addresses {
+		    key  ADDRESSID: BusinessKey;
+		    CITY: SString;
+		    POSTALCODE: BusinessKey;
+		    STREET: MString;
+		    BUILDING: BusinessKey;
+		    COUNTRY: String(3);
+		    REGION: String(4);
+		    ADDRESSTYPE: String(2);
+		    VALIDITY: ValidityT;   
+		    LATITUDE: Double;
+		    LONGITUDE: Double; 
+		};
+		
+		Entity Addresses_Shadow {
+	        key  ID: Association to Addresses;
+	        DELTATOKEN: UTCTimestamp;
+	        IS_DELETED: LifeCycleStatusT;
+	    };
+		    
+		@Catalog.tableType : #COLUMN 
+		Entity SalesOrderHeader {
+		    key  SALESORDERID: BusinessKey;
+		    NOTEID: BusinessKey null;
+		    PARTNERID: Association to BusinessPartner;
+		    CURRENCY: CurrencyT;
+		    GROSSAMOUNT: AmountT;
+		    NETAMOUNT: AmountT;
+		    TAXAMOUNT: AmountT;
+		    LIFECYCLESTATUS: StatusT;
+		    BILLINGSTATUS: StatusT;
+		    DELIVERYSTATUS: StatusT;
+		};
+		
+		Entity SalesOrderHeader_Shadow {
+	        key  ID: Association to SalesOrderHeader;
+	        DELTATOKEN: UTCTimestamp;
+	        IS_DELETED: LifeCycleStatusT;
+	    };
+	}
+
+};

@@ -1,0 +1,46 @@
+PARTNERID,PARTNERROLE,EMAILADDRESS,PHONENUMBER,FAXNUMBER,WEBADDRESS,ADDRESSID.ADDRESSID,COMPANYNAME,LEGALFORM,CURRENCY
+0100000000,01,karl.mueller@sap.com,0622734567,,http://www.sap.com,1000000034,SAP,AG,EUR
+0100000001,02,dagmar.schulze@beckerberlin.de,3088530,,http://www.beckerberlin.de,1000000035,Becker Berlin,GmbH,EUR
+0100000002,01,maria.brown@delbont.com,3023352668,,http://www.delbont.com,1000000036,DelBont Industries,Ltd.,USD
+0100000003,01,saskia.sommer@talpa-hannover.de,511403266,,http://www.talpa-hannover.de,1000000037,Talpa,GmbH,EUR
+0100000004,01,bob.buyer@panorama-studios.biz,2244668800,,http://www.panorama-studios.biz,1000000038,Panorama Studios,Inc.,USD
+0100000005,01,bart.koenig@tecum-ag.de,2511415,,http://www.tecum-ag.de,1000000039,TECUM,AG,EUR
+0100000006,01,yoko.nakamura@asia-ht.com,9078563412,,http://www.asia-ht.com,1000000040,Asia High tech,Inc.,JPY
+0100000007,01,sophie.ribery@laurent-paris.com,149744423,,http://www.laurent-paris.com,1000000041,Laurent,S.A.,EUR
+0100000008,01,victor.sanchez@avantel.com,7257716,,http://www.avantel.com,1000000042,AVANTEL,S.A.,MXN
+0100000009,01,jorge.velez@telecomunicacionesstar.com,1133557799,,http://www.telecomunicacionesstar.com,1000000043,Telecomunicaciones Star,S.A.,ARS
+0100000010,02,franklin.jones@pear-computing.com,6789012345,,http://www.pear-computing.com,1000000044,Pear Computing Services,Inc.,USD
+0100000011,01,joseph_gschwandtner@alp-systems.at,6623612804,,http://www.alp-systems.at,1000000045,Alpine Systems,AG,EUR
+0100000012,01,george_d_grant@newlinedesign.co.uk,2589436180,,http://www.newlinedesign.co.uk,1000000046,New Line Design,Ltd.,GBP
+0100000013,01,sarah.schwind@hepa-tec.de,4507867136,,http://www.hepa-tec.de,1000000047,HEPA Tec,GmbH,EUR
+0100000014,01,theodor.monathy@anavideon.com,5850428367,,http://www.anavideon.com,1000000048,Anav Ideon,Ltd.,USD
+0100000015,01,robert_brown@rb-entertainment.ca,7609448173,,http://www.rb-entertainment.ca,1000000049,Robert Brown Entertainment,Ltd.,CAD
+0100000016,01,jorgemontalban@motc.mx,6879342945,,http://www.motc.mx,1000000050,Mexican Oil Trading Company,S.A.,MXN
+0100000017,01,johanna.esther@meliva.de,2208791738,,http://www.meliva.de,1000000051,Meliva,AG,EUR
+0100000018,01,miguel.luengo@compostela.ar,4440238917,,http://www.compostela.ar,1000000052,Compostela,S.A.,ARS
+0100000019,01,isabel.nemours@pateu.fr,6328490087,,http://www.pateu.fr,1000000053,Pateu,S.A.R.L.,EUR
+0100000020,02,igor.tarassow@retc.ru,4050378468,,http://www.retc.ru,1000000054,Russian Electronic Trading Company,z.a.o.,RUB
+0100000021,01,alexis.harper@flor-hc.com,6065470312,,http://www.flor-hc.com,1000000055,Florida Holiday Company,Inc.,USD
+0100000022,01,c.alfaro@quimica-madrilenos.es,7980023486,,http://www.quimica-madrilenos.es,1000000056,Quimica Madrilenos,S.A.,EUR
+0100000023,01,sven.j@getraenke-janssen.de,3629731486,,http://www.getraenke-janssen.de,1000000057,Getränkegroßhandel Janssen,GmbH,EUR
+0100000024,01,yoshiko.kakuji@jateco.jp,3206580974,,http://www.jateco.jp,1000000058,JaTeCo,Inc.,JPY
+0100000025,01,alessio.galasso@tcdr.it,4580963184,,http://www.tcdr.it,1000000059,Tessile Casa Di Roma,Srl,EUR
+0100000026,01,romain.le_mason@verdo.fr,1012697341,,http://www.verdo.fr,1000000060,Vente Et Réparation de Ordinateur,S.A.R.L.,EUR
+0100000027,01,martha.calcagno@dpg.ar,7345697824,,http://www.dpg.ar,1000000061,Developement Para O Governo,S.A.,ARS
+0100000028,01,beatriz.da_silva@brazil-tec.br,469614115,,http://www.brazil-tec.br,1000000062,Brazil Technologies,S.A.,BRL
+0100000029,02,anthony.lebouef@crtu.ca,6839542781,,http://www.crtu.ca,1000000063,C.R.T.U.,Ltd.,CAD
+0100000030,01,lisa.felske@jologa.ch,6714954542,,http://www.jologa.ch,1000000064,Jologa,GmbH,CHF
+0100000031,01,jonathan.d.mason@baleda.com,2483693027,,http://www.baleda.com,1000000065,Baleda,Inc.,USD
+0100000032,01,amelie.troyat@angere.fr,2094573421,,http://www.angere.fr,1000000066,Angeré,S.A.R.L.,EUR
+0100000033,01,pete_waltham@pc-gym-tec.com,4136278910,,http://www.pc-gym-tec.com,1000000067,PC Gym Tec,Inc.,USD
+0100000034,01,ryu.toshiro@jip.jp,3540671320,,http://www.jip.jp,1000000068,Japan Insurance Partner,Inc.,JPY
+0100000035,01,jose-lopez@en-ar.ar,7315064077,,http://www.en-ar.ar,1000000069,Entertainment Argentinia,S.A.,ARS
+0100000036,01,dahoma.lawla@agadc.co.za,4381762683,,http://www.agadc.co.za,1000000070,African Gold And Diamant Corporation,Ltd.,ZAR
+0100000037,01,jefferson.parker@pico-bit.com,9703586412,,http://www.pico-bit.com,1000000071,PicoBit,Inc.,USD
+0100000038,01,tamara.flaig@brl-ag.de,6843585642,,http://www.brl-ag.de,1000000072,Bionic Research Lab,AG,EUR
+0100000039,02,sunita-kapoor@it-trade.in,4203876954,,http://www.it-trade.in,1000000073,Indian IT Trading Company,Ltd.,INR
+0100000040,02,pawel-lewandoski@catf.pl,8367920106,,http://www.catf.pl,1000000074,Chemia A Technicznie Fabryka,Sp.z.o.o.,PLN
+0100000041,01,laura.campillo@saitc.ar,1438907230,,http://www.saitc.ar,1000000075,South American IT Company,S.A.,ARS
+0100000042,01,jian.si@siwusha.cn,7412697340,,http://www.siwusha.cn,1000000076,Siwusha,CJV,CNY
+0100000043,01,frederik.christensen@dftc.dk,3102050749,,http://www.dftc.dk,1000000077,Danish Fish Trading Company,A/S,DKK
+0100000044,01,mirjam.schmidt@sorali.de,3102050749,,http://www.sorali.de,1000000078,Sorali,AG,EUR

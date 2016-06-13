@@ -1,4 +1,4 @@
-table.schemaName = "D053411";
+table.schemaName = "HCPMS_XSO_HVT_DEMO";
 table.columns = [
  {name = "HTTP_STATUS_CODE"; sqlType = INTEGER;},
  {name = "ERROR_MESSAGE"; sqlType = NVARCHAR; length = 100;},

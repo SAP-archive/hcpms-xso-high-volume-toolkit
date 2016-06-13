@@ -1,13 +1,16 @@
-PROCEDURE "ODATA_UTIL_EXAMPLE"."com.example.delta::buyer_delete" (IN old "ODATA_UTIL_EXAMPLE"."BUSINESSPARTNER_DELTA", OUT error "com.example.delta::error") 
+PROCEDURE "HCPMS_XSO_HVT_DEMO"."com.example.delta.data::businesspartner_delete" (
+		IN old "_SYS_BIC"."com.example.delta.data/BusinessPartner_Delta",
+		OUT error "HCPMS_XSO_HVT_DEMO"."com.example.delta.data::error"
+	)
 	LANGUAGE SQLSCRIPT
 	SQL SECURITY INVOKER
-	DEFAULT SCHEMA "ODATA_UTIL_EXAMPLE" AS
+	DEFAULT SCHEMA "HCPMS_XSO_HVT_DEMO" AS
 BEGIN
 	DECLARE id VARCHAR(10);
 	
 	SELECT PARTNERID INTO id FROM :old;
 	
-	DELETE FROM BUSINESSPARTNER AS bp
+	DELETE FROM "com.example.delta.data::hcpms_xso_hvt.demo.BusinessPartner" AS bp
 		WHERE bp.PARTNERID = :id;
 	
 	IF 0 > 1 THEN
