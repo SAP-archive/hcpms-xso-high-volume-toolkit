@@ -24,5 +24,6 @@ TombstoneFilterDecorator.prototype.isActive = function(request) {
 		!this.request.isServiceRootRequest() &&
 		!this.request.isMetadataRequest() &&
 		!this.request.isSingleEntityRequest() &&
-		!this.request.isDeltaRequest();
+		!this.request.isDeltaRequest() &&
+		this.collectionSupportsDelta();
 };

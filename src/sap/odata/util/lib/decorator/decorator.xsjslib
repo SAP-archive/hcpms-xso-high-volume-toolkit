@@ -78,3 +78,30 @@ Decorator.prototype.postRequest = function(response) {
 		} else throw e;
 	}
 };
+
+/**
+ * Tells if the targeted collection has the required delta properties for delta
+ * queries to work.
+ */
+Decorator.prototype.collectionSupportsDelta = function() {
+	var deltaPropertyName = this.getConfiguredValue('deltatoken.deltaPropertyName');
+	var deletedPropertyName = this.getConfiguredValue('deltatoken.deletedPropertyName');
+	
+	var deltaProperties = this.metadataClient.getMetadata().properties.filter(function(property) {
+		return ~[deltaPropertyName, deletedPropertyName].indexOf(property.name);
+	}.bind(this));
+	return deltaProperties && deltaProperties.length === 2;
+};
+
+/**
+ * Loads the most specific* configuration value for the current request
+ * based on the specified key.
+ * 
+ * Most specific based on granularity out of [global, service-level, collection-level].
+ * 
+ * @returns {string} The most specific configuration value
+ */
+Decorator.prototype.getConfiguredValue = function(key) {
+	return Configuration.getProperty(key, this.request.getServicePath(),
+			this.request.isCollectionRequest() ? this.request.getCollectionName() : undefined);
+};
