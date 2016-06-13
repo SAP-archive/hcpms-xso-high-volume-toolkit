@@ -43,7 +43,7 @@ var Metadata = (function() {
 			statement.executeUpdate();
 			connection.commit();
 			delete this.cache[serviceId];
-		});
+		}.bind(this));
 	};
 	
 	return new Metadata();
