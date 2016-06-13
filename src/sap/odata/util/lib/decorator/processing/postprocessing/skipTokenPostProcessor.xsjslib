@@ -12,6 +12,8 @@ SkipTokenPostProcessor.prototype = new SkipTokenProcessor();
 SkipTokenPostProcessor.prototype.constructor = SkipTokenPostProcessor;
 
 SkipTokenPostProcessor.prototype.apply = function(response) {
+	if(!response.json) return;
+	
 	var data = response.data.d;
 	
 	this.applyNextPageLink(data);
