@@ -14,6 +14,8 @@ MetadataClient.prototype.loadMetadata = function() {
 	
 	var metadata =  new MetadataParser().parse(response.body.asString());
 	
+	if(!metadata[this.request.getCollectionName()]) throw this.request.getCollectionName() + ' does not refer to an existing entity set.';
+	
 	Metadata.saveMetadata(this.request.getServicePath(), metadata);
 	
 	return metadata;
@@ -23,6 +25,7 @@ MetadataClient.prototype.getMetadata = function() {
 	var metadata = Metadata.getMetadata(this.request.getServicePath());
 	if(!metadata || !metadata.collections[this.request.getCollectionName()]) {
 		metadata = this.loadMetadata();
+		$.trace.debug("Updated metadata for service " + this.request.getServicePath() + ":\n" + JSON.stringify(metadata));
 	}
 	return metadata.collections[this.request.getCollectionName()];
 };
