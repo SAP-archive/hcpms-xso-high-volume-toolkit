@@ -43,13 +43,13 @@
       <descriptions defaultDescription="DELIVERYSTATUS"/>
       <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.SalesOrderHeader" columnName="DELIVERYSTATUS"/>
     </attribute>
-    <attribute id="IS_DELETED" order="11" attributeHierarchyActive="false" displayAttribute="false">
-      <descriptions defaultDescription="IS_DELETED"/>
-      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.SalesOrderHeader_Shadow" columnName="IS_DELETED"/>
-    </attribute>
-    <attribute id="DELTATOKEN" order="12" attributeHierarchyActive="false" displayAttribute="false">
+    <attribute id="DELTATOKEN" order="11" attributeHierarchyActive="false" displayAttribute="false">
       <descriptions defaultDescription="DELTATOKEN"/>
       <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.SalesOrderHeader_Shadow" columnName="DELTATOKEN"/>
+    </attribute>
+    <attribute id="IS_DELETED" order="12" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="IS_DELETED"/>
+      <keyMapping schemaName="HCPMS_XSO_HVT_DEMO" columnObjectName="com.example.delta.data::hcpms_xso_hvt.demo.SalesOrderHeader_Shadow" columnName="IS_DELETED"/>
     </attribute>
   </attributes>
   <calculatedAttributes/>
