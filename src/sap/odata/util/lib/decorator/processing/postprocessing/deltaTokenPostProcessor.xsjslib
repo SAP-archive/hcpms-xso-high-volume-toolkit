@@ -37,7 +37,6 @@ DeltaTokenPostProcessor.prototype.apply = function(response) {
 	var data = response.data.d;
 	
 	if(response.webRequest.isCollectionRequest()) data.__delta = this.getDeltaUrl();
-	this.metadata = this.getMetadata();
 	
 	if (!this.replaceDeletedEntities && !this.stripDeltaFields) {
 	    return data;
