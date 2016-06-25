@@ -1,0 +1,1 @@
+role sap.odata.util.roles::conf extends role sap.odata.util.roles::readWrite, sap.hana.xs.selfService.user.roles::USSExecutor {}

@@ -1,0 +1,4 @@
+role com.example.delta.roles::demo
+	extends role com.example.delta.roles::readWrite, com.example.delta::Access, com.example.wrapper::Access
+	extends catalog role "HCP_PUBLIC" {
+}
