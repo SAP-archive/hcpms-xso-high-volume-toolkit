@@ -62,7 +62,7 @@ function WebEntityResponse(webRequest, webResponse) {
 	} else {
 		Object.defineProperties(this, {
 			'boundary': {
-				value: this.webRequest.boundary
+				value: webResponse.headers.get('content-type').match(/boundary=(.*)$/)[1]
 			}
 		});
 	}
@@ -84,7 +84,8 @@ WebEntityResponse.prototype.copyHeaders = function() {
 
 WebEntityResponse.prototype.getOutboundBody = function() {
 	if(this.isMultipartResponse()) {
-		return WebResponse.prototype.getOutboundChildEntityBody.call(this);
+		return [this.getOutboundHeaderString(),
+		WebResponse.prototype.getOutboundChildEntityBody.call(this)].join('\n');
 	}
 	
 	var body = [this.getOutboundHeaderString(),
