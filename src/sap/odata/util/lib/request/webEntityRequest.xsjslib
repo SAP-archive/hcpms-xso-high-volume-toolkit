@@ -61,7 +61,7 @@ function WebEntityRequest(webRequest, id) {
 	
 	if(!this.isMultipartRequest()) {
 		var body = webRequest.body.asString();
-		var parseRegex = /^([A-Z]+)\s+([^?]+)\??(\S+)?\s+HTTP\/1\.1\s*([\s\S]*)(\r\n\r\n|\r\r|\n\n)([\s\S]*)?$/;
+		var parseRegex = /^([A-Z]+)\s+([^?]+)\??(\S+)?\s+HTTP\/1\.1\s*(((?!\n\n)(?!\r\r)(?!\r\n\r\n)[\s\S])*)(\r\n\r\n|\r\r|\n\n)([\s\S]*)?$/;
 		//				   ^method    ^path	  ^query			   ^headers	^2x newline	  ^body
 		var pieces = body.match(parseRegex);
 		var headerLines = pieces[4].split(/\r\n?|\n/).filter(function(pair) { return pair.length; });
@@ -86,7 +86,7 @@ function WebEntityRequest(webRequest, id) {
 			method: pieces[1],
 			path: pieces[2],
 			headers: headers,
-			body: pieces[6] || '',
+			body: pieces[7] || '',
 			parameters: parameters
 		};
 		
