@@ -1,290 +1,484 @@
 {
-	"id": "720591c0-f5dc-b847-00aa-055229b95ca4",
-	"name": "Wrapper",
-	"description": "",
-	"order": [
-		"0ddd57d9-d1cd-9e37-b005-a04a62c39397",
-		"0da07807-31b3-7c18-733d-9f04be439013",
-		"64c019cd-7090-218e-4d1e-bc41728376c3",
-		"ca975147-2eed-a8ca-b570-f78a88ff392b",
-		"81d2f783-39db-fcbf-4e57-61f3cd2213e6",
-		"fc700652-9cfe-caa9-3f93-2ea49a0c7664",
-		"e93e28d2-748e-7274-a143-ffb1468ef0ed",
-		"6298059f-06c8-d244-fea1-22c0e54cca1b",
-		"971a8af7-b00d-88fb-e9fd-3171dea6c687",
-		"2cfb921e-72f2-5554-9758-09b1924175b4",
-		"94a6e04e-7670-54c8-cb36-1515edd23ed7",
-		"30a0c3a5-06d8-2329-fa94-54476f9afa2d",
-		"6da30966-1486-5b2b-26f1-8e851ffb5780",
-		"f070bc10-7548-a052-9f8f-969099dcc32a",
-		"5c11bcff-a6e0-1eb5-fddb-b21896403954"
+	"id": "5ce83900-65e2-93c6-9b93-17d5e518cc79",
+	"name": "Postman Echo",
+	"description": "Postman Echo is service you can use to test your REST clients and make sample API calls. It provides endpoints for `GET`, `POST`, `PUT`, various auth mechanisms and other utility endpoints.\n\nThe documentation for the endpoints as well as example responses can be found at [https://echo.getpostman.com](https://echo.getpostman.com?source=echo-collection-app-onboarding)",
+	"order": [],
+	"folders": [
+		{
+			"owner": 0,
+			"lastUpdatedBy": "181687",
+			"lastRevision": 86088889,
+			"id": "1e3736c7-bb1c-49c9-408a-eaf3132f9213",
+			"name": "Auth: Digest",
+			"description": "Digest authentication protects an endpoint with a username and password without actually transmitting the password over network.\nOne has to apply a hash function (like MD5, etc) to the username and password before sending them over the network.\n\n> Username: `postman`\n>\n> Password: `password`\n\nUnlike Basic-Auth, authentication happens using two consecutive requests where the first request returns `401 Unauthorised` along with `WWW-Authenticate` header containing information that needs to be used to authenticate subsequent calls.\n\nTo know more about digest authentication, refer to the [Digest Access Authentication](https://en.wikipedia.org/wiki/Digest_access_authentication) wikipedia article.\nThe article on [authentication helpers](https://www.getpostman.com/docs/helpers#digest-auth) elaborates how to use the same within the Postman app.",
+			"order": [
+				"a8028e7c-0340-baff-dec1-7e2c14a4de46",
+				"b5c0d158-009c-c797-3a3a-87a64cf7e65e"
+			]
+		},
+		{
+			"owner": 0,
+			"lastUpdatedBy": "181687",
+			"lastRevision": 86088891,
+			"id": "dd30fc5a-2d5b-de04-1bd0-bb5e59f82363",
+			"name": "Auth: Others",
+			"description": "",
+			"order": [
+				"f6fee350-cc24-718f-b26e-77cdafc402db",
+				"3afb4e1b-d9fa-caa0-5dd2-81fee6616965"
+			]
+		},
+		{
+			"owner": 0,
+			"lastUpdatedBy": "181687",
+			"lastRevision": 86088892,
+			"id": "ec4d854f-330c-fdb9-6ee1-867f424b4c5b",
+			"name": "Cookies",
+			"description": "The cookie related endpoints allow one to get, set and delete simple cookies.\n\nCookies are small snippets of information that is stored in the browser and sent back to the server with every subsequent requests in order to store useful information between requests.\nIf you want to know more about cookies, read the [HTTP Cookie](https://en.wikipedia.org/wiki/HTTP_cookie) article on wikipedia.",
+			"order": [
+				"2e62b99a-6a2e-18d5-ad79-291ea93a50dc",
+				"d8a5c0ed-c950-9442-04b8-59f37be8a404",
+				"d2d7084a-c0aa-ab5b-b523-a0d317d3fd6f"
+			]
+		},
+		{
+			"owner": 0,
+			"lastUpdatedBy": "181687",
+			"lastRevision": 86088893,
+			"id": "d4f98ce5-41e0-a4a0-4ed2-8aec11a4fb42",
+			"name": "Headers",
+			"description": "The following set of endpoints allow one to see the headers being sent as part of a request and to get a custom set of headers as part of response.\n\nHTTP header fields provide required information about the request or response, or about the object sent in the message body. Both request headers and response headers can be controlled using these endpoints.",
+			"order": [
+				"8650db50-1c44-6766-abf4-2c56ad40d89a",
+				"678be006-d180-dc29-4e66-625077e9eb7a"
+			]
+		},
+		{
+			"owner": 0,
+			"lastUpdatedBy": "181687",
+			"lastRevision": 86088894,
+			"id": "53de0c3d-aa65-8ac5-4c0a-89ee3b5fb4fe",
+			"name": "Request Methods",
+			"description": "HTTP has multiple request \"verbs\", such as `GET`, `PUT`, `POST`, `DELETE`,\n`PATCH`, `HEAD`, etc. \n\nAn HTTP Method (verb) defines how a request should be interpreted by a server. \nThe endpoints in this section demonstrate various HTTP Verbs. Postman supports \nall the HTTP Verbs, including some rarely used ones, such as `PROPFIND`, `UNLINK`, \netc.\n\nFor details about HTTP Verbs, refer to [RFC 2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9)\n",
+			"order": [
+				"3077f43e-1803-e7bc-c79c-8a953987adf7",
+				"5d1cb79a-1bea-9931-0926-aeb67e4bd116",
+				"34d72041-90bf-7f9e-3a0f-2dbc6459082b",
+				"b6df28db-7359-acb3-d8e0-c1cc2188a103",
+				"5ae47b2b-049b-85e7-bfa1-533d7b6ea443"
+			]
+		},
+		{
+			"owner": 0,
+			"lastUpdatedBy": "181687",
+			"lastRevision": 86088895,
+			"id": "4a28f87b-426b-6d63-3d84-b4a746f8d02f",
+			"name": "Utilities",
+			"description": "",
+			"order": [
+				"9656ed4e-1ec3-1c81-ab2d-f9ca5be269a2",
+				"911c6388-33a9-061e-7e46-13afcf0271b0",
+				"0d294ad5-7b5e-4c75-7fdb-58b61e58cae3",
+				"a09b9616-7c78-b4a3-743c-62cb66de5bd9",
+				"f2953eb5-f585-ff50-65e6-2cc24f1de31c",
+				"2653e99e-38ef-8978-9b55-bc55e56b92cd"
+			]
+		}
 	],
-	"folders": [],
-	"timestamp": 1461582957148,
+	"timestamp": 0,
 	"owner": 0,
-	"remoteLink": "",
 	"public": false,
+	"hasRequests": true,
+	"remoteLink": "",
 	"requests": [
 		{
-			"id": "0da07807-31b3-7c18-733d-9f04be439013",
-			"headers": "Authorization: Basic T0RBVEFfREVNTzpJbml0aWFsMQ==\n",
-			"url": "{{baseUrl}}/?",
-			"preRequestScript": "",
-			"pathVariables": {},
+			"folder": "4a28f87b-426b-6d63-3d84-b4a746f8d02f",
+			"id": "0d294ad5-7b5e-4c75-7fdb-58b61e58cae3",
+			"name": "Delay Response",
+			"dataMode": "params",
+			"data": [],
+			"rawModeData": null,
+			"descriptionFormat": null,
+			"description": "Using this endpoint one can configure how long it takes for the server to come back with a response. Appending a number to the URL defines the time (in seconds) the server will wait before responding.\n\nNote that a maximum delay of 10 seconds is accepted by the server.",
+			"headers": "",
 			"method": "GET",
-			"data": [
+			"pathVariables": {},
+			"url": "https://echo.getpostman.com/delay/3",
+			"preRequestScript": "",
+			"tests": "var responseJSON;\ntry { \n    responseJSON = JSON.parse(responseBody); \n    tests[\"response body has key delay\"] = 'delay' in responseJSON;\n}\ncatch (e) { }\ntests[\"response code is 200\"] = responseCode.code === 200;\n",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "5ce83900-65e2-93c6-9b93-17d5e518cc79"
+		},
+		{
+			"folder": "4a28f87b-426b-6d63-3d84-b4a746f8d02f",
+			"id": "2653e99e-38ef-8978-9b55-bc55e56b92cd",
+			"name": "Deflate Compressed Response",
+			"dataMode": "params",
+			"data": [],
+			"rawModeData": null,
+			"descriptionFormat": null,
+			"description": "This endpoint returns the response using [deflate compression algoritm](https://en.wikipedia.org/wiki/DEFLATE). \nThe uncompressed response is a JSON string containing the details of the request sent by the client. For this endpoint to work, one should request with `Accept-encoding` header containing `deflate` as part of its value. Postman supports gzip, deflate and SDCH decoding and automatically sends them as part of the request.\n\nHTTP Compression allows the server to send responses in a compressed format, which is uncompressed by the client before processing. This reduces network bandwidth consumption at the cost of increase in CPU usage.\nTo know more about this, refer the [HTTP Compression](https://en.wikipedia.org/wiki/HTTP_compression) wikipedia article.",
+			"headers": "",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "https://echo.getpostman.com/deflate",
+			"preRequestScript": "",
+			"tests": "tests[\"response code is 200\"] = responseCode.code === 200;\n\ntry {\n    var data = JSON.parse(responseBody);\n    tests[\"Body contains deflated\"] = responseBody.has(\"deflated\");\n    tests[\"Body contains headers\"] = responseBody.has(\"headers\");\n    tests[\"Body contains method\"] = responseBody.has(\"method\");\n}\ncatch(e) {\n    console.log('Cannot parse response,probably not a JSON');\n}\n",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "5ce83900-65e2-93c6-9b93-17d5e518cc79"
+		},
+		{
+			"folder": "ec4d854f-330c-fdb9-6ee1-867f424b4c5b",
+			"id": "2e62b99a-6a2e-18d5-ad79-291ea93a50dc",
+			"name": "Set Cookies",
+			"dataMode": "params",
+			"data": [],
+			"rawModeData": null,
+			"descriptionFormat": null,
+			"description": "The cookie setter endpoint accepts a list of cookies and their values as part of URL parameters of a `GET` request. These cookies are saved and can be subsequently retrieved or deleted. The response of this request returns a JSON with all cookies listed.\n\nTo set your own set of cookies, simply replace the URL parameters \"foo1=bar1&foo2=bar2\" with your own set of key-value pairs.",
+			"headers": "",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "https://echo.getpostman.com/cookies/set?foo1=bar1&foo2=bar2",
+			"preRequestScript": "",
+			"tests": "var responseJSON;\ntry {\n    tests[\"Body contains cookies\"] = responseBody.has(\"cookies\");\n    responseJSON = JSON.parse(responseBody);\n    tests[\"Body contains cookie foo1\"] = 'foo1' in responseJSON.cookies;\n    tests[\"Body contains cookie foo2\"] = 'foo2' in responseJSON.cookies;    \n}\ncatch (e) { }\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\n\n",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "5ce83900-65e2-93c6-9b93-17d5e518cc79",
+			"responses": [
 				{
-					"key": "code",
-					"value": "xWnkliVQJURqB2x1",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "grant_type",
-					"value": "authorization_code",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "redirect_uri",
-					"value": "https://www.getpostman.com/oauth2/callback",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "client_id",
-					"value": "abc123",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "client_secret",
-					"value": "ssh-secret",
-					"type": "text",
-					"enabled": true
+					"owner": 0,
+					"lastUpdatedBy": "181687",
+					"lastRevision": 86088924,
+					"request": "96a24790-4951-ba7e-aa4f-fb40a45a7fcb",
+					"id": "6a8763d8-c956-51df-96ef-bf0c78fbbc58",
+					"name": "Cookies",
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK"
+					},
+					"time": "3063",
+					"headers": [
+						{
+							"name": "Access-Control-Allow-Credentials",
+							"key": "Access-Control-Allow-Credentials",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Headers",
+							"key": "Access-Control-Allow-Headers",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Methods",
+							"key": "Access-Control-Allow-Methods",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Origin",
+							"key": "Access-Control-Allow-Origin",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": ""
+						},
+						{
+							"name": "Content-Encoding",
+							"key": "Content-Encoding",
+							"value": "gzip",
+							"description": ""
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "51",
+							"description": ""
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": ""
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Thu, 29 Oct 2015 06:15:28 GMT",
+							"description": ""
+						},
+						{
+							"name": "Server",
+							"key": "Server",
+							"value": "nginx/1.6.2",
+							"description": ""
+						},
+						{
+							"name": "Vary",
+							"key": "Vary",
+							"value": "Accept-Encoding",
+							"description": ""
+						},
+						{
+							"name": "X-Powered-By",
+							"key": "X-Powered-By",
+							"value": "Sails <sailsjs.org>",
+							"description": ""
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"cookies\":{\"foo1\":\"bar\",\"foo2\":\"bar\"}}",
+					"language": "javascript",
+					"rawDataType": "text",
+					"state": {
+						"size": "normal"
+					},
+					"previewType": "html",
+					"searchResultScrolledTo": "-1",
+					"version": null,
+					"requestObject": "\"96a24790-4951-ba7e-aa4f-fb40a45a7fcb\"",
+					"createdAt": "2015-11-02T13:11:12.000Z",
+					"updatedAt": "2015-11-23T07:07:09.000Z",
+					"write": true
 				}
-			],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "tests[\"Body is correct\"] = responseBody === '{\"d\":{\"EntitySets\":[\"BusinessPartner\",\"SalesOrder\",\"Address\"]}}';",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465819119862,
-			"name": "Get Service Root (evil)",
-			"description": "",
-			"collectionId": "720591c0-f5dc-b847-00aa-055229b95ca4"
+			]
 		},
 		{
-			"id": "0ddd57d9-d1cd-9e37-b005-a04a62c39397",
-			"headers": "Authorization: Basic T0RBVEFfREVNTzpJbml0aWFsMQ==\n",
-			"url": "{{baseUrl}}",
-			"preRequestScript": "",
-			"pathVariables": {},
+			"folder": "53de0c3d-aa65-8ac5-4c0a-89ee3b5fb4fe",
+			"id": "3077f43e-1803-e7bc-c79c-8a953987adf7",
+			"name": "GET Request",
+			"dataMode": "params",
+			"data": [],
+			"rawModeData": null,
+			"descriptionFormat": null,
+			"description": "The HTTP `GET` request method is meant to retrieve data from a server. The data\nis identified by a unique URI (Uniform Resource Identifier). \n\nA `GET` request can pass parameters to the server using \"Query String \nParameters\". For example, in the following request,\n\n> http://example.com/hi/there?hand=wave\n\nThe parameter \"hand\" has the value \"wave\".\n\nThis endpoint echoes the HTTP headers, request parameters and the complete\nURI requested.",
+			"headers": "",
 			"method": "GET",
-			"data": [
-				{
-					"key": "code",
-					"value": "xWnkliVQJURqB2x1",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "grant_type",
-					"value": "authorization_code",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "redirect_uri",
-					"value": "https://www.getpostman.com/oauth2/callback",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "client_id",
-					"value": "abc123",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "client_secret",
-					"value": "ssh-secret",
-					"type": "text",
-					"enabled": true
-				}
-			],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "tests[\"Body is correct\"] = responseBody === '{\"d\":{\"EntitySets\":[\"BusinessPartner\",\"SalesOrder\",\"Address\"]}}';",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465819108788,
-			"name": "Get Service Root",
-			"description": "",
-			"collectionId": "720591c0-f5dc-b847-00aa-055229b95ca4"
-		},
-		{
-			"id": "2cfb921e-72f2-5554-9758-09b1924175b4",
-			"headers": "Authorization: Basic T0RBVEFfREVNTzpJbml0aWFsMQ==\n",
-			"url": "{{baseUrl}}/BusinessPartner?!deltatoken=0&$skiptoken=0-0100000019",
-			"preRequestScript": null,
 			"pathVariables": {},
-			"method": "GET",
-			"data": null,
-			"dataMode": "params",
-			"tests": "var baseUrl = postman.getEnvironmentVariable('baseUrl');\nvar response = JSON.parse(responseBody);\n\ntests['Returned 20 results']= response.d.results.length === 20;\ntests['Returned correct next link'] = response.d.__next === baseUrl + '/BusinessPartner?!deltatoken=0&$skiptoken=0-0100000039';\ntests['Delta token present'] = response.d.__delta.match(/\\d+/);\n",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465820663138,
-			"name": "Get BusinessPartner Delta (Page 2)",
-			"description": "",
-			"collectionId": "720591c0-f5dc-b847-00aa-055229b95ca4",
-			"responses": []
-		},
-		{
-			"id": "30a0c3a5-06d8-2329-fa94-54476f9afa2d",
-			"headers": "Authorization: Basic T0RBVEFfREVNTzpJbml0aWFsMQ==\nContent-Type: application/json\n",
-			"url": "{{baseUrl}}/BusinessPartner('0123456787')",
+			"url": "https://echo.getpostman.com/get?test=123",
 			"preRequestScript": "",
-			"pathVariables": {},
+			"tests": "tests[\"Body contains headers\"] = responseBody.has(\"headers\");\ntests[\"Body contains args\"] = responseBody.has(\"args\");\ntests[\"Body contains url\"] = responseBody.has(\"url\");\n\nvar responseJSON;\n\ntry { responseJSON = JSON.parse(responseBody); }\ncatch (e) { }\n\n\ntests[\"Args key contains argument passed as url parameter\"] = 'test' in responseJSON.args",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "5ce83900-65e2-93c6-9b93-17d5e518cc79"
+		},
+		{
+			"folder": "53de0c3d-aa65-8ac5-4c0a-89ee3b5fb4fe",
+			"id": "34d72041-90bf-7f9e-3a0f-2dbc6459082b",
+			"name": "PUT Request",
+			"dataMode": "raw",
+			"data": [],
+			"descriptionFormat": null,
+			"description": "The HTTP `PUT` request method is similar to HTTP `POST`. It too is meant to \ntransfer data to a server (and elicit a response). What data is returned depends on the implementation\nof the server.\n\nA `PUT` request can pass parameters to the server using \"Query String \nParameters\", as well as the Request Body. For example, in the following \nraw HTTP request,\n\n> PUT /hi/there?hand=wave\n>\n> <request-body>\n\n\n",
+			"headers": "",
 			"method": "PUT",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": "tests[\"Status code is 204\"] = responseCode.code === 204;",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465821055915,
-			"name": "PUT BusinessPartner 0123456787",
-			"description": "",
-			"collectionId": "720591c0-f5dc-b847-00aa-055229b95ca4",
-			"responses": [],
-			"rawModeData": "{\"EMAILADDRESS\": \"buyer@example.com\"}"
-		},
-		{
-			"id": "5c11bcff-a6e0-1eb5-fddb-b21896403954",
-			"headers": "Authorization: Basic T0RBVEFfREVNTzpJbml0aWFsMQ==\nContent-Type: multipart/mixed;boundary=batch_7317-c239-9c8d\n",
-			"url": "{{baseUrl}}/$batch",
-			"preRequestScript": null,
 			"pathVariables": {},
-			"method": "POST",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": "var boundary = postman.getResponseHeader('content-type').match(/boundary=(.*);/)[1];\r\nvar changeset = 'changeset_63f8-0a2b-ee0b';\r\nvar entities = responseBody\r\n    .remove('--' + boundary + '--')\r\n    .remove('--' + changeset + '--')\r\n    .split('--' + boundary)\r\n    .map(function(entity) {\r\n        return entity.match(changeset) ? entity.split('--' + changeset) : entity;\r\n    });\r\n\r\nvar entity1 = 'HTTP/1.1 200 OK\\n' +\r\n'Content-Type: text/plain;charset=utf-8\\n' +\r\n'Content-Length: 2\\n' +\r\n'\\n' +\r\n'45';\r\n\r\ntests['Successfully loaded $count'] = ~entities[1].indexOf(entity1);\r\n\r\nvar entity2 = '{ \"error\": { \"code\": \"\", \"message\": { \"lang\": \"en-US\", \"value\": \"The serialized resource has an missing value for member \\'PARTNERID\\'.\"}}}';\r\n\r\ntests['Changeset failed'] = ~entities[2].indexOf('HTTP/1.1 400 Bad Request') &&  ~entities[2].indexOf(entity2);\r\n",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465821085236,
-			"name": "$batch: Error handling",
-			"description": "",
-			"collectionId": "720591c0-f5dc-b847-00aa-055229b95ca4",
-			"responses": [],
-			"rawModeData": "--batch_7317-c239-9c8d\r\nContent-Type: application/http\r\nContent-Transfer-Encoding: binary\r\n\r\nGET BusinessPartner/$count HTTP/1.1\r\n\r\n\r\n--batch_7317-c239-9c8d\r\nContent-Type: multipart/mixed; boundary=changeset_63f8-0a2b-ee0b\r\n\r\n--changeset_63f8-0a2b-ee0b\r\nContent-Type: application/http\r\nContent-Transfer-Encoding: binary\r\n\r\nPOST BusinessPartner HTTP/1.1\r\nContent-Type: application/json\r\n\r\n{\"WHOOPSIE!\":\"0123456789\"}\r\n--changeset_63f8-0a2b-ee0b\r\nContent-Type: application/http\r\nContent-Transfer-Encoding: binary\r\n\r\nMERGE BusinessPartner('0123456789') HTTP/1.1\r\nContent-Type: application/json\r\n\r\n{\"EMAILADDRESS\":\"karl.mueller@sap.com\"}\r\n--changeset_63f8-0a2b-ee0b\r\nContent-Type: application/http\r\nContent-Transfer-Encoding: binary\r\n\r\nDELETE Buyer('0123456789') HTTP/1.1\r\n\r\n\r\n--changeset_63f8-0a2b-ee0b--\r\n\r\n\r\n--batch_7317-c239-9c8d--"
-		},
-		{
-			"id": "6298059f-06c8-d244-fea1-22c0e54cca1b",
-			"headers": "Authorization: Basic T0RBVEFfREVNTzpJbml0aWFsMQ==\n",
-			"url": "{{baseUrl}}/BusinessPartner?$skiptoken=1462180529027-0100000019",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "GET",
-			"data": null,
-			"dataMode": "params",
-			"version": 2,
-			"tests": "var baseUrl = postman.getEnvironmentVariable('baseUrl');\nvar response = JSON.parse(responseBody);\n\ntests['Returned 20 results']= response.d.results.length === 20;\ntests['Returned correct next link'] = ~response.d.__next.indexOf(baseUrl) && response.d.__next.match(/\\/BusinessPartner\\?\\$skiptoken=\\d+-0100000039/);\ntests['Delta link correctly retained'] = response.d.__delta  === baseUrl + '/BusinessPartner?!deltatoken=1462180529027';",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465820644571,
-			"name": "Get BusinessPartner (Page 2)",
-			"description": "",
-			"collectionId": "720591c0-f5dc-b847-00aa-055229b95ca4",
-			"responses": []
-		},
-		{
-			"id": "64c019cd-7090-218e-4d1e-bc41728376c3",
-			"headers": "Authorization: Basic T0RBVEFfREVNTzpJbml0aWFsMQ==\n",
-			"url": "{{baseUrl}}/$metadata",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "GET",
-			"data": null,
-			"dataMode": "params",
-			"version": 2,
-			"tests": "tests[\"Body is correct\"] = responseBody === '<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\" ?><edmx:Edmx Version=\"1.0\" xmlns:edmx=\"http://schemas.microsoft.com/ado/2007/06/edmx\"><edmx:DataServices xmlns:m=\"http://schemas.microsoft.com/ado/2007/08/dataservices/metadata\" m:DataServiceVersion=\"2.0\"><Schema Namespace=\"odata\" xmlns:d=\"http://schemas.microsoft.com/ado/2007/08/dataservices\" xmlns:m=\"http://schemas.microsoft.com/ado/2007/08/dataservices/metadata\" xmlns=\"http://schemas.microsoft.com/ado/2008/09/edm\"><EntityType Name=\"BusinessPartnerType\"><Key><PropertyRef Name=\"PARTNERID\" /></Key><Property Name=\"PARTNERID\" Type=\"Edm.String\" Nullable=\"false\" MaxLength=\"10\" /><Property Name=\"PARTNERROLE\" Type=\"Edm.String\" MaxLength=\"3\" /><Property Name=\"PHONENUMBER\" Type=\"Edm.String\" MaxLength=\"30\" /><Property Name=\"EMAILADDRESS\" Type=\"Edm.String\" MaxLength=\"255\" /><Property Name=\"FAXNUMBER\" Type=\"Edm.String\" MaxLength=\"30\" /><Property Name=\"WEBADDRESS\" Type=\"Edm.String\" MaxLength=\"1024\" /><Property Name=\"ADDRESSID_ADDRESSID\" Type=\"Edm.String\" MaxLength=\"10\" /><Property Name=\"COMPANYNAME\" Type=\"Edm.String\" MaxLength=\"80\" /><Property Name=\"LEGALFORM\" Type=\"Edm.String\" MaxLength=\"10\" /><Property Name=\"CURRENCY\" Type=\"Edm.String\" MaxLength=\"5\" /><Property Name=\"IS_DELETED\" Type=\"Edm.String\" MaxLength=\"1\" /><Property Name=\"DELTATOKEN\" Type=\"Edm.DateTime\" /><NavigationProperty Name=\"SALESORDERS\" Relationship=\"odata.BusinessPartnerSalesOrderType\" FromRole=\"BusinessPartnerPrincipal\" ToRole=\"SalesOrderDependent\" /><NavigationProperty Name=\"ADDRESS\" Relationship=\"odata.AddressBusinessPartnerType\" FromRole=\"BusinessPartnerDependent\" ToRole=\"AddressPrincipal\" /></EntityType><EntityType Name=\"SalesOrderType\"><Key><PropertyRef Name=\"SALESORDERID\" /></Key><Property Name=\"SALESORDERID\" Type=\"Edm.String\" Nullable=\"false\" MaxLength=\"10\" /><Property Name=\"NOTEID\" Type=\"Edm.String\" MaxLength=\"10\" /><Property Name=\"PARTNERID_PARTNERID\" Type=\"Edm.String\" MaxLength=\"10\" /><Property Name=\"CURRENCY\" Type=\"Edm.String\" MaxLength=\"5\" /><Property Name=\"GROSSAMOUNT\" Type=\"Edm.Decimal\" Precision=\"15\" Scale=\"2\" /><Property Name=\"NETAMOUNT\" Type=\"Edm.Decimal\" Precision=\"15\" Scale=\"2\" /><Property Name=\"TAXAMOUNT\" Type=\"Edm.Decimal\" Precision=\"15\" Scale=\"2\" /><Property Name=\"LIFECYCLESTATUS\" Type=\"Edm.String\" MaxLength=\"1\" /><Property Name=\"BILLINGSTATUS\" Type=\"Edm.String\" MaxLength=\"1\" /><Property Name=\"DELIVERYSTATUS\" Type=\"Edm.String\" MaxLength=\"1\" /><Property Name=\"DELTATOKEN\" Type=\"Edm.DateTime\" /><Property Name=\"IS_DELETED\" Type=\"Edm.String\" MaxLength=\"1\" /></EntityType><EntityType Name=\"AddressType\"><Key><PropertyRef Name=\"ADDRESSID\" /></Key><Property Name=\"IS_DELETED\" Type=\"Edm.String\" MaxLength=\"1\" /><Property Name=\"DELTATOKEN\" Type=\"Edm.DateTime\" /><Property Name=\"ADDRESSID\" Type=\"Edm.String\" Nullable=\"false\" MaxLength=\"10\" /><Property Name=\"CITY\" Type=\"Edm.String\" MaxLength=\"40\" /><Property Name=\"POSTALCODE\" Type=\"Edm.String\" MaxLength=\"10\" /><Property Name=\"STREET\" Type=\"Edm.String\" MaxLength=\"60\" /><Property Name=\"BUILDING\" Type=\"Edm.String\" MaxLength=\"10\" /><Property Name=\"COUNTRY\" Type=\"Edm.String\" MaxLength=\"3\" /><Property Name=\"REGION\" Type=\"Edm.String\" MaxLength=\"4\" /><Property Name=\"ADDRESSTYPE\" Type=\"Edm.String\" MaxLength=\"2\" /><Property Name=\"VALIDITY_STARTDATE\" Type=\"Edm.DateTime\" /><Property Name=\"VALIDITY_ENDDATE\" Type=\"Edm.DateTime\" /><Property Name=\"LATITUDE\" Type=\"Edm.Double\" /><Property Name=\"LONGITUDE\" Type=\"Edm.Double\" /></EntityType><Association Name=\"BusinessPartnerSalesOrderType\"><End Type=\"odata.BusinessPartnerType\" Role=\"BusinessPartnerPrincipal\" Multiplicity=\"1\"/><End Type=\"odata.SalesOrderType\" Role=\"SalesOrderDependent\" Multiplicity=\"*\"/></Association><Association Name=\"AddressBusinessPartnerType\"><End Type=\"odata.AddressType\" Role=\"AddressPrincipal\" Multiplicity=\"1\"/><End Type=\"odata.BusinessPartnerType\" Role=\"BusinessPartnerDependent\" Multiplicity=\"*\"/></Association><EntityContainer Name=\"delta\" m:IsDefaultEntityContainer=\"true\"><EntitySet Name=\"BusinessPartner\" EntityType=\"odata.BusinessPartnerType\" /><EntitySet Name=\"SalesOrder\" EntityType=\"odata.SalesOrderType\" /><EntitySet Name=\"Address\" EntityType=\"odata.AddressType\" /><AssociationSet Name=\"BusinessPartnerSalesOrder\" Association=\"odata.BusinessPartnerSalesOrderType\"><End Role=\"BusinessPartnerPrincipal\" EntitySet=\"BusinessPartner\"/><End Role=\"SalesOrderDependent\" EntitySet=\"SalesOrder\"/></AssociationSet><AssociationSet Name=\"AddressBusinessPartner\" Association=\"odata.AddressBusinessPartnerType\"><End Role=\"AddressPrincipal\" EntitySet=\"Address\"/><End Role=\"BusinessPartnerDependent\" EntitySet=\"BusinessPartner\"/></AssociationSet></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>';",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465825910881,
-			"name": "Get Metadata",
-			"description": "",
-			"collectionId": "720591c0-f5dc-b847-00aa-055229b95ca4",
-			"responses": []
-		},
-		{
-			"id": "6da30966-1486-5b2b-26f1-8e851ffb5780",
-			"headers": "Authorization: Basic T0RBVEFfREVNTzpJbml0aWFsMQ==\n",
-			"url": "{{baseUrl}}/BusinessPartner('0123456787')",
+			"url": "https://echo.getpostman.com/put",
 			"preRequestScript": "",
+			"tests": "var data;\n\ntry { responseJSON = JSON.parse(responseBody); }\ncatch (e) {}\n\ntests[\"Body contains files\"] = responseBody.has(\"files\");\ntests[\"Body contains args\"] = responseBody.has(\"args\");\ntests[\"Body contains form\"] = responseBody.has(\"form\");\ntests[\"Body contains headers\"] = responseBody.has(\"headers\");\ntests[\"Body contains url\"] = responseBody.has(\"url\");\n\n\n\ntests[\"Data has been passed\"] = (responseJSON && responseJSON.data && responseJSON.data.length)",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "5ce83900-65e2-93c6-9b93-17d5e518cc79",
+			"rawModeData": "Etiam mi lacus, cursus vitae felis et, blandit pellentesque neque. Vestibulum eget nisi a tortor commodo dignissim.\nQuisque ipsum ligula, faucibus a felis a, commodo elementum nisl. Mauris vulputate sapien et tincidunt viverra. Donec vitae velit nec metus."
+		},
+		{
+			"folder": "dd30fc5a-2d5b-de04-1bd0-bb5e59f82363",
+			"id": "3afb4e1b-d9fa-caa0-5dd2-81fee6616965",
+			"name": "OAuth1.0 Verify Signature",
+			"dataMode": "params",
+			"data": [
+				{
+					"key": "code",
+					"value": "xWnkliVQJURqB2x1",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "grant_type",
+					"value": "authorization_code",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "redirect_uri",
+					"value": "https://www.getpostman.com/oauth2/callback",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "client_id",
+					"value": "abc123",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "client_secret",
+					"value": "ssh-secret",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"rawModeData": null,
+			"descriptionFormat": null,
+			"description": "OAuth1.0a is a specification that defines a protocol that can be used by one\nservice to access \"protected\" resources (endpoints) on another service. A\nmajor part of OAuth1.0 is HTTP Request Signing. This endpoint allows you to \ncheck whether the request calculation works properly in the client. \n\nThe endpoint supports the HTTP ``Authorization`` header. In case the signature\nverification fails, the endpoint provides the four debug values,\n\n* ``base_uri``\n* ``normalized_param_string``\n* ``base_string``\n* ``signing_key``\n\nFor more details about these parameters, check the [OAuth1.0a Specification](http://oauth.net/core/1.0a/)\n\nIn order to use this endpoint, you can set the following values:\n\n> Consumer Key: ``RKCGzna7bv9YD57c``\n>\n> Consumer Secret: ``D+EdQ-gs$-%@2Nu7``\n\nIf you are using Postman, also check the \"Add params to header\" and \n\"Auto add parameters\" boxes.",
+			"headers": "Authorization: OAuth oauth_consumer_key=\"RKCGzna7bv9YD57c\",oauth_signature_method=\"HMAC-SHA1\",oauth_timestamp=\"1442394747\",oauth_nonce=\"UIGipk\",oauth_version=\"1.0\",oauth_signature=\"CaeyGPr2mns1WCq4Cpm5aLvz6Gs=\"\n",
+			"method": "GET",
 			"pathVariables": {},
+			"url": "https://echo.getpostman.com/oauth1",
+			"preRequestScript": "",
+			"tests": "tests[\"response code is 200\"] = responseCode.code === 200;\nvar body = JSON.parse(responseBody);\ntests[\"Body contains status pass\"] = body[\"status\"] == \"pass\"",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "5ce83900-65e2-93c6-9b93-17d5e518cc79"
+		},
+		{
+			"folder": "53de0c3d-aa65-8ac5-4c0a-89ee3b5fb4fe",
+			"id": "5ae47b2b-049b-85e7-bfa1-533d7b6ea443",
+			"name": "DELETE Request",
+			"dataMode": "raw",
+			"data": [],
+			"descriptionFormat": null,
+			"description": "The HTTP `DELETE` method is used to delete resources on a server. The exact\nuse of `DELETE` requests depends on the server implementation. In general, \n`DELETE` requests support both, Query String parameters as well as a Request \nBody.\n\nThis endpoint accepts an HTTP `DELETE` request and provides debug information\nsuch as the HTTP headers, Query String arguments, and the Request Body.",
+			"headers": "",
 			"method": "DELETE",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": "tests[\"Status code is 204\"] = responseCode.code === 204;",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465819758295,
-			"name": "DELETE BusinessPartner 0123456787",
-			"description": "",
-			"collectionId": "720591c0-f5dc-b847-00aa-055229b95ca4",
-			"responses": [],
-			"rawModeData": ""
-		},
-		{
-			"id": "81d2f783-39db-fcbf-4e57-61f3cd2213e6",
-			"headers": "Authorization: Basic T0RBVEFfREVNTzpJbml0aWFsMQ==\n",
-			"url": "{{baseUrl}}/BusinessPartner('0100000000')",
-			"preRequestScript": null,
 			"pathVariables": {},
-			"method": "GET",
-			"data": null,
-			"dataMode": "params",
-			"version": 2,
-			"tests": "var baseUrl = postman.getEnvironmentVariable('baseUrl');\n\ntests[\"Body is correct\"] = responseBody === '{\"d\":{\"__metadata\":{\"type\":\"odata.BusinessPartnerType\",\"uri\":\"' + baseUrl + '/BusinessPartner(\\'0100000000\\')\"},\"PARTNERID\":\"0100000000\",\"PARTNERROLE\":\"01\",\"PHONENUMBER\":\"0622734567\",\"EMAILADDRESS\":\"karl.mueller@sap.com\",\"FAXNUMBER\":null,\"WEBADDRESS\":\"http://www.sap.com\",\"ADDRESSID_ADDRESSID\":\"1000000034\",\"COMPANYNAME\":\"SAP\",\"LEGALFORM\":\"AG\",\"CURRENCY\":\"EUR\",\"SALESORDERS\":{\"__deferred\":{\"uri\":\"' + baseUrl + '/BusinessPartner(\\'0100000000\\')/SALESORDERS\"}},\"ADDRESS\":{\"__deferred\":{\"uri\":\"' + baseUrl + '/BusinessPartner(\\'0100000000\\')/ADDRESS\"}}}}';\n",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465820203575,
-			"name": "Get BusinessPartner 0100000000",
-			"description": "",
-			"collectionId": "720591c0-f5dc-b847-00aa-055229b95ca4",
-			"responses": []
-		},
-		{
-			"id": "94a6e04e-7670-54c8-cb36-1515edd23ed7",
-			"headers": "Authorization: Basic T0RBVEFfREVNTzpJbml0aWFsMQ==\nContent-Type: application/json\n",
-			"url": "{{baseUrl}}/BusinessPartner",
+			"url": "https://echo.getpostman.com/delete",
 			"preRequestScript": "",
-			"pathVariables": {},
+			"tests": "tests[\"Body contains files\"] = responseBody.has(\"files\");\ntests[\"Body contains args\"] = responseBody.has(\"args\");\ntests[\"Body contains form\"] = responseBody.has(\"form\");\ntests[\"Body contains headers\"] = responseBody.has(\"headers\");\ntests[\"Body contains url\"] = responseBody.has(\"url\");\n\nvar responseJSON;\n\ntry { responseJSON = JSON.parse(responseBody); }\ncatch (e) { }\n\ntests[\"Data has been passed\"] = (responseJSON && responseJSON.data && responseJSON.data.length)",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "5ce83900-65e2-93c6-9b93-17d5e518cc79",
+			"rawModeData": "Donec fermentum, nisi sed cursus eleifend, nulla tortor ultricies tellus, ut vehicula orci arcu ut velit. In volutpat egestas dapibus. \nMorbi condimentum vestibulum sapien. Etiam dignissim diam quis eros lobortis gravida vel lobortis est. Etiam gravida sed."
+		},
+		{
+			"folder": "53de0c3d-aa65-8ac5-4c0a-89ee3b5fb4fe",
+			"id": "5d1cb79a-1bea-9931-0926-aeb67e4bd116",
+			"name": "POST Request",
+			"dataMode": "raw",
+			"data": [],
+			"descriptionFormat": null,
+			"description": "The HTTP `POST` request method is meant to transfer data to a server \n(and elicit a response). What data is returned depends on the implementation\nof the server.\n\nA `POST` request can pass parameters to the server using \"Query String \nParameters\", as well as the Request Body. For example, in the following request,\n\n> POST /hi/there?hand=wave\n>\n> <request-body>\n\nThe parameter \"hand\" has the value \"wave\". The request body can be in multiple\nformats. These formats are defined by the MIME type of the request. The MIME \nType can be set using the ``Content-Type`` HTTP header. The most commonly used \nMIME types are:\n\n* `multipart/form-data`\n* `application/x-www-form-urlencoded`\n* `application/json`\n\nThis endpoint echoes the HTTP headers, request parameters, the contents of\nthe request body and the complete URI requested.",
+			"headers": "Content-Type: text/plain\n",
 			"method": "POST",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": "var baseUrl = postman.getEnvironmentVariable('baseUrl');\nvar response = JSON.parse(responseBody);\n\ntests[\"Status code is 201\"] = responseCode.code === 201;\ntests['Returned correct entity']= response.d.__metadata.uri === baseUrl + '/BusinessPartner(\\'0123456787\\')';\n",
+			"pathVariables": {},
+			"url": "https://echo.getpostman.com/post",
+			"preRequestScript": "",
+			"tests": "var responseJSON;\n\ntry { responseJSON = JSON.parse(responseBody); }\ncatch (e) { }\n\n\ntests[\"response has data\"] = responseJSON && responseJSON.data && (responseJSON.data.length === 256);\ntests[\"content-type equals text/plain\"] = responseJSON && responseJSON.headers && (responseJSON.headers[\"content-type\"] === 'text/plain');",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1465821047572,
-			"name": "POST BusinessPartner 0123456787",
-			"description": "",
-			"collectionId": "720591c0-f5dc-b847-00aa-055229b95ca4",
-			"responses": [],
-			"rawModeData": "{\"PARTNERID\": \"0123456787\"}"
+			"collectionId": "5ce83900-65e2-93c6-9b93-17d5e518cc79",
+			"rawModeData": "Duis posuere augue vel cursus pharetra. In luctus a ex nec pretium. Praesent neque quam, tincidunt nec leo eget, rutrum vehicula magna.\nMaecenas consequat elementum elit, id semper sem tristique et. Integer pulvinar enim quis consectetur interdum volutpat."
 		},
 		{
-			"id": "971a8af7-b00d-88fb-e9fd-3171dea6c687",
-			"headers": "Authorization: Basic T0RBVEFfREVNTzpJbml0aWFsMQ==\n",
-			"url": "{{baseUrl}}/BusinessPartner?$top=100",
-			"preRequestScript": "",
-			"pathVariables": {},
+			"folder": "d4f98ce5-41e0-a4a0-4ed2-8aec11a4fb42",
+			"id": "678be006-d180-dc29-4e66-625077e9eb7a",
+			"name": "Response Headers",
+			"dataMode": "params",
+			"data": [],
+			"rawModeData": null,
+			"descriptionFormat": null,
+			"description": "This endpoint causes the server to send custom set of response headers. Providing header values as part of the URL parameters of a `GET` request to this endpoint returns the same as part of response header.\n\nTo send your own set of headers, simply add or replace the the URL parameters with your own set.",
+			"headers": "",
 			"method": "GET",
+			"pathVariables": {},
+			"url": "https://echo.getpostman.com/response-headers?Content-Type=text/html&test=response_headers",
+			"preRequestScript": "",
+			"tests": "tests[\"Body contains Content-Type\"] = responseBody.has(\"Content-Type\");\ntests[\"response headers have key sent as part of request\"] = (postman.getResponseHeader('test') == 'response_headers')",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "5ce83900-65e2-93c6-9b93-17d5e518cc79"
+		},
+		{
+			"folder": "d4f98ce5-41e0-a4a0-4ed2-8aec11a4fb42",
+			"id": "8650db50-1c44-6766-abf4-2c56ad40d89a",
+			"name": "Request Headers",
+			"dataMode": "params",
+			"data": [],
+			"rawModeData": null,
+			"descriptionFormat": null,
+			"description": "A `GET` request to this endpoint returns the list of all request headers as part of the response JSON.\nIn Postman, sending your own set of headers through the [Headers tab](https://www.getpostman.com/docs/requests#headers?source=echo-collection-app-onboarding) will reveal the headers as part of the response.",
+			"headers": "my-sample-header: Lorem ipsum dolor sit amet\n",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "https://echo.getpostman.com/headers",
+			"preRequestScript": "",
+			"tests": "var responseJSON;\ntry {\n    tests[\"Body contains headers\"] = responseBody.has(\"headers\");\n    responseJSON = JSON.parse(responseBody);\n    tests[\"Header contains host\"] = \"host\" in responseJSON.headers;\n    tests[\"Header contains test parameter sent as part of request header\"] = \"my-sample-header\" in responseJSON.headers;\n}\ncatch (e) { }\n\n\n\n",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "5ce83900-65e2-93c6-9b93-17d5e518cc79"
+		},
+		{
+			"folder": "4a28f87b-426b-6d63-3d84-b4a746f8d02f",
+			"id": "911c6388-33a9-061e-7e46-13afcf0271b0",
+			"name": "Streamed Response",
+			"dataMode": "params",
+			"data": [],
+			"rawModeData": null,
+			"descriptionFormat": null,
+			"description": "This endpoint allows one to recieve streaming http response using [chunked transfer encoding](https://en.wikipedia.org/wiki/Chunked_transfer_encoding) of a configurable length.\n\nA streaming response does not wait for the entire response to be generated on server before flushing it out. This implies that for a fairly large response, parts of it can be streamed to the requestee as and when it is generated on server. The client can then take actions of processing this partially received data.",
+			"headers": "",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "https://echo.getpostman.com/stream/10",
+			"preRequestScript": "",
+			"tests": "tests[\"response code is 200\"] = responseCode.code === 200;\ntests[\"response is sent in chunks\"] = (postman.getResponseHeader('Transfer-Encoding') === 'chunked')\n",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "5ce83900-65e2-93c6-9b93-17d5e518cc79"
+		},
+		{
+			"folder": "4a28f87b-426b-6d63-3d84-b4a746f8d02f",
+			"id": "9656ed4e-1ec3-1c81-ab2d-f9ca5be269a2",
+			"name": "Response Status Code",
+			"dataMode": "params",
+			"data": [],
+			"rawModeData": null,
+			"descriptionFormat": null,
+			"description": "This endpoint allows one to instruct the server which status code to respond with.\n\nEvery response is accompanied by a status code. The status code provides a summary of the nature of response sent by the server. For example, a status code of `200` means everything is okay with the response and a code of `404` implies that the requested URL does not exist on server. \nA list of all valid HTTP status code can be found at the [List of Status Codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) wikipedia article. When using Postman, the response status code is described for easy reference.\n\nNote that if an invalid status code is requested to be sent, the server returns a status code of `400 Bad Request`.",
+			"headers": "",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "https://echo.getpostman.com/status/200",
+			"preRequestScript": "",
+			"tests": "var responseJSON;\ntry {\n    responseJSON = JSON.parse(responseBody); \n    tests[\"Status equals 200\"] = responseJSON.status === 200;\n}\ncatch (e) { }\ntests[\"Body contains status\"] = responseBody.has(\"status\");\n\n",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "5ce83900-65e2-93c6-9b93-17d5e518cc79"
+		},
+		{
+			"folder": "4a28f87b-426b-6d63-3d84-b4a746f8d02f",
+			"id": "a09b9616-7c78-b4a3-743c-62cb66de5bd9",
+			"name": "Get UTF8 Encoded Response",
+			"dataMode": "params",
+			"data": [],
+			"rawModeData": null,
+			"descriptionFormat": null,
+			"description": "If a response of an endpoint requires to send data beyond the basic English / ASCII character set, the `charset` parameter in the `Content-Type` response header defines the character encoding policy.\n\nThis endpoint returns an `UTF8` character encoded response body with text in various languages such as Greek, Latin, East Asian, etc. Postman can interpret the character encoding and use appropriate methods to display the character set in responses.",
+			"headers": "",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "https://echo.getpostman.com/encoding/utf8",
+			"preRequestScript": "",
+			"tests": "tests[\"response code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "5ce83900-65e2-93c6-9b93-17d5e518cc79"
+		},
+		{
+			"folder": "1e3736c7-bb1c-49c9-408a-eaf3132f9213",
+			"id": "a8028e7c-0340-baff-dec1-7e2c14a4de46",
+			"name": "DigestAuth Request",
+			"dataMode": "params",
 			"data": [
 				{
 					"key": "code",
@@ -317,124 +511,765 @@
 					"enabled": true
 				}
 			],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "var response = JSON.parse(responseBody);\n\ntests['Returned 20 results']= response.d.results.length === 45;\n",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465820655986,
-			"name": "Get BusinessPartner (client-driven pagination)",
-			"description": "",
-			"collectionId": "720591c0-f5dc-b847-00aa-055229b95ca4",
-			"responses": []
-		},
-		{
-			"id": "ca975147-2eed-a8ca-b570-f78a88ff392b",
-			"headers": "Authorization: Basic T0RBVEFfREVNTzpJbml0aWFsMQ==\n",
-			"url": "{{baseUrl}}/BusinessPartner/$count",
-			"preRequestScript": null,
-			"pathVariables": {},
+			"rawModeData": null,
+			"descriptionFormat": null,
+			"description": "Performing a simple `GET` request to this endpoint returns status code `401 Unauthorized` with `WWW-Authenticate` header containing information to successfully authenticate subsequent requests.\nThe `WWW-Authenticate` header must be processed to extract `realm` and `nonce` values to hash subsequent requests.\n\nWhen this request is executed within Postman, the script attached with this request does the hard work of extracting realm and nonce from the header and set it as [global variables](https://www.getpostman.com/docs/environments#global-variables?source=echo-collection-app-onboarding) named `echo_digest_nonce` and `echo_digest_realm`.\nThese variables are re-used in subsequent request for seamless integration of the two requests.",
+			"headers": "",
 			"method": "GET",
-			"data": null,
-			"dataMode": "params",
-			"version": 2,
-			"tests": "tests[\"Body is correct\"] = responseBody === '45'",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465819155564,
-			"name": "Get BusinessPartner/$count",
-			"description": "",
-			"collectionId": "720591c0-f5dc-b847-00aa-055229b95ca4",
-			"responses": []
-		},
-		{
-			"id": "e93e28d2-748e-7274-a143-ffb1468ef0ed",
-			"headers": "Authorization: Basic T0RBVEFfREVNTzpJbml0aWFsMQ==\n",
-			"url": "{{baseUrl}}/BusinessPartner",
+			"pathVariables": {},
+			"url": "https://echo.getpostman.com/digest-auth",
 			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "GET",
-			"data": [
-				{
-					"key": "code",
-					"value": "xWnkliVQJURqB2x1",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "grant_type",
-					"value": "authorization_code",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "redirect_uri",
-					"value": "https://www.getpostman.com/oauth2/callback",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "client_id",
-					"value": "abc123",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "client_secret",
-					"value": "ssh-secret",
-					"type": "text",
-					"enabled": true
-				}
-			],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "var baseUrl = postman.getEnvironmentVariable('baseUrl');\nvar response = JSON.parse(responseBody);\n\ntests['Returned 20 results']= response.d.results.length === 20;\ntests['Returned correct next link'] = ~response.d.__next.indexOf(baseUrl) && response.d.__next.match(/\\/BusinessPartner\\?\\$skiptoken=\\d+-0100000019/);\ntests['Delta token present'] = response.d.__delta.match(/\\d+/);\n",
+			"tests": "tests[\"response code is 401\"] = responseCode.code === 401;\ntests[\"response has WWW-Authenticate header\"] = (postman.getResponseHeader('WWW-Authenticate'));\n\nvar authenticateHeader = postman.getResponseHeader('WWW-Authenticate'),\n    realmStart = authenticateHeader.indexOf('\"',authenticateHeader.indexOf(\"realm\")) + 1 ,\n    realmEnd = authenticateHeader.indexOf('\"',realmStart),\n    realm = authenticateHeader.slice(realmStart,realmEnd),\n    nonceStart = authenticateHeader.indexOf('\"',authenticateHeader.indexOf(\"nonce\")) + 1,\n    nonceEnd = authenticateHeader.indexOf('\"',nonceStart),\n    nonce = authenticateHeader.slice(nonceStart,nonceEnd);\n    \npostman.setGlobalVariable('echo_digest_realm', realm);\npostman.setGlobalVariable('echo_digest_nonce', nonce);",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1465820638547,
-			"name": "Get BusinessPartner (Page 1)",
-			"description": "",
-			"collectionId": "720591c0-f5dc-b847-00aa-055229b95ca4",
-			"responses": []
+			"collectionId": "5ce83900-65e2-93c6-9b93-17d5e518cc79"
 		},
 		{
-			"id": "f070bc10-7548-a052-9f8f-969099dcc32a",
-			"headers": "Authorization: Basic T0RBVEFfREVNTzpJbml0aWFsMQ==\nContent-Type: multipart/mixed;boundary=batch_7317-c239-9c8d\n",
-			"url": "{{baseUrl}}/$batch",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "POST",
+			"folder": "1e3736c7-bb1c-49c9-408a-eaf3132f9213",
+			"id": "b5c0d158-009c-c797-3a3a-87a64cf7e65e",
+			"name": "DigestAuth Success",
+			"dataMode": "params",
 			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": "var baseUrl = postman.getEnvironmentVariable('baseUrl');\r\nvar boundary = postman.getResponseHeader('content-type').match(/boundary=(.*);/)[1];\r\nvar changeset = 'changeset_63f8-0a2b-ee0b';\r\nvar entities = responseBody\r\n    .remove('--' + boundary + '--')\r\n    .remove('--' + changeset + '--')\r\n    .split('--' + boundary)\r\n    .map(function(entity) {\r\n        return entity.match(changeset) ? entity.split('--' + changeset) : entity;\r\n    });\r\n\r\nvar entity1 = 'Content-Type: application/xml;charset=utf-8';\r\n\r\ntests['Successfully loaded $metadata'] = ~entities[1].indexOf('HTTP/1.1 200 OK') && ~entities[1].indexOf(entity1);\r\n\r\nvar entity2 = 'HTTP/1.1 200 OK\\n' +\r\n'Content-Type: text/plain;charset=utf-8\\n' +\r\n'Content-Length: 2\\n' +\r\n'\\n' +\r\n'45';\r\n\r\ntests['Successfully loaded BusinessPartner/$count'] = ~entities[2].indexOf('HTTP/1.1 200 OK') && ~entities[2].indexOf(entity2);\r\n\r\nvar entity3 = '{\"d\":{\"results\":[{\"__metadata\":{\"type\":\"odata.BusinessPartnerType\",\"uri\":\"' + baseUrl + '/BusinessPartner(\\'0100000000\\')\"}';\r\n\r\ntests['Successfully loaded BusinessPartner (Page 1)'] = ~entities[3].indexOf('HTTP/1.1 200 OK') && ~entities[3].replace(/\\r\\n/g, '\\n').indexOf(entity3);\r\n\r\nvar entity4 = '{\"d\":{\"results\":[{\"__metadata\":{\"type\":\"odata.BusinessPartnerType\",\"uri\":\"' + baseUrl + '/BusinessPartner(\\'0100000020\\')\"}';\r\n\r\ntests['Successfully loaded BusinessPartner (Page 2)'] = ~entities[4].indexOf('HTTP/1.1 200 OK') && ~entities[4].replace(/\\r\\n/g, '\\n').indexOf(entity4);\r\n\r\nvar entity5 = '{\"d\":{\"results\":[{\"__metadata\":{\"type\":\"odata.BusinessPartnerType\",\"uri\":\"' + baseUrl + '/BusinessPartner(\\'0100000000\\')\"}';\r\n\r\ntests['Successfully loaded BusinessPartner (client-driven pagination)'] = ~entities[5].indexOf('HTTP/1.1 200 OK') && ~entities[5].replace(/\\r\\n/g, '\\n').indexOf(entity5);\r\n\r\nvar entity6_1 = '{\"d\":{\"__metadata\":{\"type\":\"odata.BusinessPartnerType\",\"uri\":\"' + baseUrl + '/BusinessPartner(\\'0123456789\\')\"}';\r\n\r\ntests['Successfully created BusinessPartner 0123456789'] = ~entities[6][1].indexOf('HTTP/1.1 201 Created') && ~entities[6][1].replace(/\\r\\n/g, '\\n').indexOf(entity6_1);\r\n\r\nvar entity6_2 = 'HTTP/1.1 204 No Content\\n' +\r\n'Content-Type: text/html\\n' +\r\n'Content-Length: 0';\r\n\r\ntests['Successfully uppdated BusinessPartner 0123456789'] = ~entities[6][2].indexOf(entity6_2);\r\n\r\nvar entity6_3 = entity6_2; \r\n\r\ntests['Successfully deleted BusinessPartner 0123456789'] = ~entities[6][3].indexOf(entity6_3);\r\n",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465821082498,
-			"name": "$batch: Request all the things!",
-			"description": "",
-			"collectionId": "720591c0-f5dc-b847-00aa-055229b95ca4",
-			"responses": [],
-			"rawModeData": "--batch_7317-c239-9c8d\r\nContent-Type: application/http\r\nContent-Transfer-Encoding: binary\r\n\r\nGET $metadata HTTP/1.1\r\n\r\n\r\n--batch_7317-c239-9c8d\r\nContent-Type: application/http\r\nContent-Transfer-Encoding: binary\r\n\r\nGET BusinessPartner/$count HTTP/1.1\r\n\r\n\r\n--batch_7317-c239-9c8d\r\nContent-Type: application/http\r\nContent-Transfer-Encoding: binary\r\n\r\nGET BusinessPartner HTTP/1.1\r\n\r\n\r\n--batch_7317-c239-9c8d\r\nContent-Type: application/http\r\nContent-Transfer-Encoding: binary\r\n\r\nGET BusinessPartner?$skiptoken=1462180529027-0100000019 HTTP/1.1\r\n\r\n\r\n--batch_7317-c239-9c8d\r\nContent-Type: application/http\r\nContent-Transfer-Encoding: binary\r\n\r\nGET BusinessPartner?$top=100 HTTP/1.1\r\n\r\n\r\n--batch_7317-c239-9c8d\r\nContent-Type: multipart/mixed; boundary=changeset_63f8-0a2b-ee0b\r\n\r\n--changeset_63f8-0a2b-ee0b\r\nContent-Type: application/http\r\nContent-Transfer-Encoding: binary\r\n\r\nPOST BusinessPartner HTTP/1.1\r\nContent-Type: application/json\r\n\r\n{\"PARTNERID\":\"0123456789\"}\r\n--changeset_63f8-0a2b-ee0b\r\nContent-Type: application/http\r\nContent-Transfer-Encoding: binary\r\n\r\nMERGE BusinessPartner('0123456789') HTTP/1.1\r\nContent-Type: application/json\r\n\r\n{\"EMAILADDRESS\":\"karl.mueller@sap.com\"}\r\n--changeset_63f8-0a2b-ee0b\r\nContent-Type: application/http\r\nContent-Transfer-Encoding: binary\r\n\r\nDELETE BusinessPartner('0123456789') HTTP/1.1\r\n\r\n\r\n--changeset_63f8-0a2b-ee0b--\r\n\r\n\r\n--batch_7317-c239-9c8d--"
+			"rawModeData": null,
+			"descriptionFormat": null,
+			"description": "This endpoint sends a hashed Digest Authorization header to gain access to a valid `200 Ok` response code. In Postman, it uses the stored [global variables](https://www.getpostman.com/docs/environments#gloval-variables?source=echo-collection-app-onboarding), `echo_digest_realm` and `echo_digest_nonce`, to generate the hashed authorisation header.\n\nWithin Postman, for this request to successfully authenticate, running the previous request \"DigestAuth Request\" stores the relevant information within the global variables.",
+			"headers": "Authorization: Digest username=\"postman\", realm=\"Users\", nonce=\"ni1LiL0O37PRRhofWdCLmwFsnEtH1lew\", uri=\"/digest-auth\", response=\"254679099562cf07df9b6f5d8d15db44\", opaque=\"\"\n",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "https://echo.getpostman.com/digest-auth",
+			"preRequestScript": "",
+			"tests": "tests[\"response code is 200\"] = responseCode.code === 200;\ntests[\"body contains authenticated\"] = responseBody.has(\"authenticated\");",
+			"currentHelper": "digestAuth",
+			"helperAttributes": {
+				"id": "digest",
+				"time": 1446551845396,
+				"algorithm": "MD5",
+				"username": "postman",
+				"realm": "{{echo_digest_realm}}",
+				"password": "password",
+				"nonce": "{{echo_digest_nonce}}",
+				"nonceCount": "",
+				"clientNonce": "",
+				"opaque": "",
+				"qop": "",
+				"saveToRequest": true
+			},
+			"collectionId": "5ce83900-65e2-93c6-9b93-17d5e518cc79",
+			"responses": [
+				{
+					"owner": 0,
+					"lastUpdatedBy": "181687",
+					"lastRevision": 86088929,
+					"request": "eecb504e-1736-d34c-990a-b86d36f06ddd",
+					"id": "5feb2378-57a8-46ed-a90a-3f6be69a8288",
+					"name": "200",
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK"
+					},
+					"time": "9843",
+					"headers": [
+						{
+							"name": "Access-Control-Allow-Credentials",
+							"key": "Access-Control-Allow-Credentials",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Headers",
+							"key": "Access-Control-Allow-Headers",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Methods",
+							"key": "Access-Control-Allow-Methods",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Origin",
+							"key": "Access-Control-Allow-Origin",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": ""
+						},
+						{
+							"name": "Content-Encoding",
+							"key": "Content-Encoding",
+							"value": "gzip",
+							"description": ""
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "42",
+							"description": ""
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": ""
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Thu, 29 Oct 2015 06:17:51 GMT",
+							"description": ""
+						},
+						{
+							"name": "Server",
+							"key": "Server",
+							"value": "nginx/1.6.2",
+							"description": ""
+						},
+						{
+							"name": "Vary",
+							"key": "Vary",
+							"value": "Accept-Encoding",
+							"description": ""
+						},
+						{
+							"name": "X-Powered-By",
+							"key": "X-Powered-By",
+							"value": "Sails <sailsjs.org>",
+							"description": ""
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"authenticated\":true}",
+					"language": "javascript",
+					"rawDataType": "text",
+					"state": {
+						"size": "normal"
+					},
+					"previewType": "html",
+					"searchResultScrolledTo": "-1",
+					"version": null,
+					"requestObject": "\"eecb504e-1736-d34c-990a-b86d36f06ddd\"",
+					"createdAt": "2015-11-02T13:11:09.000Z",
+					"updatedAt": "2015-11-23T07:07:09.000Z",
+					"write": true
+				},
+				{
+					"owner": 0,
+					"lastUpdatedBy": "181687",
+					"lastRevision": 86088928,
+					"request": "eecb504e-1736-d34c-990a-b86d36f06ddd",
+					"id": "9fb89958-221d-06d4-a34b-37e742001f8b",
+					"name": "200",
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK"
+					},
+					"time": "9843",
+					"headers": [
+						{
+							"name": "Access-Control-Allow-Credentials",
+							"key": "Access-Control-Allow-Credentials",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Headers",
+							"key": "Access-Control-Allow-Headers",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Methods",
+							"key": "Access-Control-Allow-Methods",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Origin",
+							"key": "Access-Control-Allow-Origin",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": ""
+						},
+						{
+							"name": "Content-Encoding",
+							"key": "Content-Encoding",
+							"value": "gzip",
+							"description": ""
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "42",
+							"description": ""
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": ""
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Thu, 29 Oct 2015 06:17:51 GMT",
+							"description": ""
+						},
+						{
+							"name": "Server",
+							"key": "Server",
+							"value": "nginx/1.6.2",
+							"description": ""
+						},
+						{
+							"name": "Vary",
+							"key": "Vary",
+							"value": "Accept-Encoding",
+							"description": ""
+						},
+						{
+							"name": "X-Powered-By",
+							"key": "X-Powered-By",
+							"value": "Sails <sailsjs.org>",
+							"description": ""
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"authenticated\":true}",
+					"language": "javascript",
+					"rawDataType": "text",
+					"state": {
+						"size": "normal"
+					},
+					"previewType": "html",
+					"searchResultScrolledTo": "-1",
+					"version": null,
+					"requestObject": "\"eecb504e-1736-d34c-990a-b86d36f06ddd\"",
+					"createdAt": "2015-11-02T13:11:09.000Z",
+					"updatedAt": "2015-11-23T07:07:09.000Z",
+					"write": true
+				}
+			]
 		},
 		{
-			"id": "fc700652-9cfe-caa9-3f93-2ea49a0c7664",
-			"headers": "Authorization: Basic T0RBVEFfREVNTzpJbml0aWFsMQ==\n",
-			"url": "{{baseUrl}}/BusinessPartner('0100000000')?$expand=SALESORDERS",
-			"preRequestScript": null,
+			"folder": "53de0c3d-aa65-8ac5-4c0a-89ee3b5fb4fe",
+			"id": "b6df28db-7359-acb3-d8e0-c1cc2188a103",
+			"name": "PATCH Request",
+			"dataMode": "raw",
+			"data": [],
+			"descriptionFormat": null,
+			"description": "The HTTP `PATCH` method is used to update resources on a server. The exact\nuse of `PATCH` requests depends on the server in question. There are a number\nof server implementations which handle `PATCH` differently. Technically, \n`PATCH` supports both Query String parameters and a Request Body.\n\nThis endpoint accepts an HTTP `PATCH` request and provides debug information\nsuch as the HTTP headers, Query String arguments, and the Request Body.",
+			"headers": "",
+			"method": "PATCH",
 			"pathVariables": {},
-			"method": "GET",
-			"data": null,
-			"dataMode": "params",
-			"version": 2,
-			"tests": "var baseUrl = postman.getEnvironmentVariable('baseUrl');\n\ntests[\"Body is correct\"] = responseBody === '{\"d\":{\"__metadata\":{\"type\":\"odata.BusinessPartnerType\",\"uri\":\"' + baseUrl + '/BusinessPartner(\\'0100000000\\')\"},\"PARTNERID\":\"0100000000\",\"PARTNERROLE\":\"01\",\"PHONENUMBER\":\"0622734567\",\"EMAILADDRESS\":\"karl.mueller@sap.com\",\"FAXNUMBER\":null,\"WEBADDRESS\":\"http://www.sap.com\",\"ADDRESSID_ADDRESSID\":\"1000000034\",\"COMPANYNAME\":\"SAP\",\"LEGALFORM\":\"AG\",\"CURRENCY\":\"EUR\",\"SALESORDERS\":{\"results\":[{\"__metadata\":{\"type\":\"odata.SalesOrderType\",\"uri\":\"' + baseUrl + '/SalesOrder(\\'0500000000\\')\"},\"SALESORDERID\":\"0500000000\",\"NOTEID\":null,\"PARTNERID_PARTNERID\":\"0100000000\",\"CURRENCY\":\"EUR\",\"GROSSAMOUNT\":\"26581.03\",\"NETAMOUNT\":\"22337\",\"TAXAMOUNT\":\"4244.03\",\"LIFECYCLESTATUS\":\"X\",\"BILLINGSTATUS\":\"I\",\"DELIVERYSTATUS\":\"I\"},{\"__metadata\":{\"type\":\"odata.SalesOrderType\",\"uri\":\"' + baseUrl + '/SalesOrder(\\'0500000009\\')\"},\"SALESORDERID\":\"0500000009\",\"NOTEID\":null,\"PARTNERID_PARTNERID\":\"0100000000\",\"CURRENCY\":\"EUR\",\"GROSSAMOUNT\":\"3972.22\",\"NETAMOUNT\":\"3338\",\"TAXAMOUNT\":\"634.22\",\"LIFECYCLESTATUS\":\"P\",\"BILLINGSTATUS\":\"P\",\"DELIVERYSTATUS\":\"I\"},{\"__metadata\":{\"type\":\"odata.SalesOrderType\",\"uri\":\"' + baseUrl + '/SalesOrder(\\'0500000020\\')\"},\"SALESORDERID\":\"0500000020\",\"NOTEID\":null,\"PARTNERID_PARTNERID\":\"0100000000\",\"CURRENCY\":\"EUR\",\"GROSSAMOUNT\":\"5523.38\",\"NETAMOUNT\":\"4641.5\",\"TAXAMOUNT\":\"881.88\",\"LIFECYCLESTATUS\":\"N\",\"BILLINGSTATUS\":\"I\",\"DELIVERYSTATUS\":\"I\"},{\"__metadata\":{\"type\":\"odata.SalesOrderType\",\"uri\":\"' + baseUrl + '/SalesOrder(\\'0500000034\\')\"},\"SALESORDERID\":\"0500000034\",\"NOTEID\":null,\"PARTNERID_PARTNERID\":\"0100000000\",\"CURRENCY\":\"EUR\",\"GROSSAMOUNT\":\"107100\",\"NETAMOUNT\":\"90000\",\"TAXAMOUNT\":\"17100\",\"LIFECYCLESTATUS\":\"N\",\"BILLINGSTATUS\":\"I\",\"DELIVERYSTATUS\":\"I\"},{\"__metadata\":{\"type\":\"odata.SalesOrderType\",\"uri\":\"' + baseUrl + '/SalesOrder(\\'0500000045\\')\"},\"SALESORDERID\":\"0500000045\",\"NOTEID\":null,\"PARTNERID_PARTNERID\":\"0100000000\",\"CURRENCY\":\"EUR\",\"GROSSAMOUNT\":\"113032.74\",\"NETAMOUNT\":\"94985.5\",\"TAXAMOUNT\":\"18047.24\",\"LIFECYCLESTATUS\":\"C\",\"BILLINGSTATUS\":\"P\",\"DELIVERYSTATUS\":\"D\"},{\"__metadata\":{\"type\":\"odata.SalesOrderType\",\"uri\":\"' + baseUrl + '/SalesOrder(\\'0500000250\\')\"},\"SALESORDERID\":\"0500000250\",\"NOTEID\":null,\"PARTNERID_PARTNERID\":\"0100000000\",\"CURRENCY\":\"EUR\",\"GROSSAMOUNT\":\"26581.03\",\"NETAMOUNT\":\"22337\",\"TAXAMOUNT\":\"4244.03\",\"LIFECYCLESTATUS\":\"N\",\"BILLINGSTATUS\":\"I\",\"DELIVERYSTATUS\":\"I\"},{\"__metadata\":{\"type\":\"odata.SalesOrderType\",\"uri\":\"' + baseUrl + '/SalesOrder(\\'0500000259\\')\"},\"SALESORDERID\":\"0500000259\",\"NOTEID\":null,\"PARTNERID_PARTNERID\":\"0100000000\",\"CURRENCY\":\"EUR\",\"GROSSAMOUNT\":\"3972.22\",\"NETAMOUNT\":\"3338\",\"TAXAMOUNT\":\"634.22\",\"LIFECYCLESTATUS\":\"X\",\"BILLINGSTATUS\":\"I\",\"DELIVERYSTATUS\":\"I\"},{\"__metadata\":{\"type\":\"odata.SalesOrderType\",\"uri\":\"' + baseUrl + '/SalesOrder(\\'0500000270\\')\"},\"SALESORDERID\":\"0500000270\",\"NOTEID\":null,\"PARTNERID_PARTNERID\":\"0100000000\",\"CURRENCY\":\"EUR\",\"GROSSAMOUNT\":\"5523.38\",\"NETAMOUNT\":\"4641.5\",\"TAXAMOUNT\":\"881.88\",\"LIFECYCLESTATUS\":\"X\",\"BILLINGSTATUS\":\"I\",\"DELIVERYSTATUS\":\"I\"},{\"__metadata\":{\"type\":\"odata.SalesOrderType\",\"uri\":\"' + baseUrl + '/SalesOrder(\\'0500000284\\')\"},\"SALESORDERID\":\"0500000284\",\"NOTEID\":null,\"PARTNERID_PARTNERID\":\"0100000000\",\"CURRENCY\":\"EUR\",\"GROSSAMOUNT\":\"107100\",\"NETAMOUNT\":\"90000\",\"TAXAMOUNT\":\"17100\",\"LIFECYCLESTATUS\":\"P\",\"BILLINGSTATUS\":\"P\",\"DELIVERYSTATUS\":\"I\"},{\"__metadata\":{\"type\":\"odata.SalesOrderType\",\"uri\":\"' + baseUrl + '/SalesOrder(\\'0500000295\\')\"},\"SALESORDERID\":\"0500000295\",\"NOTEID\":null,\"PARTNERID_PARTNERID\":\"0100000000\",\"CURRENCY\":\"EUR\",\"GROSSAMOUNT\":\"113032.74\",\"NETAMOUNT\":\"94985.5\",\"TAXAMOUNT\":\"18047.24\",\"LIFECYCLESTATUS\":\"X\",\"BILLINGSTATUS\":\"I\",\"DELIVERYSTATUS\":\"I\"},{\"__metadata\":{\"type\":\"odata.SalesOrderType\",\"uri\":\"' + baseUrl + '/SalesOrder(\\'0500000500\\')\"},\"SALESORDERID\":\"0500000500\",\"NOTEID\":null,\"PARTNERID_PARTNERID\":\"0100000000\",\"CURRENCY\":\"EUR\",\"GROSSAMOUNT\":\"26581.03\",\"NETAMOUNT\":\"22337\",\"TAXAMOUNT\":\"4244.03\",\"LIFECYCLESTATUS\":\"N\",\"BILLINGSTATUS\":\"I\",\"DELIVERYSTATUS\":\"I\"},{\"__metadata\":{\"type\":\"odata.SalesOrderType\",\"uri\":\"' + baseUrl + '/SalesOrder(\\'0500000509\\')\"},\"SALESORDERID\":\"0500000509\",\"NOTEID\":null,\"PARTNERID_PARTNERID\":\"0100000000\",\"CURRENCY\":\"EUR\",\"GROSSAMOUNT\":\"3972.22\",\"NETAMOUNT\":\"3338\",\"TAXAMOUNT\":\"634.22\",\"LIFECYCLESTATUS\":\"X\",\"BILLINGSTATUS\":\"I\",\"DELIVERYSTATUS\":\"I\"},{\"__metadata\":{\"type\":\"odata.SalesOrderType\",\"uri\":\"' + baseUrl + '/SalesOrder(\\'0500000520\\')\"},\"SALESORDERID\":\"0500000520\",\"NOTEID\":null,\"PARTNERID_PARTNERID\":\"0100000000\",\"CURRENCY\":\"EUR\",\"GROSSAMOUNT\":\"5523.38\",\"NETAMOUNT\":\"4641.5\",\"TAXAMOUNT\":\"881.88\",\"LIFECYCLESTATUS\":\"X\",\"BILLINGSTATUS\":\"I\",\"DELIVERYSTATUS\":\"I\"},{\"__metadata\":{\"type\":\"odata.SalesOrderType\",\"uri\":\"' + baseUrl + '/SalesOrder(\\'0500000534\\')\"},\"SALESORDERID\":\"0500000534\",\"NOTEID\":null,\"PARTNERID_PARTNERID\":\"0100000000\",\"CURRENCY\":\"EUR\",\"GROSSAMOUNT\":\"107100\",\"NETAMOUNT\":\"90000\",\"TAXAMOUNT\":\"17100\",\"LIFECYCLESTATUS\":\"N\",\"BILLINGSTATUS\":\"I\",\"DELIVERYSTATUS\":\"I\"},{\"__metadata\":{\"type\":\"odata.SalesOrderType\",\"uri\":\"' + baseUrl + '/SalesOrder(\\'0500000545\\')\"},\"SALESORDERID\":\"0500000545\",\"NOTEID\":null,\"PARTNERID_PARTNERID\":\"0100000000\",\"CURRENCY\":\"EUR\",\"GROSSAMOUNT\":\"113032.74\",\"NETAMOUNT\":\"94985.5\",\"TAXAMOUNT\":\"18047.24\",\"LIFECYCLESTATUS\":\"X\",\"BILLINGSTATUS\":\"I\",\"DELIVERYSTATUS\":\"I\"},{\"__metadata\":{\"type\":\"odata.SalesOrderType\",\"uri\":\"' + baseUrl + '/SalesOrder(\\'0500000750\\')\"},\"SALESORDERID\":\"0500000750\",\"NOTEID\":null,\"PARTNERID_PARTNERID\":\"0100000000\",\"CURRENCY\":\"EUR\",\"GROSSAMOUNT\":\"26581.03\",\"NETAMOUNT\":\"22337\",\"TAXAMOUNT\":\"4244.03\",\"LIFECYCLESTATUS\":\"X\",\"BILLINGSTATUS\":\"I\",\"DELIVERYSTATUS\":\"I\"},{\"__metadata\":{\"type\":\"odata.SalesOrderType\",\"uri\":\"' + baseUrl + '/SalesOrder(\\'0500000759\\')\"},\"SALESORDERID\":\"0500000759\",\"NOTEID\":null,\"PARTNERID_PARTNERID\":\"0100000000\",\"CURRENCY\":\"EUR\",\"GROSSAMOUNT\":\"3972.22\",\"NETAMOUNT\":\"3338\",\"TAXAMOUNT\":\"634.22\",\"LIFECYCLESTATUS\":\"X\",\"BILLINGSTATUS\":\"I\",\"DELIVERYSTATUS\":\"I\"},{\"__metadata\":{\"type\":\"odata.SalesOrderType\",\"uri\":\"' + baseUrl + '/SalesOrder(\\'0500000770\\')\"},\"SALESORDERID\":\"0500000770\",\"NOTEID\":null,\"PARTNERID_PARTNERID\":\"0100000000\",\"CURRENCY\":\"EUR\",\"GROSSAMOUNT\":\"5523.38\",\"NETAMOUNT\":\"4641.5\",\"TAXAMOUNT\":\"881.88\",\"LIFECYCLESTATUS\":\"N\",\"BILLINGSTATUS\":\"I\",\"DELIVERYSTATUS\":\"I\"},{\"__metadata\":{\"type\":\"odata.SalesOrderType\",\"uri\":\"' + baseUrl + '/SalesOrder(\\'0500000784\\')\"},\"SALESORDERID\":\"0500000784\",\"NOTEID\":null,\"PARTNERID_PARTNERID\":\"0100000000\",\"CURRENCY\":\"EUR\",\"GROSSAMOUNT\":\"107100\",\"NETAMOUNT\":\"90000\",\"TAXAMOUNT\":\"17100\",\"LIFECYCLESTATUS\":\"C\",\"BILLINGSTATUS\":\"P\",\"DELIVERYSTATUS\":\"D\"},{\"__metadata\":{\"type\":\"odata.SalesOrderType\",\"uri\":\"' + baseUrl + '/SalesOrder(\\'0500000795\\')\"},\"SALESORDERID\":\"0500000795\",\"NOTEID\":null,\"PARTNERID_PARTNERID\":\"0100000000\",\"CURRENCY\":\"EUR\",\"GROSSAMOUNT\":\"113032.74\",\"NETAMOUNT\":\"94985.5\",\"TAXAMOUNT\":\"18047.24\",\"LIFECYCLESTATUS\":\"X\",\"BILLINGSTATUS\":\"I\",\"DELIVERYSTATUS\":\"I\"}]},\"ADDRESS\":{\"__deferred\":{\"uri\":\"' + baseUrl + '/BusinessPartner(\\'0100000000\\')/ADDRESS\"}}}}';",
+			"url": "https://echo.getpostman.com/patch",
+			"preRequestScript": "",
+			"tests": "tests[\"Body contains files\"] = responseBody.has(\"files\");\ntests[\"Body contains args\"] = responseBody.has(\"args\");\ntests[\"Body contains form\"] = responseBody.has(\"form\");\ntests[\"Body contains headers\"] = responseBody.has(\"headers\");\ntests[\"Body contains url\"] = responseBody.has(\"url\");\n\nvar responseJSON;\n\ntry { responseJSON = JSON.parse(responseBody); }\ncatch (e) { }\n\ntests[\"Data has been passed\"] = (responseJSON && responseJSON.data && responseJSON.data.length)",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1465820630027,
-			"name": "Get BusinessPartner 0100000000/$expand=SALESORDERS",
-			"description": "",
-			"collectionId": "720591c0-f5dc-b847-00aa-055229b95ca4",
-			"responses": []
+			"collectionId": "5ce83900-65e2-93c6-9b93-17d5e518cc79",
+			"rawModeData": "Curabitur auctor, elit nec pulvinar porttitor, ex augue condimentum enim, eget suscipit urna felis quis neque.\nSuspendisse sit amet luctus massa, nec venenatis mi. Suspendisse tincidunt massa at nibh efficitur fringilla. Nam quis congue mi. Etiam volutpat."
+		},
+		{
+			"folder": "ec4d854f-330c-fdb9-6ee1-867f424b4c5b",
+			"id": "d2d7084a-c0aa-ab5b-b523-a0d317d3fd6f",
+			"name": "Get Cookies",
+			"dataMode": "params",
+			"data": [],
+			"rawModeData": null,
+			"descriptionFormat": null,
+			"description": "Use this endpoint to get a list of all cookies that are stored with respect to this domain. Whatever key-value pairs that has been previously set by calling the \"Set Cookies\" endpoint, will be returned as response JSON.",
+			"headers": "",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "https://echo.getpostman.com/cookies",
+			"preRequestScript": "",
+			"tests": "var responseJSON;\ntry {\n    tests[\"Body contains cookies\"] = responseBody.has(\"cookies\");\n    responseJSON = JSON.parse(responseBody);\n    tests[\"Cookies object is empty\"] = (Object.keys(responseJSON.cookies).length === 0)\n}\ncatch (e) { }\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\n",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "5ce83900-65e2-93c6-9b93-17d5e518cc79",
+			"responses": [
+				{
+					"owner": 0,
+					"lastUpdatedBy": "181687",
+					"lastRevision": 86088911,
+					"request": "4118ca21-f216-410f-510c-2d0e465022c5",
+					"id": "de70e123-0380-1d2b-290b-a6751ca10deb",
+					"name": "Cookies",
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK"
+					},
+					"time": "462",
+					"headers": [
+						{
+							"name": "Access-Control-Allow-Credentials",
+							"key": "Access-Control-Allow-Credentials",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Headers",
+							"key": "Access-Control-Allow-Headers",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Methods",
+							"key": "Access-Control-Allow-Methods",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Origin",
+							"key": "Access-Control-Allow-Origin",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": ""
+						},
+						{
+							"name": "Content-Encoding",
+							"key": "Content-Encoding",
+							"value": "gzip",
+							"description": ""
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "46",
+							"description": ""
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": ""
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Thu, 29 Oct 2015 06:16:29 GMT",
+							"description": ""
+						},
+						{
+							"name": "Server",
+							"key": "Server",
+							"value": "nginx/1.6.2",
+							"description": ""
+						},
+						{
+							"name": "Vary",
+							"key": "Vary",
+							"value": "Accept-Encoding",
+							"description": ""
+						},
+						{
+							"name": "X-Powered-By",
+							"key": "X-Powered-By",
+							"value": "Sails <sailsjs.org>",
+							"description": ""
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"cookies\":{\"foo2\":\"bar\"}}",
+					"language": "javascript",
+					"rawDataType": "text",
+					"state": {
+						"size": "normal"
+					},
+					"previewType": "html",
+					"searchResultScrolledTo": "-1",
+					"version": null,
+					"requestObject": "\"4118ca21-f216-410f-510c-2d0e465022c5\"",
+					"createdAt": "2015-11-02T13:11:11.000Z",
+					"updatedAt": "2015-11-23T07:07:08.000Z",
+					"write": true
+				}
+			]
+		},
+		{
+			"folder": "ec4d854f-330c-fdb9-6ee1-867f424b4c5b",
+			"id": "d8a5c0ed-c950-9442-04b8-59f37be8a404",
+			"name": "Delete Cookies",
+			"dataMode": "params",
+			"data": [],
+			"rawModeData": null,
+			"descriptionFormat": null,
+			"description": "One or more cookies that has been set for this domain can be deleted by providing the cookie names as part of the URL parameter. The response of this request is a JSON containing the list of currently set cookies.",
+			"headers": "",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "https://echo.getpostman.com/cookies/delete?foo1&foo2",
+			"preRequestScript": "",
+			"tests": "var responseJSON;\ntry {\n    tests[\"Body contains cookies\"] = responseBody.has(\"cookies\");\n    responseJSON = JSON.parse(responseBody);\n    tests[\"Body contains cookie foo2\"] = !('foo2' in responseJSON.cookies);\n    tests[\"Body does not contain cookie foo2\"] = !('foo1' in responseJSON.cookies);\n}\ncatch (e) { }\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\n",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "5ce83900-65e2-93c6-9b93-17d5e518cc79",
+			"responses": [
+				{
+					"owner": 0,
+					"lastUpdatedBy": "181687",
+					"lastRevision": 86088944,
+					"request": "4ac1e980-6990-fc1d-5f80-4e5cedce9812",
+					"id": "320ae3eb-6448-9839-5c93-ca1e470770d8",
+					"name": "Cookies Response",
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK"
+					},
+					"time": "1417",
+					"headers": [
+						{
+							"name": "Access-Control-Allow-Credentials",
+							"key": "Access-Control-Allow-Credentials",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Headers",
+							"key": "Access-Control-Allow-Headers",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Methods",
+							"key": "Access-Control-Allow-Methods",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Origin",
+							"key": "Access-Control-Allow-Origin",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": ""
+						},
+						{
+							"name": "Content-Encoding",
+							"key": "Content-Encoding",
+							"value": "gzip",
+							"description": ""
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "46",
+							"description": ""
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": ""
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Thu, 29 Oct 2015 06:16:00 GMT",
+							"description": ""
+						},
+						{
+							"name": "Server",
+							"key": "Server",
+							"value": "nginx/1.6.2",
+							"description": ""
+						},
+						{
+							"name": "Vary",
+							"key": "Vary",
+							"value": "Accept-Encoding",
+							"description": ""
+						},
+						{
+							"name": "X-Powered-By",
+							"key": "X-Powered-By",
+							"value": "Sails <sailsjs.org>",
+							"description": ""
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"cookies\":{\"foo2\":\"bar\"}}",
+					"language": "javascript",
+					"rawDataType": "text",
+					"state": {
+						"size": "normal"
+					},
+					"previewType": "html",
+					"searchResultScrolledTo": "-1",
+					"version": null,
+					"requestObject": "\"4ac1e980-6990-fc1d-5f80-4e5cedce9812\"",
+					"createdAt": "2015-11-02T13:11:10.000Z",
+					"updatedAt": "2015-11-23T07:07:10.000Z",
+					"write": true
+				}
+			]
+		},
+		{
+			"folder": "4a28f87b-426b-6d63-3d84-b4a746f8d02f",
+			"id": "f2953eb5-f585-ff50-65e6-2cc24f1de31c",
+			"name": "GZip Compressed Response",
+			"dataMode": "params",
+			"data": [],
+			"rawModeData": null,
+			"descriptionFormat": null,
+			"description": "This endpoint returns the response using [gzip compression algoritm](https://en.wikipedia.org/wiki/Gzip).\nThe uncompressed response is a JSON string containing the details of the request sent by the client. For this endpoint to work, one should request with `Accept-encoding` header containing `gzip` as part of its value. Postman supports gzip, deflate and SDCH decoding and automatically sends them as part of the request.\n\nHTTP Compression allows the server to send responses in a compressed format, which is uncompressed by the client before processing. This reduces network bandwidth consumption at the cost of increase in CPU usage.\nTo know more about this, refer the [HTTP Compression](https://en.wikipedia.org/wiki/HTTP_compression) wikipedia article.",
+			"headers": "",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "https://echo.getpostman.com/gzip",
+			"preRequestScript": "",
+			"tests": "try {\n    var data = JSON.parse(responseBody);\n    tests[\"Body contains gzipped\"] = responseBody.has(\"gzipped\");\n    tests[\"Body contains headers\"] = responseBody.has(\"headers\");\n    tests[\"Body contains method\"] = responseBody.has(\"method\");\n}\ncatch(e) {\n    console.log('Cannot parse response,probably not a JSON');\n}\ntests[\"response code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "5ce83900-65e2-93c6-9b93-17d5e518cc79"
+		},
+		{
+			"folder": "dd30fc5a-2d5b-de04-1bd0-bb5e59f82363",
+			"id": "f6fee350-cc24-718f-b26e-77cdafc402db",
+			"name": "Basic Auth",
+			"dataMode": "params",
+			"data": [],
+			"rawModeData": null,
+			"descriptionFormat": null,
+			"description": "This endpoint simulates a **basic-auth** protected endpoint. \nThe endpoint accepts a default username and password and returns a status code of `200 ok` only if the same is provided. \nOtherwise it will return a status code `401 unauthorized`.\n\n> Username: `postman`\n> \n> Password: `password`\n\nTo use this endpoint, send a request with the header `Authorization: Basic cG9zdG1hbjpwYXNzd29yZA==`. \nThe cryptic latter half of the header value is a base64 encoded concatenation of the default username and password. \nUsing Postman, to send this request, you can simply fill in the username and password in the \"Authorization\" tab and Postman will do the rest for you.\n\nTo know more about basic authentication, refer to the [Basic Access Authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) wikipedia article.\nThe article on [authentication helpers](https://www.getpostman.com/docs/helpers#basic-auth?source=echo-collection-app-onboarding) elaborates how to use the same within the Postman app.",
+			"headers": "Authorization: Basic cG9zdG1hbjpwYXNzd29yZA==\n",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "https://echo.getpostman.com/basic-auth",
+			"preRequestScript": "",
+			"tests": "tests[\"response code is 200\"] = responseCode.code === 200;\ntests[\"Body contains authenticated\"] = responseBody.has(\"authenticated\");",
+			"currentHelper": "basicAuth",
+			"helperAttributes": {
+				"username": "postman",
+				"password": "password",
+				"saveToRequest": true,
+				"id": "basic",
+				"timestamp": 1441099408703
+			},
+			"collectionId": "5ce83900-65e2-93c6-9b93-17d5e518cc79",
+			"responses": [
+				{
+					"owner": 0,
+					"lastUpdatedBy": "181687",
+					"lastRevision": 86088939,
+					"request": "ef90671a-ab14-16f5-0a57-41b32fc2a36f",
+					"id": "0ea91e77-5d53-b04d-b05c-af562543bb74",
+					"name": "200",
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK"
+					},
+					"time": "377",
+					"headers": [
+						{
+							"name": "Access-Control-Allow-Credentials",
+							"key": "Access-Control-Allow-Credentials",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Headers",
+							"key": "Access-Control-Allow-Headers",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Methods",
+							"key": "Access-Control-Allow-Methods",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Origin",
+							"key": "Access-Control-Allow-Origin",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": ""
+						},
+						{
+							"name": "Content-Encoding",
+							"key": "Content-Encoding",
+							"value": "gzip",
+							"description": ""
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "42",
+							"description": ""
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": ""
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Sat, 31 Oct 2015 06:38:25 GMT",
+							"description": ""
+						},
+						{
+							"name": "Server",
+							"key": "Server",
+							"value": "nginx/1.6.2",
+							"description": ""
+						},
+						{
+							"name": "Vary",
+							"key": "Vary",
+							"value": "Accept-Encoding",
+							"description": ""
+						},
+						{
+							"name": "X-Powered-By",
+							"key": "X-Powered-By",
+							"value": "Sails <sailsjs.org>",
+							"description": ""
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"authenticated\":true}",
+					"language": "javascript",
+					"rawDataType": "text",
+					"state": {
+						"size": "normal"
+					},
+					"previewType": "html",
+					"searchResultScrolledTo": "-1",
+					"version": null,
+					"requestObject": "\"ef90671a-ab14-16f5-0a57-41b32fc2a36f\"",
+					"createdAt": "2015-11-02T13:11:09.000Z",
+					"updatedAt": "2015-11-23T07:07:10.000Z",
+					"write": true
+				},
+				{
+					"owner": 0,
+					"lastUpdatedBy": "181687",
+					"lastRevision": 86088938,
+					"request": "ef90671a-ab14-16f5-0a57-41b32fc2a36f",
+					"id": "ffa0062d-3d06-0f2f-faad-4a1038693fd0",
+					"name": "401",
+					"status": "",
+					"responseCode": {
+						"code": 401,
+						"name": "Unauthorized"
+					},
+					"time": "276",
+					"headers": [
+						{
+							"name": "Access-Control-Allow-Credentials",
+							"key": "Access-Control-Allow-Credentials",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Headers",
+							"key": "Access-Control-Allow-Headers",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Methods",
+							"key": "Access-Control-Allow-Methods",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Access-Control-Allow-Origin",
+							"key": "Access-Control-Allow-Origin",
+							"value": "",
+							"description": ""
+						},
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": ""
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Sat, 31 Oct 2015 06:38:51 GMT",
+							"description": ""
+						},
+						{
+							"name": "Server",
+							"key": "Server",
+							"value": "nginx/1.6.2",
+							"description": ""
+						},
+						{
+							"name": "WWW-Authenticate",
+							"key": "WWW-Authenticate",
+							"value": "Basic realm=\"Users\"",
+							"description": ""
+						},
+						{
+							"name": "X-Powered-By",
+							"key": "X-Powered-By",
+							"value": "Sails <sailsjs.org>",
+							"description": ""
+						},
+						{
+							"name": "transfer-encoding",
+							"key": "transfer-encoding",
+							"value": "chunked",
+							"description": ""
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "Unauthorized",
+					"language": "html",
+					"rawDataType": "text",
+					"state": {
+						"size": "normal"
+					},
+					"previewType": "html",
+					"searchResultScrolledTo": "-1",
+					"version": null,
+					"requestObject": "\"ef90671a-ab14-16f5-0a57-41b32fc2a36f\"",
+					"createdAt": "2015-11-02T13:11:09.000Z",
+					"updatedAt": "2015-11-23T07:07:09.000Z",
+					"write": true
+				}
+			]
 		}
 	]
 }
