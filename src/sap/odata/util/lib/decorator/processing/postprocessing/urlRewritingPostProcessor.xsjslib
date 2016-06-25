@@ -25,7 +25,14 @@ UrlRewritingPostProcessor.prototype.apply = function (response) {
 	
 	data.traverse(function(object, parent, name) {
 		if(object && ~['uri', 'id', '__delta', '__next'].indexOf(name)) {
-			parent[name] = object.replace(this.replacementRegex, '$1' + this.request.getServicePath() + '$3');
+			parent[name] = this.replace(object);
 		}
 	}.bind(this));
+	
+	var location = response.headers.get('location');
+	if(location) response.headers.set('location', this.replace(location));
+};
+
+UrlRewritingPostProcessor.prototype.replace = function (url) {
+	return url.replace(this.replacementRegex, '$1' + this.request.getServicePath() + '$3');
 };
