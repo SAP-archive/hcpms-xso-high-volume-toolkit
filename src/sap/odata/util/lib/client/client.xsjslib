@@ -58,6 +58,8 @@ Client.prototype.apply = function() {
 	}.bind(this));
 	
 	response.applyToOutboundResponse();
+	
+	log($.response, 'outbound response');
 };
 
 /**
