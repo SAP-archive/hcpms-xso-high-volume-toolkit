@@ -19,7 +19,7 @@ var TombstoneFilterDecorator = $.import('sap.odata.util.lib.decorator', 'tombsto
 function Client(destination, decorator) {
 	Object.defineProperties(this, {
 		"request": {
-			value: new WebRequest($.request)
+			value: new WebRequest($.request, destination)
 		},
 		"destination": {
 			value: destination

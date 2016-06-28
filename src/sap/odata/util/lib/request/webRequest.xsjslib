@@ -13,15 +13,13 @@ var MultiMap = $.import('sap.odata.util.lib', 'multiMap').MultiMap;
  * 
  * 
  */
-function WebRequest(webRequest) {
+function WebRequest(webRequest, destination) {
 	if(!webRequest) throw 'Missing required attribute webRequest\nat: ' + new Error().stack;
+	if(!destination) throw 'Missing required attribute destination\nat: ' + new Error().stack;
 	
-	Request.call(this, webRequest);
+	Request.call(this, webRequest, destination);
 	
 	Object.defineProperties(this, {
-		'body': {
-			value: webRequest.body
-		},
 		'path': {
 			value: webRequest.path
 		},
@@ -39,11 +37,21 @@ function WebRequest(webRequest) {
 		}
 	});
 	
+	var json = this.headers.get('content-type') === 'application/json' ||
+		this.headers.get('content-type') === 'text/json';
+	var body = webRequest.body ? webRequest.body.asString() : null;
+	
 	Object.defineProperties(this, {
 		'boundary': {
 			value: this.isMultipartRequest()
 					? this.headers.get('content-type').match(/boundary=(.*)$/)[1]
 					: null
+		},
+		'json': {
+			value: json
+		},
+		'body': {
+			value: json && body ? JSON.parse(body) : body
 		}
 	});
 }
@@ -73,7 +81,7 @@ WebRequest.prototype.copyHeaders = function() {
  * See sap.odata.util.lib.request.Request#getTargetCollectionPath
  */
 WebRequest.prototype.getTargetCollectionPath = function() {
-	return this.getTargetServicePath() + this.getQueryPath();
+	return this.getTargetServiceName() + this.getQueryPath();
 };
 
 /*
@@ -102,13 +110,6 @@ WebRequest.prototype.getMethod = function() {
  */
 WebRequest.prototype.getMethodName = function() {
 	return this.headers.get('~request_method');
-};
-
-/*
- * See sap.odata.util.lib.request.Request#getTargetServicePath
- */
-WebRequest.prototype.getTargetServicePath = function() {
-	return '/' + this.getServiceName() + '.xsodata';
 };
 
 /*
@@ -153,7 +154,7 @@ WebRequest.prototype.toUpstreamRequest = function() {
 
 WebRequest.prototype.getOutboundBody = function() {
 	if(!this.isMultipartRequest()) {
-		return this.webRequest.body ? this.webRequest.body.asString() : '';
+		return this.json ? JSON.stringify(this.body) : (this.body || '');
 	}
 	
 	return this.getOutboundChildEntityBody();

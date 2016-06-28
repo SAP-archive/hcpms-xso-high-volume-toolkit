@@ -1,5 +1,6 @@
 var Decorator = $.import('sap.odata.util.lib.decorator', 'decorator').Decorator;
 var UrlRewritingPostProcessor = $.import('sap.odata.util.lib.decorator.processing.postprocessing', 'urlRewritingPostProcessor').UrlRewritingPostProcessor;
+var UrlRewritingPreProcessor = $.import('sap.odata.util.lib.decorator.processing.preprocessing', 'urlRewritingPreProcessor').UrlRewritingPreProcessor;
 
 /**
  * Decorator that that rewrites URLs pointing to the wrapped XSOData service
@@ -15,7 +16,7 @@ function UrlRewritingDecorator(utils, metadataClient) {
 	if(!utils) throw 'Missing required attribute request\nat: ' + new Error().stack;
 	if(!metadataClient) throw 'Missing required attribute metadataClient\nat: ' + new Error().stack;
 	
-	Decorator.call(this, utils, metadataClient, null, UrlRewritingPostProcessor);
+	Decorator.call(this, utils, metadataClient, UrlRewritingPreProcessor, UrlRewritingPostProcessor);
 }
 
 UrlRewritingDecorator.prototype = new Decorator();

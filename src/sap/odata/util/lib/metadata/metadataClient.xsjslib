@@ -7,7 +7,7 @@ function  MetadataClient(request, destination) {
 }
 
 MetadataClient.prototype.loadMetadata = function() {
-	var request = new $.web.WebRequest($.net.http.GET, this.request.getTargetServicePath() + '/$metadata');
+	var request = new $.web.WebRequest($.net.http.GET, this.request.getTargetServiceName() + '/$metadata');
 	var client = new $.net.http.Client();
 	client.request(request, this.destination);
 	var response = client.getResponse();

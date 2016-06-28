@@ -5,10 +5,15 @@
  *  the Liskov substitution principle. Subclasses may behave radically different.
  * 
  */
-function Request(webRequest) {
+function Request(webRequest, destination) {
 	if(webRequest) {
-		Object.defineProperty(this, 'webRequest', { value: webRequest });
 		Object.defineProperties(this, {
+			'webRequest': {
+				value: webRequest
+			},
+			'destination': {
+				value: destination
+			},
 			'children': {
 				value: []
 			}
@@ -26,7 +31,7 @@ function notImplemented() { throw 'Method not implemented:\n' + new Error().stac
  */
 Request.prototype.traverse = function(visitor) {
 	for(var i = 0; i < this.webRequest.entities.length; i++) {
-		var newChild = new WebEntityRequest(this.webRequest.entities[i], this.id + '.' + i);
+		var newChild = new WebEntityRequest(this.webRequest.entities[i], this.id + '.' + i, this.destination);
 		this.children.push(newChild);
 		newChild.traverse(visitor);
 	}
@@ -81,6 +86,19 @@ Request.prototype.getTargetCollectionPath = notImplemented;
 Request.prototype.getRequestMethod = notImplemented;
 
 /**
+ * Returns the target service name which is being proxied
+ * 
+ * <pre><code>
+ * 
+ * http://myhost:8000/my/service.xsodata/MyCollection
+ *                      ^--------------^
+ * </code></pre>
+ */
+Request.prototype.getTargetServiceName = function() {
+	return '/' + this.getServiceName() + '.xsodata';
+};
+
+/**
  * Returns the target service path which is being proxied, excluding the query path
  * 
  * <pre><code>
@@ -89,7 +107,20 @@ Request.prototype.getRequestMethod = notImplemented;
  *                   ^-----------------^
  * </code></pre>
  */
-Request.prototype.getTargetServicePath = notImplemented;
+Request.prototype.getTargetServicePath = function() {
+	return this.destination.pathPrefix + this.getTargetServiceName();
+};
+
+/**
+ * Returns the target service path which is being proxied, excluding the query path
+ * 
+ * <pre><code>
+ * 
+ * http://myhost:8000/my/service.xsodata/MyCollection
+ *                   ^-----------------^
+ * </code></pre>
+ */
+Request.prototype.getTarget = function() {};
 
 /**
  * Returns the request path, including the query path

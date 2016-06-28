@@ -46,12 +46,13 @@ var MultiMap = $.import('sap.odata.util.lib', 'multiMap').MultiMap;
  * 
  * 
  */
-function WebEntityRequest(webRequest, id) {
+function WebEntityRequest(webRequest, id, destination) {
 	if(!webRequest) throw 'Missing required attribute webRequest\nat: ' + new Error().stack;
 	if(!id) throw 'Missing required attribute id\nat: ' + new Error().stack;
+	if(!destination) throw 'Missing required attribute destination\nat: ' + new Error().stack;
 	
 	
-	Request.call(this, webRequest);
+	Request.call(this, webRequest, destination);
 	
 	Object.defineProperties(this, {
 		'id': {
@@ -116,6 +117,19 @@ function WebEntityRequest(webRequest, id) {
 			},
 			'id': {
 				value: id
+			}
+		});
+		
+		var json = this.headers.get('content-type') === 'application/json' ||
+		this.headers.get('content-type') === 'text/json';
+		var body = parsedBody.body;
+		
+		Object.defineProperties(this, {
+			'json': {
+				value: json
+			},
+			'body': {
+				value: json && body ? JSON.parse(body) : body
 			}
 		});
 	} else {
@@ -222,7 +236,7 @@ WebEntityRequest.prototype.getOutboundBody = function() {
 	return [this.getOutboundHeaderString(),
  	        this.getOutboundRequestLine(),
 	        this.getOutboundBodyHeaderString(),
-	        this.parsedBody.body].join('\n');
+	        this.json ? JSON.stringify(this.body) : this.body].join('\n');
 };
 
 WebEntityRequest.prototype.getOutboundHeaderString = function() {
