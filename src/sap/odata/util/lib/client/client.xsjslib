@@ -1,4 +1,3 @@
-var Utils = $.import('sap.odata.util.lib', 'utils').Utils;
 var WebRequest = $.import('sap.odata.util.lib.request', 'webRequest').WebRequest;
 var WebResponse = $.import('sap.odata.util.lib.response', 'webResponse').WebResponse;
 var MetadataClient = $.import('sap.odata.util.lib.metadata', 'metadataClient').MetadataClient;

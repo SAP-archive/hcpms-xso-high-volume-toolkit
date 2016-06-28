@@ -1,5 +1,4 @@
 var Configuration = $.import('sap.odata.util.lib.db', 'configuration').Configuration;
-var Utils = $.import('sap.odata.util.lib', 'utils').Utils;
 
 /**
  * Decorator base class implementing the generic upstream request
@@ -64,7 +63,7 @@ Decorator.prototype.preRequest = function() { return this.preprocessor.apply(); 
  * 
  * This method is only called when the request was successful (i.e. status 200).
  * 
- * @parameter {objec|string} response Metadata XML string (iff <code>isMetadataRequest()</code>),
+ * @parameter {object|string} response Metadata XML string (iff <code>isMetadataRequest()</code>),
  * 		parsed response body (iff <code>!isMetadataRequest()</code>) or undefined, if there was no body
  * 
  * @returns Transformed data. If a falsy value is returned, the original data is sent to the client.
