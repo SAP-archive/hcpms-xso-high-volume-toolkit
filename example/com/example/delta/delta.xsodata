@@ -23,6 +23,7 @@ service namespace "odata" {
      multiplicity "1" dependent "SalesOrder"("PARTNERID_PARTNERID") multiplicity "*";
     
     association "AddressBusinessPartner" principal "Address"("ADDRESSID")
-     multiplicity "1" dependent "BusinessPartner"("ADDRESSID_ADDRESSID") multiplicity "*";
+     multiplicity "1" dependent "BusinessPartner"("ADDRESSID_ADDRESSID") multiplicity "*"
+     update using "com.example.delta.data::businesspartner_update_addresslink";
 
 }

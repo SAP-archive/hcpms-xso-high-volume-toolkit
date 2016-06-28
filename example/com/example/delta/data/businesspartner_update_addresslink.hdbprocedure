@@ -1,0 +1,27 @@
+PROCEDURE "HCPMS_XSO_HVT_DEMO"."com.example.delta.data::businesspartner_update_addresslink" (
+		IN principal "_SYS_BIC"."com.example.delta.data/Addresses_Delta",
+		IN dependent "_SYS_BIC"."com.example.delta.data/BusinessPartner_Delta",
+		OUT error "com.example.delta.data::error"
+	) 
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER
+	DEFAULT SCHEMA "HCPMS_XSO_HVT_DEMO" AS
+BEGIN
+	DECLARE aid VARCHAR(10);
+	DECLARE bpid VARCHAR(10);
+	
+	SELECT ADDRESSID INTO aid FROM :principal;
+	SELECT PARTNERID INTO bpid FROM :dependent;
+	
+	UPDATE "com.example.delta.data::hcpms_xso_hvt.demo.BusinessPartner" AS bp
+		SET "ADDRESSID.ADDRESSID" = :aid
+		WHERE bp.PARTNERID = :bpid;
+	
+	IF 0 > 1 THEN
+		-- Room for error handling
+	    error = SELECT 500 AS http_status_code, 
+	    'Internal server error' error_message, 
+	    'Internal server error' detail FROM dummy;
+	    ROLLBACK;
+	END IF;
+END;
