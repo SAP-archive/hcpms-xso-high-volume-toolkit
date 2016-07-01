@@ -1,6 +1,22 @@
 var Processor = $.import('sap.odata.util.lib.decorator.processing', 'processor').Processor;
 $.import('sap.odata.util.lib', 'Date.toODataV2String');
 
+/**
+ * Pre processor that filters entity sets based on the supplied delta token.
+ *
+ * It applies a $filter expression to the upstream request that requests entities
+ * are not older than the timestamp encoded in the $deltatoken query option.
+ *
+ * Configuration options (default):
+ *  - deltatoken.deltaPropertyName  (DELTATOKEN)
+ *		Name of the field indicating when an entity was last modified (UTC)
+ *  - deltatoken.deletedPropertyName (IS_DELETED)
+ *		Name of the field indicating tombstones, i.e. entities that have been deleted
+ *	- deltatoken.deletedPropertyYesValue (Y)
+ *		Nominal value that needs to be in the tombstone flag field so that it marks a tombstone
+ *
+ * @see lib.db.Configuration
+ */
 function DeltaTokenPreProcessor(request, metadataClient) {
 	if(!request) throw 'Missing required attribute request\nat: ' + new Error().stack;
 	if(!metadataClient) throw 'Missing required attribute metadataClient\nat: ' + new Error().stack;
@@ -26,6 +42,9 @@ function DeltaTokenPreProcessor(request, metadataClient) {
 DeltaTokenPreProcessor.prototype = new Processor();
 DeltaTokenPreProcessor.prototype.constructor = DeltaTokenPreProcessor;
 
+/*
+ * @see lib.decorator.processing.Processor.apply
+ */
 DeltaTokenPreProcessor.prototype.apply = function() {
 	var parameters = this.request.parameters;
 	parameters.remove('!deltatoken');

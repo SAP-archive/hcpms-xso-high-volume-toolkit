@@ -3,47 +3,7 @@ var WebRequest = $.import('sap.odata.util.lib.request', 'webRequest').WebRequest
 var MultiMap = $.import('sap.odata.util.lib', 'multiMap').MultiMap;
 
 /**
- * 
- * 
- * 
- * <code>
- * 
- * POST https://example.hana.ondemand.com/path/to/service.xsodata/$batch HTTP/1.1
- * Content-Type: multipart/mixed;boundary=batch_7317-c239-9c8d
- * 
- * --batch_7317-c239-9c8d
- * Content-Type: multipart/mixed; boundary=changeset_63f8-0a2b-ee0b
- * 
- * --changeset_63f8-0a2b-ee0b
- * Content-Type: application/http
- * Content-Transfer-Encoding: binary
- * 
- * MERGE Buyer('0100000000') HTTP/1.1
- * Accept-Language: en-US
- * Accept: application/json
- * MaxDataServiceVersion: 2.0
- * DataServiceVersion: 2.0
- * Content-Type: application/json
- * Content-Length: 40
- * 
- * {"EMAILADDRESS":"karl.mueller2@sap.com"}
- * --changeset_63f8-0a2b-ee0b--
- * 
- * 
- * --batch_7317-c239-9c8d
- * Content-Type: application/http
- * Content-Transfer-Encoding: binary
- * 
- * GET Buyer/$count HTTP/1.1
- * Accept-Language: en-US
- * Accept: application/json
- * MaxDataServiceVersion: 2.0
- * DataServiceVersion: 2.0
- * 
- * 
- * --batch_7317-c239-9c8d--
- * </code>
- * 
+ * Request wrapper class for top-level request manipulation.
  * 
  */
 function WebEntityRequest(webRequest, id, destination) {
@@ -63,7 +23,7 @@ function WebEntityRequest(webRequest, id, destination) {
 	if(!this.isMultipartRequest()) {
 		var body = webRequest.body.asString();
 		var parseRegex = /^([A-Z]+)\s+([^?]+)\??(\S+)?\s+HTTP\/1\.1\s*(((?!\n\n)(?!\r\r)(?!\r\n\r\n)[\s\S])*)(\r\n\r\n|\r\r|\n\n)([\s\S]*)?$/;
-		//				   ^method    ^path	  ^query			   ^headers	^2x newline	  ^body
+		//				   ^method    ^path	  ^query ^headers								^2x newline			^body
 		var pieces = body.match(parseRegex);
 		var headerLines = pieces[4].split(/\r\n?|\n/).filter(function(pair) { return pair.length; });
 		var headers = new MultiMap();

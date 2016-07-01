@@ -37,10 +37,18 @@ var ID_FORMATTERS = {
 	datetimeoffset: IDENTITY		// datetimeoffset'2002-10-10T17:00:00Z'
 };
 
+/**
+ * Function returning its first argument.
+ */
 function IDENTITY(x) { return x; }
 
 /**
- * 
+ * Preprocessor that translates the $skiptoken in the request
+ * into an upstream $filter query and limiting the result in terms
+ * of $top. This preprocessor requires the targeted entity set to be
+ * in a stable ordering, so that the entity sets can be separated into
+ * chunks by their primary key. Therefore it cannot be used in conjunction
+ * with $orderby.
  */
 function SkipTokenPreProcessor(request, metadataClient) {
 	if(!request) throw 'Missing required attribute request\nat: ' + new Error().stack;
@@ -54,7 +62,10 @@ SkipTokenPreProcessor.prototype.constructor = SkipTokenPreProcessor;
 
 /**
  * Sets the request parameters for the request to the target service that
- * corresponds to the current request parameters.
+ * corresponds to the current request parameters. Removes $skiptoken from the
+ * upstream request and adds a $filter expression that selects
+ * the next chunk of entities. $inlinecount is also requested in order to know
+ * if a __next link needs to be added to the downstream response later.
  */
 SkipTokenPreProcessor.prototype.apply = function() {
 	var parameters = this.request.parameters;
@@ -71,6 +82,28 @@ SkipTokenPreProcessor.prototype.apply = function() {
 	parameters.set('$inlinecount', 'allpages');
 };
 
+/* 
+ * Creates a $filter expression selecting the next chunk of entities.
+ * The filter is created so that all entities "greater than" the last
+ * returned entity are fetched from the XSOData service. This is done by
+ * leveraging the strict increasing natural order on primary keys of HANA.
+ *
+ * The primary key of the last returned entity are encoded in the $skiptoken
+ * of __next links.
+ *
+ * Example:
+ * The last  entity set has keys
+ *	- sId: string = 123
+ *	- nId: number = 234
+ *	- gId: guid = 345
+ *
+ * The generated filter would be (spanning across lines):
+ *	sId gt '123' or
+ *	sId eq '123' and nId gt 234 or
+ *	sId eq '123' and nId eq 234 and gId gt guid'345'
+ *
+ * @return {string} filter expression
+ */
 SkipTokenPreProcessor.prototype.createFilter = function() {
 	if(!this.getCurrentSkipToken()) return;
 	

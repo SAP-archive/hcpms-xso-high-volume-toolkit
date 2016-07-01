@@ -5,17 +5,20 @@ var CompositeDecorator = $.import('sap.odata.util.lib.decorator', 'composite').C
 var TombstoneFilterDecorator = $.import('sap.odata.util.lib.decorator', 'tombstoneFilter').TombstoneFilterDecorator;
 
 /**
- * Decorator base class implementing the generic upstream request
- * strategy and providing extension points for inheriting classes
- * in order to customize the behavior.
+ * Client class proxying
+ * - the incoming OData request to the upstream XSOData
+ * - the incoming XSOData response to the downstream OData client
+ * and applying the added decorator types.
+ *
+ * Decorator classes are instantiated per request entity
+ * and sub-entity (in case of $batch requests).
  * 
- * Extension points:
- * 
- * - isActive
- * - preRequest
- * - postRequest(response)
+ * The tombstone filter decorator is always applied, so that
+ * tombstones of hard-deleted entities never leak to the client.
+ *
+ * @see lib.decorator.TomstoneFilterDecorator
  */
-function Client(destination, decorator) {
+function Client(destination) {
 	Object.defineProperties(this, {
 		"request": {
 			value: new WebRequest($.request, destination)
@@ -29,10 +32,17 @@ function Client(destination, decorator) {
 	});
 }
 
+/**
+ * Adds the specified decorator to be applied to the proxied request
+ * and response.
+ */
 Client.prototype.addDecoratorClass = function(decoratorClass) {
 	this.decoratorClasses.push(decoratorClass);
 }
 
+/**
+ * Creates a new composite decorator consolidating the added decorator classes.
+ */
 Client.prototype.createDecorator = function(request) {
 	var metadataClient = new MetadataClient(request, this.destination);
 	
@@ -64,7 +74,7 @@ Client.prototype.apply = function() {
 /**
  * Carries out the upstream request, returning the response object.
  * 
- * @returns the {$.web.Response} the response
+ * @returns the {lib.response.WebResponse} the response
  */
 Client.prototype.doRequest = function() {
 	var upstreamRequest = this.request.toUpstreamRequest();
@@ -77,16 +87,18 @@ Client.prototype.doRequest = function() {
 	
 	log(response, 'inbound response');
 	
-	if(response.status === 303) throw 'Got redirect requesting ' + this.request.getTargetCollectionPath()
-		+ '. Please check the credentials.\nat: ' + new Error().stack;
+	if(response.status === 303) throw 'Got redirect requesting ' +
+		this.request.getTargetCollectionPath() +
+		'. Please check the credentials.\nat: ' + new Error().stack;
 	
 	return new WebResponse(this.request, response);
 };
 
 /**
- * Log the specifried request or response headers and parameters.
+ * Log the specified request or response headers and parameters.
  * 
- * @parameter type {string} arbitrary message string that should identify the logged request or response
+ * @parameter type {string} arbitrary message string that should
+ * identify the logged request or response
  * 		(e.g. 'outbound Google Search', 'inbound request')
  */
 function log(requestOrResponse, type) {

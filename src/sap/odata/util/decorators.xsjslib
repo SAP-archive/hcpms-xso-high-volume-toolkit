@@ -18,6 +18,10 @@ function decorate(destination) {
 	return new DecoratorFacade(destination);
 }
 
+/**
+ * Exposes the HCPms High Volume Toolkit (HVT) API to clients. This should be the only point
+ * of interaction between implementing XSJS services and the HVT itself.
+ */
 function DecoratorFacade(destination) {
 	this.client = new Client(destination);
 	
@@ -54,6 +58,9 @@ DecoratorFacade.prototype.withDeltaTokens = function() {
 	return this;
 }
 
+/**
+ * Applies the currently configured and active decorators to the current request.
+ */
 DecoratorFacade.prototype.applyDecorators = function() {
 	$.trace.debug('****************************************************************** start');
 	this.client.apply();

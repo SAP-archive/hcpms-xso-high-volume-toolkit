@@ -34,6 +34,21 @@ var KEY_TYPE_BLACKLIST = ['Edm.Binary'];
 function MetadataParser() {
 }
 
+/**
+ * Parser that parses a $metadata (CSDL) document and returns its relevant
+ * parts as an object. Type names are mapped from their EDM names according
+ * to {@link TYPE_MAP}. Collection names in the collections map are the plain
+ * entity set names, e.g: "ProductSet", "SalesOrders", "BusinessPartner".
+ *
+ * @return {{
+ * collections: {
+ *	[key: string]: {
+ *			keys: {name: string, type: string},
+ *			properties: {name: string, type: string}
+ *		}
+ *	}
+ * }}
+ */
 MetadataParser.prototype.parse = function(xmlString) {
 	var parser = new $.util.SAXParser();
 	

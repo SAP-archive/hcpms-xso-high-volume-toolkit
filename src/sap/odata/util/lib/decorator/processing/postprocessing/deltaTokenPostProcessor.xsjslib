@@ -3,6 +3,34 @@ var SkipTokenPostProcessor = $.import('sap.odata.util.lib.decorator.processing.p
 $.import('sap.odata.util.lib', 'Date.latestSafeTimestamp');
 $.import('sap.odata.util.lib', 'Object.traverse');
 
+/**
+ * Post processor that
+ *
+ * - applies delta links to entity set responses
+ * - optionally replaces tombstones with $deletedEntity entries
+ * - optionally strips delta-related entity fields from the response
+ *    (change tracking deletion flag and timestamp)
+ *
+ * When either of the last options is turned on via configuration, the
+ * proxied response is deep inspected and rewritten.
+ *
+ * During server-side paginations (via $skiptoken) the delta link is
+ * preserved.
+ * 
+ * Configuration options (default):
+ *  - deltatoken.deltaPropertyName  (DELTATOKEN)
+ *		Name of the field indicating when an entity was last modified (UTC)
+ *  - deltatoken.deletedPropertyName (IS_DELETED)
+ *		Name of the field indicating tombstones, i.e. entities that have been deleted
+ *	- deltatoken.deletedPropertyYesValue (Y)
+ *		Nominal value that needs to be in the tombstone flag field so that it marks a tombstone
+ *  - deltatoken.stripDeltaFields
+ *		Tells if delta-related fields (default: IS_DELETED, DELTATOKEN) should be stripped from entities
+ *	- deltatoken.replaceDeletedEntities
+ *		Tells if tombstones should be replaced with $deletedEntity entriess
+ *
+ * @see lib.db.Configuration
+ */
 function DeltaTokenPostProcessor(request, metadataClient) {
 	if(!request) throw 'Missing required attribute request\nat: ' + new Error().stack;
 	if(!metadataClient) throw 'Missing required attribute metadataClient\nat: ' + new Error().stack;
@@ -31,6 +59,9 @@ function DeltaTokenPostProcessor(request, metadataClient) {
 DeltaTokenPostProcessor.prototype = new Processor();
 DeltaTokenPostProcessor.prototype.constructor = DeltaTokenPostProcessor;
 
+/*
+ * @see lib.decorator.processing.Processor.apply
+ */
 DeltaTokenPostProcessor.prototype.apply = function(response) {
 	if(!response.json) return;
 	
@@ -66,7 +97,7 @@ DeltaTokenPostProcessor.prototype.apply = function(response) {
 };
 
 /**
- * Returns the URL to the next page, relative to the server base URL.
+ * Returns the absolute delta link URL.
  */
 DeltaTokenPostProcessor.prototype.getDeltaUrl = function() {
 	return this.request.getFullTargetServicePath() + '?' + this.querify(this.getDeltaRequestParameters());
@@ -88,11 +119,14 @@ DeltaTokenPostProcessor.prototype.getDeltaRequestParameters = function() {
 };
 
 /**
- * Returns the current request <pre><code>!deltatoken</code></pre> parameter
- * or 0 if it is undefined.
- * Leverages sanitization of <pre><code>parseInt</code></pre>.
+ * Returns the delta token that should be returned with the current
+ * response. If a skiptoken is available, the encoded delta token is
+ * returned. If none is available, the latest "safe" timestamp in terms of
+ * database snapshot isloation (ongoing changing transactions) is used.
+ *
+ * @see lib.Date.latestSafeTimestamp
  * 
- * @returns {number} The current delta token (default 0).
+ * @returns {number} The delta token for the next delta link to be returned.
  */
 DeltaTokenPostProcessor.prototype.getNextDeltaToken = function() {
 	if(this.request.originalParameters.contains('$skiptoken')) {
@@ -100,4 +134,3 @@ DeltaTokenPostProcessor.prototype.getNextDeltaToken = function() {
 	}
 	return Date.latestSafeTimestamp().getTime();
 };
-

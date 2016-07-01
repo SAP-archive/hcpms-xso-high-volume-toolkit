@@ -1,6 +1,10 @@
 var Configuration = $.import('sap.odata.util.lib.db', 'configuration').Configuration;
 
-
+/**
+ * Base processor class for request preprocessing and response postprocessing
+ * classes. Provides basic access to configuration, the current context and some
+ * common utilities.
+ */
 function Processor(request, metadataClient) {
 	Object.defineProperties(this, {
 		'request': {
@@ -25,6 +29,9 @@ Processor.prototype.getConfiguredValue = function(key) {
 			this.request.isCollectionRequest() ? this.request.getCollectionName() : undefined);
 };
 
+/**
+ * Returns the metadata of the collection 
+ */
 Processor.prototype.getMetadata = function() {
 	return this.metadataClient.getMetadata();
 };

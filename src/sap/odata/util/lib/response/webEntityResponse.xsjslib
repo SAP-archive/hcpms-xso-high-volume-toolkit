@@ -3,16 +3,7 @@ var WebResponse = $.import('sap.odata.util.lib.response', 'webResponse').WebResp
 var MultiMap = $.import('sap.odata.util.lib', 'multiMap').MultiMap;
 
 /**
- * 
- * 
- * <code>
- * 
- * GET https://example.hana.ondemand.com/path/to/service.xsodata HTTP/1.1
- * Content-Type: multipart/mixed;boundary=batch_7317-c239-9c8d
- * 
- * </code>
- * 
- * 
+ * Response wrapper class for top-level response manipulation.
  */
 function WebEntityResponse(webRequest, webResponse) {
 	if(!webRequest) throw 'Missing required attribute webRequest\nat: ' + new Error().stack;

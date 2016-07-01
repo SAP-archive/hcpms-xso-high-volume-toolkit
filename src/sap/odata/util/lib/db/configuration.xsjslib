@@ -1,7 +1,8 @@
 var Database = $.import('sap.odata.util.lib.db', 'database').Database;
 
 /**
- * Singleton class that grants access to configuration.
+ * Singleton class that grants access to configuration. Settings retrieved
+ * through this class are cached per request.
  */
 var Configuration = (function() {
 	function Configuration() {

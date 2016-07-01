@@ -2,16 +2,7 @@ var Request = $.import('sap.odata.util.lib.request', 'request').Request;
 var MultiMap = $.import('sap.odata.util.lib', 'multiMap').MultiMap;
 
 /**
- * 
- * 
- * <code>
- * 
- * GET https://example.hana.ondemand.com/path/to/service.xsodata HTTP/1.1
- * Content-Type: multipart/mixed;boundary=batch_7317-c239-9c8d
- * 
- * </code>
- * 
- * 
+ * Request wrapper class for $batch entity request manipulation.
  */
 function WebRequest(webRequest, destination) {
 	if(!webRequest) throw 'Missing required attribute webRequest\nat: ' + new Error().stack;

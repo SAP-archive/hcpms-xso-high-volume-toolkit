@@ -4,13 +4,15 @@ var TombstoneFilterPreProcessor = $.import('sap.odata.util.lib.decorator.process
 /**
  * Decorator that that adds a filter to requests so that tombstones are not being retrieved.
  * This is generally desirable unless we are explicitly requesting deltas.
+ *
+ * Active for GET requests returning entitiy sets supporting delta queries.
  * 
  */
-function TombstoneFilterDecorator(utils, metadataClient) {
-	if(!utils) throw 'Missing required attribute request\nat: ' + new Error().stack;
+function TombstoneFilterDecorator(request, metadataClient) {
+	if(!request) throw 'Missing required attribute request\nat: ' + new Error().stack;
 	if(!metadataClient) throw 'Missing required attribute metadataClient\nat: ' + new Error().stack;
 	
-	Decorator.call(this, utils, metadataClient, TombstoneFilterPreProcessor, null);
+	Decorator.call(this, request, metadataClient, TombstoneFilterPreProcessor, null);
 }
 
 TombstoneFilterDecorator.prototype = new Decorator();

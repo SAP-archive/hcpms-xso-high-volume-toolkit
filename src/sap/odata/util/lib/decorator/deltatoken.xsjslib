@@ -11,20 +11,22 @@ var DeltaTokenPostProcessor = $.import('sap.odata.util.lib.decorator.processing.
  * delta link, since this behavior has not been specified prior to OData V4.
  * 
  * Does not support deleted links.
+ *
+ * Active under default conditions and only if the targeted entity set supports delta queries.
  * 
  */
-function DeltaTokenDecorator(utils, metadataClient) {
-	if(!utils) throw 'Missing required attribute request\nat: ' + new Error().stack;
+function DeltaTokenDecorator(request, metadataClient) {
+	if(!request) throw 'Missing required attribute request\nat: ' + new Error().stack;
 	if(!metadataClient) throw 'Missing required attribute metadataClient\nat: ' + new Error().stack;
 	
-	Decorator.call(this, utils, metadataClient, DeltaTokenPreProcessor, DeltaTokenPostProcessor);
+	Decorator.call(this, request, metadataClient, DeltaTokenPreProcessor, DeltaTokenPostProcessor);
 }
 
 DeltaTokenDecorator.prototype = new Decorator();
 DeltaTokenDecorator.prototype.constructor = DeltaTokenDecorator;
 
 /*
- * See Decorator.isActive
+ * @see lib.decorator.Decorator.isActive
  */
 DeltaTokenDecorator.prototype.isActive = function() {
 	return Decorator.prototype.isActive.call(this) && this.collectionSupportsDelta();

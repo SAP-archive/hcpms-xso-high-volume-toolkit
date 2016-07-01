@@ -1,7 +1,14 @@
 var Processor = $.import('sap.odata.util.lib.decorator.processing', 'processor').Processor;
 
 /**
- * 
+ * Preprocessor adding a $filter expression so that tombstones are not retrieved
+ * from the XSOData service.
+ *
+ * Configuration options (default):
+ *  - deltatoken.deletedPropertyName (IS_DELETED)
+ *		Name of the field indicating tombstones, i.e. entities that have been deleted
+ *	- deltatoken.deletedPropertyYesValue (Y)
+ *		Nominal value that needs to be in the tombstone flag field so that it marks a tombstone
  */
 function TombstoneFilterPreProcessor(request, metadataClient) {
 	if(!request) throw 'Missing required attribute request\nat: ' + new Error().stack;
@@ -24,6 +31,14 @@ function TombstoneFilterPreProcessor(request, metadataClient) {
 TombstoneFilterPreProcessor.prototype = new Processor();
 TombstoneFilterPreProcessor.prototype.constructor = TombstoneFilterPreProcessor;
 
+/**
+ * Returns a filter that will prevent tombstones from being retrieved from the
+ * XSOData service.
+ *
+ * Example:
+ *
+ * IS_DELETED ne 'Y'
+ */
 TombstoneFilterPreProcessor.prototype.apply = function() {
 	var parameters = this.request.parameters;
 	

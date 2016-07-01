@@ -6,10 +6,7 @@ var UrlRewritingPreProcessor = $.import('sap.odata.util.lib.decorator.processing
  * Decorator that that rewrites URLs pointing to the wrapped XSOData service
  * with URLs pointing to the current XSJS wrapper.
  * 
- * URLs are replaced iff:
- * 
- * - This is not a $metadata request
- * 
+ * Active for all requests that are not $metadata or $batch requests.
  * 
  */
 function UrlRewritingDecorator(utils, metadataClient) {

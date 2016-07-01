@@ -1,5 +1,9 @@
 var Database = $.import('sap.odata.util.lib.db', 'database').Database;
 
+/**
+ * Utility class for metadata access via the database. The values returned
+ * are cached per request.
+ */
 var Metadata = (function() {
 	function Metadata() {
 		this.cache = {};
@@ -8,6 +12,12 @@ var Metadata = (function() {
 	Metadata.prototype = new Database();
 	Metadata.prototype.constructor = Metadata;
 	
+	/**
+	 * Returns a statement function that creates a statement selecting
+	 * the metadata of the specified service from the database.
+	 *
+	 * @return {function($.db.Connection):$.db.PreparedStatement}
+	 */
 	Metadata.prototype.getMetadataStatement = function(serviceId) {
 		return function(connection) {
 			var statement = connection
@@ -19,6 +29,18 @@ var Metadata = (function() {
 		};
 	};
 	
+	/**
+	 * Gets the metadata for the specified service from the database. Results are cached
+	 * per request.
+	 * @return {{
+	 * collections: {
+	 *	[key: string]: {
+	 *			keys: {name: string, type: string},
+	 *			properties: {name: string, type: string}
+	 *		}
+	 *	}
+	 * }}
+	 */
 	Metadata.prototype.getMetadata = function(serviceId) {
 		if(this.cache[serviceId]) return this.cache[serviceId];
 		
@@ -33,6 +55,19 @@ var Metadata = (function() {
 		return result;
 	};
 	
+	/**
+	 * Saves the specified metadata document for the specified service ID.
+	 *
+	 * @parameter serviceId ID of the service
+	 * @parameter metadata {{
+	 * collections: {
+	 *	[key: string]: {
+	 *			keys: {name: string, type: string},
+	 *			properties: {name: string, type: string}
+	 *		}
+	 *	}
+	 * }}
+	 */
 	Metadata.prototype.saveMetadata = function(serviceId, metadata) {
 		this.prepareStatement(function(connection) {
 			var statement = connection

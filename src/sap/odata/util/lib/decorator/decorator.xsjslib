@@ -41,7 +41,10 @@ Decorator.prototype.toString = function() {
 
 /**
  * Tells if this decorator should be applied to the current request.
- * By default, this is is the case for GET requests against collections.
+ * By default, this is is the case for
+ * - non-multipart GET requests
+ * - against collections or single entities
+ * - excluding $metadata and $count requests
  */
 Decorator.prototype.isActive = function() {
 	return !this.request.isMultipartRequest() &&
