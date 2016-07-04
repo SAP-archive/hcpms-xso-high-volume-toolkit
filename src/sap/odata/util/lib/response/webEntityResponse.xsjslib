@@ -1,3 +1,4 @@
+$.import('sap.odata.util.lib', 'String.getByteLength');
 var Response = $.import('sap.odata.util.lib.response', 'response').Response;
 var WebResponse = $.import('sap.odata.util.lib.response', 'webResponse').WebResponse;
 var MultiMap = $.import('sap.odata.util.lib', 'multiMap').MultiMap;
@@ -79,10 +80,14 @@ WebEntityResponse.prototype.getOutboundBody = function() {
 		WebResponse.prototype.getOutboundChildEntityBody.call(this)].join('\n');
 	}
 	
+	var bodyBody = this.getOutboundBodyBodyString();
+	
+	this.parsedBody.headers.set('Content-Length', bodyBody.getByteLength());
+	
 	var body = [this.getOutboundHeaderString(),
 	 	        this.getOutboundResponseLine(),
 		        this.getOutboundBodyHeaderString(),
-		        this.json ? JSON.stringify(this.data) : this.data].join('\n')
+		        this.getOutboundBodyBodyString()].join('\n')
 	
 	return body;
 };
@@ -106,3 +111,8 @@ WebEntityResponse.prototype.getOutboundBodyHeaderString = function() {
 		return entry.key + ': ' + entry.value;
 	}.bind(this)).join('\n') + '\n';
 };
+
+WebEntityResponse.prototype.getOutboundBodyBodyString = function() {
+	return this.json ? JSON.stringify(this.data) : this.data;
+};
+

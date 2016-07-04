@@ -1,3 +1,4 @@
+$.import('sap.odata.util.lib', 'String.getByteLength');
 var Request = $.import('sap.odata.util.lib.request', 'request').Request;
 var WebRequest = $.import('sap.odata.util.lib.request', 'webRequest').WebRequest;
 var MultiMap = $.import('sap.odata.util.lib', 'multiMap').MultiMap;
@@ -193,10 +194,14 @@ WebEntityRequest.prototype.getOutboundBody = function() {
 		        WebRequest.prototype.getOutboundChildEntityBody.call(this)].join('\n');
 	}
 	
+	var bodyBody = this.getOutboundBodyBodyString();
+	
+	this.parsedBody.headers.set('Content-Length', bodyBody.getByteLength());
+	
 	return [this.getOutboundHeaderString(),
  	        this.getOutboundRequestLine(),
 	        this.getOutboundBodyHeaderString(),
-	        this.json ? JSON.stringify(this.body) : this.body].join('\n');
+	        bodyBody].join('\n');
 };
 
 WebEntityRequest.prototype.getOutboundHeaderString = function() {
@@ -218,6 +223,10 @@ WebEntityRequest.prototype.getOutboundBodyHeaderString = function() {
 	return this.parsedBody.headers.map(function(entry) {
 		return entry.key + ': ' + entry.value;
 	}.bind(this)).join('\n') + '\n';
+};
+
+WebEntityRequest.prototype.getOutboundBodyBodyString = function() {
+	return this.json ? JSON.stringify(this.body) : this.body;
 };
 
 /**
