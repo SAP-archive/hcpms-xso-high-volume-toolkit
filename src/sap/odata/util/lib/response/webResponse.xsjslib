@@ -54,7 +54,7 @@ WebResponse.prototype.copyHeaders = function() {
 WebResponse.prototype.copyResponseHeadersTo = function(upstreamResponse) {
 	this.headers.filter(function(entry) {
 		// HANA will take care of this
-		return ['content-length', 'content-encoding'].indexOf(entry.key) !== -1;
+		return ['content-length', 'content-encoding'].indexOf(entry.key) === -1;
 	}).copyToTupleList(upstreamResponse.headers);
 	upstreamResponse.contentType = this.headers.get('content-type');
 };
