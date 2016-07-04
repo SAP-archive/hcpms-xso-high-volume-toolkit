@@ -70,7 +70,9 @@ MultiMap.prototype.populateFromMultiMap = function(map) {
  * @parameter array {{key: any, value: any}[]} 
  */
 MultiMap.prototype.populateFromArray = function(array) {
-	array.forEach(this.add.bind(this));
+	array.forEach(function(entry) {
+		this.add(entry.key, entry.value);
+	}.bind(this));
 }
 
 /**
