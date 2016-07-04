@@ -61,7 +61,7 @@ WebResponse.prototype.copyResponseHeadersTo = function(upstreamResponse) {
 
 WebResponse.prototype.applyToOutboundResponse = function() {
 	this.copyResponseHeadersTo($.response);
-	$.response.status = this.hasPostProcessingError() ? +this.error.code : this.webResponse.status;
+	$.response.status = this.hasPostProcessingError() ? + this.error.code : this.webResponse.status;
 	
 	var body = this.getOutboundBody();
 	$.trace.debug('Outbound response body:\n' + body);
