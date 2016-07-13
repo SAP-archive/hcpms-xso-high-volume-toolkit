@@ -77,7 +77,7 @@ WebEntityResponse.prototype.copyHeaders = function() {
 WebEntityResponse.prototype.getOutboundBody = function() {
 	if(this.isMultipartResponse()) {
 		return [this.getOutboundHeaderString(),
-		WebResponse.prototype.getOutboundChildEntityBody.call(this)].join('\n');
+		WebResponse.prototype.getOutboundChildEntityBody.call(this) + '\n'].join('\n');
 	}
 	
 	var bodyBody = this.getOutboundBodyBodyString();

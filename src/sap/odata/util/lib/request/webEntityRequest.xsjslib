@@ -191,7 +191,7 @@ WebEntityRequest.prototype.copyRequestHeadersTo = function(upstreamRequest) {
 WebEntityRequest.prototype.getOutboundBody = function() {
 	if(this.isMultipartRequest()) {
 		return [this.getOutboundHeaderString(),
-		        WebRequest.prototype.getOutboundChildEntityBody.call(this)].join('\n');
+		        WebRequest.prototype.getOutboundChildEntityBody.call(this) + '\n'].join('\n');
 	}
 	
 	var bodyBody = this.getOutboundBodyBodyString();
