@@ -89,7 +89,7 @@ WebResponse.prototype.getOutboundChildEntityBody = function() {
 	
 	bodyParts.push('--' + this.boundary + '--');
 	
-	return bodyParts.join('\n');
+	return bodyParts.join('\r\n') + '\r\n';
 };
 
 

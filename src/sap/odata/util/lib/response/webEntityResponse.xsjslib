@@ -77,7 +77,7 @@ WebEntityResponse.prototype.copyHeaders = function() {
 WebEntityResponse.prototype.getOutboundBody = function() {
 	if(this.isMultipartResponse()) {
 		return [this.getOutboundHeaderString(),
-		WebResponse.prototype.getOutboundChildEntityBody.call(this) + '\n'].join('\n');
+		WebResponse.prototype.getOutboundChildEntityBody.call(this) + '\r\n'].join('\r\n');
 	}
 	
 	var bodyBody = this.getOutboundBodyBodyString();
@@ -87,7 +87,7 @@ WebEntityResponse.prototype.getOutboundBody = function() {
 	var body = [this.getOutboundHeaderString(),
 	 	        this.getOutboundResponseLine(),
 		        this.getOutboundBodyHeaderString(),
-		        this.getOutboundBodyBodyString()].join('\n')
+		        this.getOutboundBodyBodyString()].join('\r\n')
 	
 	return body;
 };
@@ -99,7 +99,7 @@ WebEntityResponse.prototype.getOutboundHeaderString = function() {
 		headerLines.push(header.name + ': ' + header.value);
 	}
 	
-	return headerLines.join('\n') + '\n';
+	return headerLines.join('\r\n') + '\r\n';
 };
 
 WebEntityResponse.prototype.getOutboundResponseLine = function() {
@@ -109,7 +109,7 @@ WebEntityResponse.prototype.getOutboundResponseLine = function() {
 WebEntityResponse.prototype.getOutboundBodyHeaderString = function() {
 	return this.parsedBody.headers.map(function(entry) {
 		return entry.key + ': ' + entry.value;
-	}.bind(this)).join('\n') + '\n';
+	}.bind(this)).join('\r\n') + '\r\n';
 };
 
 WebEntityResponse.prototype.getOutboundBodyBodyString = function() {

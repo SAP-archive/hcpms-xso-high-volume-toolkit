@@ -192,7 +192,7 @@ WebEntityRequest.prototype.copyRequestHeadersTo = function(upstreamRequest) {
 WebEntityRequest.prototype.getOutboundBody = function() {
 	if(this.isMultipartRequest()) {
 		return [this.getOutboundHeaderString(),
-		        WebRequest.prototype.getOutboundChildEntityBody.call(this) + '\n'].join('\n');
+		        WebRequest.prototype.getOutboundChildEntityBody.call(this) + '\r\n'].join('\r\n');
 	}
 	
 	var bodyBody = this.getOutboundBodyBodyString();
@@ -202,7 +202,7 @@ WebEntityRequest.prototype.getOutboundBody = function() {
 	return [this.getOutboundHeaderString(),
  	        this.getOutboundRequestLine(),
 	        this.getOutboundBodyHeaderString(),
-	        bodyBody].join('\n');
+	        bodyBody].join('\r\n');
 };
 
 WebEntityRequest.prototype.getOutboundHeaderString = function() {
@@ -212,7 +212,7 @@ WebEntityRequest.prototype.getOutboundHeaderString = function() {
 		headerLines.push(header.name + ': ' + header.value);
 	}
 	
-	return headerLines.join('\n') + '\n';
+	return headerLines.join('\r\n') + '\r\n';
 };
 
 WebEntityRequest.prototype.getOutboundRequestLine = function() {
@@ -223,7 +223,7 @@ WebEntityRequest.prototype.getOutboundRequestLine = function() {
 WebEntityRequest.prototype.getOutboundBodyHeaderString = function() {
 	return this.parsedBody.headers.map(function(entry) {
 		return entry.key + ': ' + entry.value;
-	}.bind(this)).join('\n') + '\n';
+	}.bind(this)).join('\r\n') + '\r\n';
 };
 
 WebEntityRequest.prototype.getOutboundBodyBodyString = function() {
