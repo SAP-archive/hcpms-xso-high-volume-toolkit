@@ -54,7 +54,7 @@ function WebEntityResponse(webRequest, webResponse) {
 	} else {
 		Object.defineProperties(this, {
 			'boundary': {
-				value: webResponse.headers.get('content-type').match(/boundary=(.*)$/)[1]
+				value: webResponse.headers.get('content-type').match(/boundary=([^;]*)/)[1]
 			}
 		});
 	}

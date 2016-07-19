@@ -35,7 +35,7 @@ function WebRequest(webRequest, destination) {
 	Object.defineProperties(this, {
 		'boundary': {
 			value: this.isMultipartRequest()
-					? this.headers.get('content-type').match(/boundary=(.*)$/)[1]
+					? this.headers.get('content-type').match(/boundary=([^;]*)/)[1]
 					: null
 		},
 		'json': {

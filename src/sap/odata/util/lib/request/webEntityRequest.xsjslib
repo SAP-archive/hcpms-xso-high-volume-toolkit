@@ -96,7 +96,7 @@ function WebEntityRequest(webRequest, id, destination) {
 	} else {
 		Object.defineProperties(this, {
 			'boundary': {
-				value: this.webRequest.headers.get('content-type').match(/boundary=(.*)$/)[1]
+				value: this.webRequest.headers.get('content-type').match(/boundary=([^;]*)/)[1]
 			}
 		});
 	}

@@ -31,7 +31,7 @@ function WebResponse(webRequest, webResponse) {
 	Object.defineProperties(this, {
 		'boundary': {
 			value: this.isMultipartResponse()
-					? this.headers.get('content-type').match(/boundary=(.*)$/)[1]
+					? this.headers.get('content-type').match(/boundary=([^;]*)/)[1]
 					: null
 		}
 	});
