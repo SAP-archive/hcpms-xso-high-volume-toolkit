@@ -30,7 +30,8 @@ function WebRequest(webRequest, destination) {
 	
 	var json = this.headers.get('content-type') === 'application/json' ||
 		this.headers.get('content-type') === 'text/json';
-	var body = webRequest.body ? webRequest.body.asString() : null;
+	var rawBody = webRequest.body ? webRequest.body.asString() : null;
+	var body = json && rawBody ? JSON.parse(rawBody) : rawBody;
 	
 	Object.defineProperties(this, {
 		'boundary': {
@@ -39,10 +40,10 @@ function WebRequest(webRequest, destination) {
 					: null
 		},
 		'json': {
-			value: json
+			value: json && typeof body === 'object'
 		},
 		'body': {
-			value: json && body ? JSON.parse(body) : body
+			value: body
 		}
 	});
 }

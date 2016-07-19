@@ -21,7 +21,7 @@ function WebResponse(webRequest, webResponse) {
 			value: data
 		},
 		'json': {
-			value: json
+			value: json && typeof data === 'object'
 		},
 		'headers': {
 			value: headers
