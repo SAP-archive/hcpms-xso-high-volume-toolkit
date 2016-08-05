@@ -1,4 +1,4 @@
-var Response = $.import('sap.odata.util.lib.response', 'response').Response;
+var Response = $.import('sap.odata.util.lib.transfer.response', 'response').Response;
 var MultiMap = $.import('sap.odata.util.lib', 'multiMap').MultiMap;
 
 /**
@@ -13,8 +13,8 @@ function WebResponse(webRequest, webResponse) {
 	var headers = this.copyHeaders(),
 		json = webResponse.status < 300 &&
 			headers.get('content-type') === 'application/json',
-		data = this.webResponse.body ? json ? JSON.parse(this.webResponse.body.asString()) :
-			this.webResponse.body.asString() : null;
+		data = this.webResponse.body ? json ? JSON.parse($.util.stringify(webResponse.body.asArrayBuffer())) :
+			$.util.stringify(webResponse.body.asArrayBuffer()) : null;
 	
 	Object.defineProperties(this, {
 		'data': {
@@ -61,9 +61,11 @@ WebResponse.prototype.copyResponseHeadersTo = function(upstreamResponse) {
 
 WebResponse.prototype.applyToOutboundResponse = function() {
 	this.copyResponseHeadersTo($.response);
+	
 	$.response.status = this.hasPostProcessingError() ? + this.error.code : this.webResponse.status;
 	
 	var body = this.getOutboundBody();
+	
 	$.trace.debug('Outbound response body:\n' + body);
 	
 	$.response.setBody(body);
@@ -76,7 +78,7 @@ WebResponse.prototype.getOutboundBody = function() {
 		return this.json ? JSON.stringify(this.data) : this.data || '';
 	}
 	
-	return this.getOutboundChildEntityBody();
+	return this.getOutboundChildEntityBody() + '\r\n';
 };
 
 WebResponse.prototype.getOutboundChildEntityBody = function() {
@@ -91,5 +93,3 @@ WebResponse.prototype.getOutboundChildEntityBody = function() {
 	
 	return bodyParts.join('\r\n') + '\r\n';
 };
-
-

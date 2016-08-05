@@ -1,6 +1,6 @@
 $.import('sap.odata.util.lib', 'String.getByteLength');
-var Response = $.import('sap.odata.util.lib.response', 'response').Response;
-var WebResponse = $.import('sap.odata.util.lib.response', 'webResponse').WebResponse;
+var Response = $.import('sap.odata.util.lib.transfer.response', 'response').Response;
+var WebResponse = $.import('sap.odata.util.lib.transfer.response', 'webResponse').WebResponse;
 var MultiMap = $.import('sap.odata.util.lib', 'multiMap').MultiMap;
 
 /**
@@ -13,10 +13,10 @@ function WebEntityResponse(webRequest, webResponse) {
 	Response.call(this, webRequest, webResponse);
 	
 	if(!this.isMultipartResponse()) {
-		var body = webResponse.body.asString();
-		var parseRegex = /^HTTP\/1\.1\s+([0-9.]+)\s+([a-zA-Z ]+)\s*([\s\S]*)(\r\n\r\n|\r\r|\n\n)([\s\S]*)?$/;
-		//				                ^status		^status msg    ^headers	^2x newline			^body
-		var pieces = body.match(parseRegex);
+		var webResponseBodyParts = $.util.stringify(webResponse.body.asArrayBuffer()).split('\r\n\r\n');
+		var parseRegex = /^HTTP\/1\.1\s+([0-9.]+)\s+([a-zA-Z ]+)\s*([\s\S]*)$/;
+		//				                ^status		^status msg    ^headers
+		var pieces = webResponseBodyParts[0].match(parseRegex);
 		var headerLines = pieces[3].split(/\r\n?|\n/);
 		var headers = new MultiMap();
 		headerLines.forEach(function(line) {
@@ -30,7 +30,7 @@ function WebEntityResponse(webRequest, webResponse) {
 			status: pieces[1],
 			message: pieces[2],
 			headers: headers,
-			body: pieces[5] || ''
+			body: webResponseBodyParts[1] || ''
 		};
 		
 		this.parsedBody = parsedBody;
@@ -77,7 +77,7 @@ WebEntityResponse.prototype.copyHeaders = function() {
 WebEntityResponse.prototype.getOutboundBody = function() {
 	if(this.isMultipartResponse()) {
 		return [this.getOutboundHeaderString(),
-		WebResponse.prototype.getOutboundChildEntityBody.call(this) + '\r\n'].join('\r\n');
+		WebResponse.prototype.getOutboundChildEntityBody.call(this)].join('\r\n');
 	}
 	
 	var bodyBody = this.getOutboundBodyBodyString();

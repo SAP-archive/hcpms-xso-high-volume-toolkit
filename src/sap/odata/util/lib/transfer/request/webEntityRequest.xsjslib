@@ -1,6 +1,6 @@
 $.import('sap.odata.util.lib', 'String.getByteLength');
-var Request = $.import('sap.odata.util.lib.request', 'request').Request;
-var WebRequest = $.import('sap.odata.util.lib.request', 'webRequest').WebRequest;
+var Request = $.import('sap.odata.util.lib.transfer.request', 'request').Request;
+var WebRequest = $.import('sap.odata.util.lib.transfer.request', 'webRequest').WebRequest;
 var MultiMap = $.import('sap.odata.util.lib', 'multiMap').MultiMap;
 
 /**
@@ -22,10 +22,10 @@ function WebEntityRequest(webRequest, id, destination) {
 	});
 	
 	if(!this.isMultipartRequest()) {
-		var webRequestBody = webRequest.body.asString();
-		var parseRegex = /^([A-Z]+)\s+([^?]+)\??(\S+)?\s+HTTP\/1\.1\s*(((?!\n\n)(?!\r\r)(?!\r\n\r\n)[\s\S])*)(\r\n\r\n|\r\r|\n\n)([\s\S]*)?$/;
-		//				   ^method    ^path	  ^query ^headers								^2x newline			^body
-		var pieces = webRequestBody.match(parseRegex);
+		var webRequestBodyParts = $.util.stringify(webRequest.body.asArrayBuffer()).split('\r\n\r\n');
+		var parseRegex = /^([A-Z]+)\s+([^?]+)\??(\S+)?\s+HTTP\/1\.1\s*(((?!\n\n)(?!\r\r)(?!\r\n\r\n)[\s\S])*)$/;
+		//				   ^method    ^path	  ^query				   ^headers
+		var pieces = webRequestBodyParts[0].match(parseRegex);
 		var headerLines = pieces[4].split(/\r\n?|\n/).filter(function(pair) { return pair.length; });
 		var headers = new MultiMap();
 		headerLines.forEach(function(line) {
@@ -48,7 +48,7 @@ function WebEntityRequest(webRequest, id, destination) {
 			method: pieces[1],
 			path: pieces[2],
 			headers: headers,
-			body: pieces[7] || '',
+			body: webRequestBodyParts[1] || '',
 			parameters: parameters
 		};
 		

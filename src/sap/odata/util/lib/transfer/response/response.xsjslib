@@ -74,4 +74,4 @@ Response.prototype.toString = function() {
 	return '[' + this.constructor.name + ' ' + this.webRequest.id + ']';
 };
 
-var WebEntityResponse = $.import('sap.odata.util.lib.response', 'webEntityResponse').WebEntityResponse;
+var WebEntityResponse = $.import('sap.odata.util.lib.transfer.response', 'webEntityResponse').WebEntityResponse;

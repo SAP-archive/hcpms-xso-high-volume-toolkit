@@ -1,4 +1,4 @@
-var Request = $.import('sap.odata.util.lib.request', 'request').Request;
+var Request = $.import('sap.odata.util.lib.transfer.request', 'request').Request;
 var MultiMap = $.import('sap.odata.util.lib', 'multiMap').MultiMap;
 
 /**
@@ -30,7 +30,7 @@ function WebRequest(webRequest, destination) {
 	
 	var json = this.headers.get('content-type') === 'application/json' ||
 		this.headers.get('content-type') === 'text/json';
-	var rawBody = webRequest.body ? webRequest.body.asString() : null;
+	var rawBody = webRequest.body ? $.util.stringify(webRequest.body.asArrayBuffer()) : null;
 	var body = json && rawBody ? JSON.parse(rawBody) : rawBody;
 	
 	Object.defineProperties(this, {
@@ -134,9 +134,10 @@ WebRequest.prototype.toUpstreamRequest = function() {
 	this.copyRequestHeadersTo(outboundRequest);
 	this.applyParametersTo(outboundRequest);
 	
-	outboundRequest.headers.set('Accept', 'application/json;charset=UTF-8;q=0.9,*/*;q=0.8');
+	outboundRequest.headers.set('Accept', 'application/json;charset=utf-8;q=0.9,*/*;q=0.8');
 	
 	var body = this.getOutboundBody();
+	
 	if(body) outboundRequest.setBody(body);
 	
 	$.trace.debug('Outbound entity body:\n' + body);

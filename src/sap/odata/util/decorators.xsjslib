@@ -2,7 +2,7 @@ $.import('sap.odata.util.lib', 'Error.toString'); // Appends stack trace to erro
 var SkipTokenDecorator = $.import('sap.odata.util.lib.decorator', 'skiptoken').SkipTokenDecorator;
 var DeltaTokenDecorator = $.import('sap.odata.util.lib.decorator', 'deltatoken').DeltaTokenDecorator;
 var UrlRewritingDecorator = $.import('sap.odata.util.lib.decorator', 'urlrewrite').UrlRewritingDecorator;
-var Client = $.import('sap.odata.util.lib.client', 'client').Client;
+var Client = $.import('sap.odata.util.lib.transfer.client', 'client').Client;
 
 /**
  * Creates a decorator API facade targeting the specified destination. By convention,

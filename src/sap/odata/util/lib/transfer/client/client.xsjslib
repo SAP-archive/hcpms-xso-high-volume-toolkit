@@ -1,5 +1,5 @@
-var WebRequest = $.import('sap.odata.util.lib.request', 'webRequest').WebRequest;
-var WebResponse = $.import('sap.odata.util.lib.response', 'webResponse').WebResponse;
+var WebRequest = $.import('sap.odata.util.lib.transfer.request', 'webRequest').WebRequest;
+var WebResponse = $.import('sap.odata.util.lib.transfer.response', 'webResponse').WebResponse;
 var MetadataClient = $.import('sap.odata.util.lib.metadata', 'metadataClient').MetadataClient;
 var CompositeDecorator = $.import('sap.odata.util.lib.decorator', 'composite').CompositeDecorator;
 var TombstoneFilterDecorator = $.import('sap.odata.util.lib.decorator', 'tombstoneFilter').TombstoneFilterDecorator;
@@ -47,6 +47,39 @@ Client.prototype.createDecorator = function(request) {
 	var metadataClient = new MetadataClient(request, this.destination);
 	
 	return new CompositeDecorator(request, metadataClient, this.decoratorClasses);
+}
+
+String.prototype.toByteArray = function() {
+  var out = [], p = 0;
+  for (var i = 0; i < this.length; i++) {
+    var c = this.charCodeAt(i);
+    if (c < 128) {
+      out[p++] = c;
+    } else if (c < 2048) {
+      out[p++] = (c >> 6) | 192;
+      out[p++] = (c & 63) | 128;
+    } else if (
+        ((c & 0xFC00) == 0xD800) && (i + 1) < this.length &&
+        ((this.charCodeAt(i + 1) & 0xFC00) == 0xDC00)) {
+      // Surrogate Pair
+      c = 0x10000 + ((c & 0x03FF) << 10) + (this.charCodeAt(++i) & 0x03FF);
+      out[p++] = (c >> 18) | 240;
+      out[p++] = ((c >> 12) & 63) | 128;
+      out[p++] = ((c >> 6) & 63) | 128;
+      out[p++] = (c & 63) | 128;
+    } else {
+      out[p++] = (c >> 12) | 224;
+      out[p++] = ((c >> 6) & 63) | 128;
+      out[p++] = (c & 63) | 128;
+    }
+  }
+  return out;
+};
+
+String.prototype.toCodePoints = function() {
+    return this.toByteArray().map(function(code) {
+	    return '\\x' + code;
+    }).join('');
 }
 
 /**
