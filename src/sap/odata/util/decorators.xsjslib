@@ -3,6 +3,7 @@ var SkipTokenDecorator = $.import('sap.odata.util.lib.decorator', 'skiptoken').S
 var DeltaTokenDecorator = $.import('sap.odata.util.lib.decorator', 'deltatoken').DeltaTokenDecorator;
 var UrlRewritingDecorator = $.import('sap.odata.util.lib.decorator', 'urlrewrite').UrlRewritingDecorator;
 var Client = $.import('sap.odata.util.lib.transfer.client', 'client').Client;
+var Performance = $.import('sap.odata.util.lib.performance', 'skiptoken').Performance;
 
 /**
  * Creates a decorator API facade targeting the specified destination. By convention,
@@ -62,7 +63,9 @@ DecoratorFacade.prototype.withDeltaTokens = function() {
  * Applies the currently configured and active decorators to the current request.
  */
 DecoratorFacade.prototype.applyDecorators = function() {
-	$.trace.debug('****************************************************************** start');
+    Performance.trace('Applying HVT', 'HVT.apply');
 	this.client.apply();
-	$.trace.debug('end ******************************************************************');
+	Performance.finishStep('HVT.apply');
 }
+
+Performance.trace('HVT start');

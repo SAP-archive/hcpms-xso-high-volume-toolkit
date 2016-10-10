@@ -1,6 +1,7 @@
 var Decorator = $.import('sap.odata.util.lib.decorator', 'decorator').Decorator;
 var SkipTokenPreProcessor = $.import('sap.odata.util.lib.decorator.processing.preprocessing', 'skipTokenPreProcessor').SkipTokenPreProcessor;
 var SkipTokenPostProcessor = $.import('sap.odata.util.lib.decorator.processing.postprocessing', 'skipTokenPostProcessor').SkipTokenPostProcessor;
+var Performance = $.import('sap.odata.util.lib.performance', 'skiptoken').Performance;
 
 /**
  * Decorator that adds skip token support to the current request as per
@@ -27,7 +28,12 @@ function SkipTokenDecorator(request, metadataClient) {
 	if(!request) throw 'Missing required attribute request\nat: ' + new Error().stack;
 	if(!metadataClient) throw 'Missing required attribute metadataClient\nat: ' + new Error().stack;
 	
+	var traceTag = 'SkipTokenDecorator.init.' + request.id;
+	Performance.trace('Creating skip token decorator ' + request.id, traceTag);
+	
 	Decorator.call(this, request, metadataClient, SkipTokenPreProcessor, SkipTokenPostProcessor);
+	
+	Performance.finishStep(traceTag);
 }
 
 SkipTokenDecorator.prototype = new Decorator();

@@ -1,5 +1,6 @@
 var Response = $.import('sap.odata.util.lib.transfer.response', 'response').Response;
 var MultiMap = $.import('sap.odata.util.lib', 'multiMap').MultiMap;
+var Performance = $.import('sap.odata.util.lib.performance', 'skiptoken').Performance;
 
 /**
  * Response wrapper class for $batch entity response manipulation.
@@ -7,6 +8,8 @@ var MultiMap = $.import('sap.odata.util.lib', 'multiMap').MultiMap;
 function WebResponse(webRequest, webResponse) {
 	if(!webRequest) throw 'Missing required attribute webRequest\nat: ' + new Error().stack;
 	if(!webResponse) throw 'Missing required attribute webResponse for request ' + webRequest.id + '\nat: ' + new Error().stack;
+	
+	Performance.trace('Initializing ' + this, 'WebResponse ' + webRequest.id);
 	
 	Response.call(this, webRequest, webResponse); 
 	
@@ -35,6 +38,8 @@ function WebResponse(webRequest, webResponse) {
 					: null
 		}
 	});
+	
+	Performance.finishStep('WebResponse ' + webRequest.id);
 }
 
 WebResponse.prototype = new Response();

@@ -2,6 +2,7 @@ $.import('sap.odata.util.lib', 'String.getByteLength');
 var Request = $.import('sap.odata.util.lib.transfer.request', 'request').Request;
 var WebRequest = $.import('sap.odata.util.lib.transfer.request', 'webRequest').WebRequest;
 var MultiMap = $.import('sap.odata.util.lib', 'multiMap').MultiMap;
+var Performance = $.import('sap.odata.util.lib.performance', 'skiptoken').Performance;
 
 /**
  * Request wrapper class for top-level request manipulation.
@@ -12,6 +13,7 @@ function WebEntityRequest(webRequest, id, destination) {
 	if(!id) throw 'Missing required attribute id\nat: ' + new Error().stack;
 	if(!destination) throw 'Missing required attribute destination\nat: ' + new Error().stack;
 	
+	Performance.trace('Initializing ' + this, 'WebEntityRequest ' + id);
 	
 	Request.call(this, webRequest, destination);
 	
@@ -101,6 +103,8 @@ function WebEntityRequest(webRequest, id, destination) {
 			}
 		});
 	}
+	
+	Performance.finishStep('WebEntityRequest ' + id);
 }
 
 WebEntityRequest.prototype = new Request();

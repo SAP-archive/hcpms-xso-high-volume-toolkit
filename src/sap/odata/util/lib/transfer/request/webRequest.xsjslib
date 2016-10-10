@@ -1,5 +1,6 @@
 var Request = $.import('sap.odata.util.lib.transfer.request', 'request').Request;
 var MultiMap = $.import('sap.odata.util.lib', 'multiMap').MultiMap;
+var Performance = $.import('sap.odata.util.lib.performance', 'skiptoken').Performance;
 
 /**
  * Request wrapper class for $batch entity request manipulation.
@@ -7,6 +8,8 @@ var MultiMap = $.import('sap.odata.util.lib', 'multiMap').MultiMap;
 function WebRequest(webRequest, destination) {
 	if(!webRequest) throw 'Missing required attribute webRequest\nat: ' + new Error().stack;
 	if(!destination) throw 'Missing required attribute destination\nat: ' + new Error().stack;
+	
+	Performance.trace('Initializing ' + this, 'WebRequest root');
 	
 	Request.call(this, webRequest, destination);
 	
@@ -46,6 +49,8 @@ function WebRequest(webRequest, destination) {
 			value: body
 		}
 	});
+	
+	Performance.finishStep('WebRequest root');
 }
 
 WebRequest.prototype = new Request();

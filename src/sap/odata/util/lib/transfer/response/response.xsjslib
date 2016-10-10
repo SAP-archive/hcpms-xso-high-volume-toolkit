@@ -71,7 +71,9 @@ Response.prototype.setPostProcessingError = function(error) {
  * More speaking toString implementation that prints the class name and entity id.
  */
 Response.prototype.toString = function() {
-	return '[' + this.constructor.name + ' ' + this.webRequest.id + ']';
+    var info = ' <uninitialized>';
+    if(this.webRequest) info = ' ' + this.webRequest.id + ')';
+	return '[' + this.constructor.name + info + ']';
 };
 
 var WebEntityResponse = $.import('sap.odata.util.lib.transfer.response', 'webEntityResponse').WebEntityResponse;

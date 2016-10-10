@@ -1,4 +1,5 @@
 var Decorator = $.import('sap.odata.util.lib.decorator', 'decorator').Decorator;
+var Performance = $.import('sap.odata.util.lib.performance', 'skiptoken').Performance;
 
 /**
  * Composite decorator delegating the life cycle calls to all of its
@@ -8,6 +9,8 @@ function CompositeDecorator(request, metadataClient, decoratorClasses) {
 	if(!request) throw 'Missing required attribute request\nat: ' + new Error().stack;
 	if(!metadataClient) throw 'Missing required attribute metadataClient\nat: ' + new Error().stack;
 	if(!decoratorClasses) throw 'Missing required attribute decoratorClasses\nat: ' + new Error().stack;
+	
+	Performance.trace('Creating composite decorator ' + request.id, 'CompositeDecorator.init');
 	
 	Decorator.call(this, request, metadataClient);
 	
@@ -22,6 +25,8 @@ function CompositeDecorator(request, metadataClient, decoratorClasses) {
 	
 	$.trace.debug('Configured decorators for request ' + this.request.id + ': ' + this.decorators);
 	$.trace.debug('Active decorators for request ' + this.request.id + ': ' + this.getActiveDecorators());
+	
+	Performance.finishStep('CompositeDecorator.init');
 }
 
 CompositeDecorator.prototype = new Decorator();
@@ -55,11 +60,12 @@ CompositeDecorator.prototype.getActiveDecorators = function() {
  * See Decorator.preRequest
  */
 CompositeDecorator.prototype.preRequest = function() {
-	$.trace.debug('preRequest of ' + this.request.id);
+	Performance.trace('preRequest of ' + this.request.id);
 	
 	this.getActiveDecorators().forEach(function(decorator) {
-		$.trace.debug('Calling ' + decorator);
+		Performance.trace('Calling ' + decorator, decorator);
 		decorator.preRequest();
+		Performance.finishStep(decorator);
 	});
 };
 
@@ -67,10 +73,11 @@ CompositeDecorator.prototype.preRequest = function() {
  * See Decorator.postRequest
  */
 CompositeDecorator.prototype.postRequest = function(response) {
-	$.trace.debug('postRequest of ' + this.request.id);
+	Performance.trace('postRequest of ' + this.request.id);
 	
 	this.getActiveDecorators().forEach(function(decorator) {
-		$.trace.debug('Calling ' + decorator);
+		Performance.trace('Calling ' + decorator, decorator);
 		decorator.postRequest(response);
+		Performance.finishStep(decorator);
 	});
 };

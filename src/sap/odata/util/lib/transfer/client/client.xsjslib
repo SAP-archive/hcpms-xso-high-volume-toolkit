@@ -3,6 +3,7 @@ var WebResponse = $.import('sap.odata.util.lib.transfer.response', 'webResponse'
 var MetadataClient = $.import('sap.odata.util.lib.metadata', 'metadataClient').MetadataClient;
 var CompositeDecorator = $.import('sap.odata.util.lib.decorator', 'composite').CompositeDecorator;
 var TombstoneFilterDecorator = $.import('sap.odata.util.lib.decorator', 'tombstoneFilter').TombstoneFilterDecorator;
+var Performance = $.import('sap.odata.util.lib.performance', 'skiptoken').Performance;
 
 /**
  * Client class proxying
@@ -44,42 +45,13 @@ Client.prototype.addDecoratorClass = function(decoratorClass) {
  * Creates a new composite decorator consolidating the added decorator classes.
  */
 Client.prototype.createDecorator = function(request) {
+    var traceTag = 'Decorator.' + request.id;
+    Performance.trace('Creating decorators', traceTag)
 	var metadataClient = new MetadataClient(request, this.destination);
+	var decorator = new CompositeDecorator(request, metadataClient, this.decoratorClasses);
+	Performance.finishStep(traceTag);
 	
-	return new CompositeDecorator(request, metadataClient, this.decoratorClasses);
-}
-
-String.prototype.toByteArray = function() {
-  var out = [], p = 0;
-  for (var i = 0; i < this.length; i++) {
-    var c = this.charCodeAt(i);
-    if (c < 128) {
-      out[p++] = c;
-    } else if (c < 2048) {
-      out[p++] = (c >> 6) | 192;
-      out[p++] = (c & 63) | 128;
-    } else if (
-        ((c & 0xFC00) == 0xD800) && (i + 1) < this.length &&
-        ((this.charCodeAt(i + 1) & 0xFC00) == 0xDC00)) {
-      // Surrogate Pair
-      c = 0x10000 + ((c & 0x03FF) << 10) + (this.charCodeAt(++i) & 0x03FF);
-      out[p++] = (c >> 18) | 240;
-      out[p++] = ((c >> 12) & 63) | 128;
-      out[p++] = ((c >> 6) & 63) | 128;
-      out[p++] = (c & 63) | 128;
-    } else {
-      out[p++] = (c >> 12) | 224;
-      out[p++] = ((c >> 6) & 63) | 128;
-      out[p++] = (c & 63) | 128;
-    }
-  }
-  return out;
-};
-
-String.prototype.toCodePoints = function() {
-    return this.toByteArray().map(function(code) {
-	    return '\\x' + code;
-    }).join('');
+	return decorator;
 }
 
 /**
@@ -89,17 +61,27 @@ String.prototype.toCodePoints = function() {
 Client.prototype.apply = function() {
 	log($.request, 'inbound request');
 	
+	Performance.trace('Transforming request', this);
 	this.request.traverse(function(request) {
 		var decorator = this.createDecorator(request);
 		decorator.preRequest(request);
 	}.bind(this));
+	Performance.finishStep(this);
+	
+	Performance.trace('Firing upstream request', this);
 	var response = this.doRequest();
+	Performance.finishStep(this);
+	
+	Performance.trace('Transforming response', this);
 	response.traverse(function(response) {
 		var decorator = response.webRequest.decorator;
 		decorator.postRequest(response);
 	}.bind(this));
+	Performance.finishStep(this);
 	
+	Performance.trace('Writing response', this);
 	response.applyToOutboundResponse();
+	Performance.finishStep(this);
 	
 	log($.response, 'outbound response');
 };
@@ -115,8 +97,10 @@ Client.prototype.doRequest = function() {
 	
 	log(upstreamRequest, 'outbound request');
 	
+	Performance.trace('Sending...', 'Client.doRequest.send');
 	client.request(upstreamRequest, this.destination);
 	var response = client.getResponse();
+	Performance.finishStep('Client.doRequest.send');
 	
 	log(response, 'inbound response');
 	
@@ -124,7 +108,11 @@ Client.prototype.doRequest = function() {
 		this.request.getTargetCollectionPath() +
 		'. Please check the credentials.\nat: ' + new Error().stack;
 	
-	return new WebResponse(this.request, response);
+	Performance.trace('Wrapping response...', 'Client.doRequest.wrap');
+	var webResponse = new WebResponse(this.request, response);
+	Performance.finishStep('Client.doRequest.wrap');
+	
+	return webResponse
 };
 
 /**
@@ -165,3 +153,5 @@ function log(requestOrResponse, type) {
 		}
 	}
 };
+
+Client.prototype.toString = function() { return '[Client object]'; };

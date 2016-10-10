@@ -2,6 +2,7 @@ var Configuration = $.import('sap.odata.util.lib.db', 'configuration').Configura
 var Decorator = $.import('sap.odata.util.lib.decorator', 'decorator').Decorator;
 var DeltaTokenPreProcessor = $.import('sap.odata.util.lib.decorator.processing.preprocessing', 'deltaTokenPreProcessor').DeltaTokenPreProcessor;
 var DeltaTokenPostProcessor = $.import('sap.odata.util.lib.decorator.processing.postprocessing', 'deltaTokenPostProcessor').DeltaTokenPostProcessor;
+var Performance = $.import('sap.odata.util.lib.performance', 'skiptoken').Performance;
 
 /**
  * Adds delta token support to the current request as per
@@ -19,7 +20,12 @@ function DeltaTokenDecorator(request, metadataClient) {
 	if(!request) throw 'Missing required attribute request\nat: ' + new Error().stack;
 	if(!metadataClient) throw 'Missing required attribute metadataClient\nat: ' + new Error().stack;
 	
+	var traceTag = 'DeltaTokenDecorator.init.' + request.id;
+	Performance.trace('Creating delta token decorator ' + request.id, traceTag);
+	
 	Decorator.call(this, request, metadataClient, DeltaTokenPreProcessor, DeltaTokenPostProcessor);
+	
+	Performance.finishStep(traceTag);
 }
 
 DeltaTokenDecorator.prototype = new Decorator();

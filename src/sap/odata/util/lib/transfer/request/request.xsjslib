@@ -1,3 +1,5 @@
+var Performance = $.import('sap.odata.util.lib.performance', 'skiptoken').Performance;
+
 /**
  * "Interface" class defining a common API for both WebRequests and $batch request entities.
  * 
@@ -30,11 +32,14 @@ function notImplemented() { throw 'Method not implemented:\n' + new Error().stac
  * @parameter visitor {function(Request)} visitor to call on each sub-request
  */
 Request.prototype.traverse = function(visitor) {
+    var traceTag = 'Request.traverse.' + this.id;
+    Performance.trace('Traversing request tree', traceTag);
 	for(var i = 0; i < this.webRequest.entities.length; i++) {
 		var newChild = new WebEntityRequest(this.webRequest.entities[i], this.id + '.' + i, this.destination);
 		this.children.push(newChild);
 		newChild.traverse(visitor);
 	}
+	Performance.finishStep(traceTag);
 	
 	visitor(this);
 	
@@ -315,7 +320,9 @@ Request.prototype.toUpstreamRequest = notImplemented;
  * More speaking toString implementation that prints the class name and entity id.
  */
 Request.prototype.toString = function() {
-	return '[' + this.constructor.name + ' ' + this.id + ' (' + this.getRequestDetailMessage() + ')]';
+    var info = ' <uninitialized>';
+    if(this.webRequest) info = ' ' + this.id + ' (' + this.getRequestDetailMessage() + ')';
+	return '[' + this.constructor.name + info + ']';
 };
 
 Request.prototype.getRequestDetailMessage = function() {
