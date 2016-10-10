@@ -5,12 +5,16 @@
 function Database() {
 }
 
+Database.connection = null;
+
 /**
  * Creates a new connection using the dedicated library SQL connection.
  */
 Database.prototype.getConnection = function() {
 	try {
-		return $.db.getConnection("sap.odata.util.lib.db::odataUtil");
+	    if(Database.connection) return Database.connection;
+	    Database.connection = $.db.getConnection("sap.odata.util.lib.db::odataUtil");
+		return Database.connection;
 	} catch (e) {
 		if(e.code === 2) {
 			throw 'OData Utilities not configured: Please configure a user with the' +
