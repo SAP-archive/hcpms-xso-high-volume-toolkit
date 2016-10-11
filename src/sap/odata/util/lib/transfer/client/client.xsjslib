@@ -61,27 +61,27 @@ Client.prototype.createDecorator = function(request) {
 Client.prototype.apply = function() {
 	log($.request, 'inbound request');
 	
-	Performance.trace('Transforming request', this);
+	Performance.trace('Transforming request', 'Client.transformRequest');
 	this.request.traverse(function(request) {
 		var decorator = this.createDecorator(request);
 		decorator.preRequest(request);
 	}.bind(this));
-	Performance.finishStep(this);
+	Performance.finishStep('Client.transformRequest');
 	
-	Performance.trace('Firing upstream request', this);
+	Performance.trace('Firing upstream request', 'Client.request');
 	var response = this.doRequest();
-	Performance.finishStep(this);
+	Performance.finishStep('Client.request');
 	
-	Performance.trace('Transforming response', this);
+	Performance.trace('Transforming response', 'Client.transformResponse');
 	response.traverse(function(response) {
 		var decorator = response.webRequest.decorator;
 		decorator.postRequest(response);
 	}.bind(this));
-	Performance.finishStep(this);
+	Performance.finishStep('Client.transformResponse');
 	
-	Performance.trace('Writing response', this);
+	Performance.trace('Writing response', 'Client.respond');
 	response.applyToOutboundResponse();
-	Performance.finishStep(this);
+	Performance.finishStep('Client.respond');
 	
 	log($.response, 'outbound response');
 };
