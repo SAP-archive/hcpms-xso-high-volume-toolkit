@@ -3,7 +3,7 @@ var SkipTokenDecorator = $.import('sap.odata.util.lib.decorator', 'skiptoken').S
 var DeltaTokenDecorator = $.import('sap.odata.util.lib.decorator', 'deltatoken').DeltaTokenDecorator;
 var UrlRewritingDecorator = $.import('sap.odata.util.lib.decorator', 'urlrewrite').UrlRewritingDecorator;
 var Client = $.import('sap.odata.util.lib.transfer.client', 'client').Client;
-var Performance = $.import('sap.odata.util.lib.performance', 'skiptoken').Performance;
+var Performance = $.import('sap.odata.util.lib', 'performance').Performance;
 
 /**
  * Creates a decorator API facade targeting the specified destination. By convention,
