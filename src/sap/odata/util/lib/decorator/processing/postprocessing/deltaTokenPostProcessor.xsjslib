@@ -73,26 +73,26 @@ DeltaTokenPostProcessor.prototype.apply = function(response) {
 	    return data;
 	}
 	
+	var isDeltaProperty = function(key) {
+		return ~[this.deltaPropertyName, this.deletedPropertyName].indexOf(key);
+	}.bind(this);
+	
+	var isDeleted = function(object) {
+		return object && object[this.deletedPropertyName] === this.deletedPropertyYesValue;
+	}.bind(this);
+	
+	function replaceWithDeletedEntity(object, parentArray) {
+		if(!parentArray) throw { "code": "410", "message": { "lang": "en-US", "value": "The requested resource no longer exists."}}
+		
+		var id = object.__metadata.uri;
+		Object.getOwnPropertyNames(object).forEach(function(property) { delete object[property]; });
+		object['@odata.context'] = '$metadata#' + this.request.getCollectionName() + '/$deletedEntity';
+		object.id = id;
+	}
+	
 	data.traverse(function(object, parent, name) {
-		var isDeltaProperty = function(key) {
-			return ~[this.deltaPropertyName, this.deletedPropertyName].indexOf(key);
-		}.bind(this);
-		
-		var isDeleted = function(object) {
-			return object && object[this.deletedPropertyName] === this.deletedPropertyYesValue;
-		}.bind(this);
-		
 		if(this.stripDeltaFields && isDeltaProperty(name)) delete parent[name];
 		else if(this.replaceDeletedEntities && isDeleted(object)) replaceWithDeletedEntity.call(this, object, parent);
-		
-		function replaceWithDeletedEntity(object, parentArray) {
-			if(!parentArray) throw { "code": "410", "message": { "lang": "en-US", "value": "The requested resource no longer exists."}}
-			
-			var id = object.__metadata.uri;
-			Object.getOwnPropertyNames(object).forEach(function(property) { delete object[property]; });
-			object['@odata.context'] = '$metadata#' + this.request.getCollectionName() + '/$deletedEntity';
-			object.id = id;
-		}
 	}.bind(this));
 };
 
