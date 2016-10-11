@@ -85,10 +85,10 @@ CompositeDecorator.prototype.postRequest = function(response) {
 		
 		Performance.trace('Visiting data nodes of ' + this.request.id + ' with ' + decorators, 'CompositeDecorator.visitPostRequest');
 		response.data.d.traverse(function(object, parent, name) {
-			for(var index in decorators) {
-				if(decorators.hasOwnProperty(index)) decorators[index].visitPostRequest(object, parent, name);
+			for(var i = 0; i < decorators.length; i++) {
+				decorators[i].visitPostRequest(object, parent, name);
 			}
-		})
+		});
 		Performance.finishStep('CompositeDecorator.visitPostRequest');
 	}
 };
