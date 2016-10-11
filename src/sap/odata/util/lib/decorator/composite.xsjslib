@@ -43,8 +43,8 @@ CompositeDecorator.prototype.addDecorator = function(decoratorClass) {
  * Tells if any of the registered decorators are configured to apply to the current
  * request.
  */
-CompositeDecorator.prototype.hasActiveDecorators = function(request) {
-	return !!this.getActiveDecorators(request).length;
+CompositeDecorator.prototype.hasActiveDecorators = function() {
+	return !!this.getActiveDecorators().length;
 };
 
 /**
@@ -80,4 +80,25 @@ CompositeDecorator.prototype.postRequest = function(response) {
 		decorator.postRequest(response);
 		Performance.finishStep(decorator);
 	});
+	if(this.hasVisitingDecorators() && response.json) {
+		var decorators = this.getVisitingDecorators();
+		
+		Performance.trace('Visiting data nodes of ' + this.request.id + ' with ' + decorators, 'CompositeDecorator.visitPostRequest');
+		response.data.d.traverse(function(object, parent, name) {
+			for(var index in decorators) {
+				if(decorators.hasOwnProperty(index)) decorators[index].visitPostRequest(object, parent, name);
+			}
+		})
+		Performance.finishStep('CompositeDecorator.visitPostRequest');
+	}
+};
+
+CompositeDecorator.prototype.getVisitingDecorators = function() {
+	return this.getActiveDecorators().filter(function(decorator) {
+		return decorator.visiting;
+	});
+};
+
+CompositeDecorator.prototype.hasVisitingDecorators = function() {
+	return !!this.getVisitingDecorators().length;
 };

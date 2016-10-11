@@ -41,21 +41,15 @@ UrlRewritingPostProcessor.prototype.constructor = UrlRewritingPostProcessor;
  * @see lib.decorator.processor.Processor.apply
  */
 UrlRewritingPostProcessor.prototype.apply = function (response) {
-	if(!response.json) return;
-	
-	var data = response.data.d;
-	
-	var servicePath = this.request.getServicePath();
-	
-	data.traverse(function(object, parent, name) {
-		if(object && ~['uri', 'id', '__delta', '__next'].indexOf(name)) {
-			parent[name] = this.replace(object);
-		}
-	}.bind(this));
-	
 	var location = response.headers.get('location');
 	if(location) response.headers.set('location', this.replace(location));
 };
+
+UrlRewritingPostProcessor.prototype.visit = function(object, parent, name) {
+	if(object && ~['uri', 'id', '__delta', '__next'].indexOf(name)) {
+		parent[name] = this.replace(object);
+	}
+}
 
 /**
  * Returns a rewritten version of the specified absolute url string in which the

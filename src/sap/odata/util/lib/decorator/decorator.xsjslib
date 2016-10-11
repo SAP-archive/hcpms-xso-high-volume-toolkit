@@ -81,6 +81,16 @@ Decorator.prototype.postRequest = function(response) {
 	}
 };
 
+Decorator.prototype.visitPostRequest = function(object, parent, name) {
+	try {
+		return this.postprocessor.visit(object, parent, name);
+	} catch(e) {
+		if(e && e.code) {
+			response.setPostProcessingError(e);
+		} else throw e;
+	}
+};
+
 /**
  * Tells if the targeted collection has the required delta properties for delta
  * queries to work.

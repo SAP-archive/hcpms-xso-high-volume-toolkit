@@ -68,32 +68,28 @@ DeltaTokenPostProcessor.prototype.apply = function(response) {
 	var data = response.data.d;
 	
 	if(response.webRequest.isCollectionRequest()) data.__delta = this.getDeltaUrl();
+};
+
+DeltaTokenPostProcessor.prototype.visit = function(object, parent, name) {
+	if(this.stripDeltaFields && this.isDeltaProperty(name)) delete parent[name];
+	else if(this.replaceDeletedEntities && this.isDeleted(object)) this.replaceWithDeletedEntity.call(this, object, parent);
+}
+
+DeltaTokenPostProcessor.prototype.isDeltaProperty = function(key) {
+	return ~[this.deltaPropertyName, this.deletedPropertyName].indexOf(key);
+};
+
+DeltaTokenPostProcessor.prototype.isDeleted = function(object) {
+	return object && object[this.deletedPropertyName] === this.deletedPropertyYesValue;
+};
+
+DeltaTokenPostProcessor.prototype.replaceWithDeletedEntity = function(object, parentArray) {
+	if(!parentArray) throw { "code": "410", "message": { "lang": "en-US", "value": "The requested resource no longer exists."}}
 	
-	if (!this.replaceDeletedEntities && !this.stripDeltaFields) {
-	    return data;
-	}
-	
-	data.traverse(function(object, parent, name) {
-		var isDeltaProperty = function(key) {
-			return ~[this.deltaPropertyName, this.deletedPropertyName].indexOf(key);
-		}.bind(this);
-		
-		var isDeleted = function(object) {
-			return object && object[this.deletedPropertyName] === this.deletedPropertyYesValue;
-		}.bind(this);
-		
-		if(this.stripDeltaFields && isDeltaProperty(name)) delete parent[name];
-		else if(this.replaceDeletedEntities && isDeleted(object)) replaceWithDeletedEntity.call(this, object, parent);
-		
-		function replaceWithDeletedEntity(object, parentArray) {
-			if(!parentArray) throw { "code": "410", "message": { "lang": "en-US", "value": "The requested resource no longer exists."}}
-			
-			var id = object.__metadata.uri;
-			Object.getOwnPropertyNames(object).forEach(function(property) { delete object[property]; });
-			object['@odata.context'] = '$metadata#' + this.request.getCollectionName() + '/$deletedEntity';
-			object.id = id;
-		}
-	}.bind(this));
+	var id = object.__metadata.uri;
+	Object.getOwnPropertyNames(object).forEach(function(property) { delete object[property]; });
+	object['@odata.context'] = '$metadata#' + this.request.getCollectionName() + '/$deletedEntity';
+	object.id = id;
 };
 
 /**

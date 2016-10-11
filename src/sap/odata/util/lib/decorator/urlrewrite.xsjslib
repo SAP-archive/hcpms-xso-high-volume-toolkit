@@ -19,6 +19,12 @@ function UrlRewritingDecorator(request, metadataClient) {
 	
 	Decorator.call(this, request, metadataClient, UrlRewritingPreProcessor, UrlRewritingPostProcessor);
 	
+	Object.defineProperties(this, {
+		'visiting': {
+			value: true
+		}
+	});
+	
 	Performance.finishStep(traceTag);
 }
 
