@@ -40,12 +40,23 @@ Decorator.prototype.toString = function() {
 };
 
 /**
+ * Tells if this preprocessor should be applied to the current request.
  * Tells if this decorator should be applied to the current request.
  * By default, this is is the case for
  * - non-multipart GET requests
  * - against collections or single entities
  * - excluding $metadata and $count requests
  */
+Decorator.prototype.preProcessorIsActive = function() {
+	return this.preprocessor && this.preprocessor.isActive();
+};
+
+/**
+ * Tells if this postprocessor should be applied to the current request.
+ */
+Decorator.prototype.postProcessorIsActive = function() {
+	if(this.postprocessor && !this.postprocessor.isActive) throw this.postprocessor.isActive;
+	return this.postprocessor && this.postprocessor.isActive();
 Decorator.prototype.isActive = function() {
 	return !this.request.isMultipartRequest() &&
 		(this.request.isSingleEntityRequest() || this.request.isCollectionRequest()) &&
@@ -59,6 +70,10 @@ Decorator.prototype.isActive = function() {
  * the request parameters before it is sent.
  */
 Decorator.prototype.preRequest = function() { return this.preprocessor.apply(); };
+
+Decorator.prototype.visitPreRequest = function(object, parent, name) {
+	return this.preprocessor.visit(object, parent, name);
+};
 
 /**
  * Template method that allows inheriting classes to customize
