@@ -1,4 +1,4 @@
-var Processor = $.import('sap.odata.util.lib.decorator.processing', 'processor').Processor;
+var DeltaTokenProcessor = $.import('sap.odata.util.lib.decorator.processing', 'deltaTokenProcessor').DeltaTokenProcessor;
 var SkipTokenPostProcessor = $.import('sap.odata.util.lib.decorator.processing.postprocessing', 'skipTokenPostProcessor').SkipTokenPostProcessor;
 $.import('sap.odata.util.lib', 'Date.latestSafeTimestamp');
 $.import('sap.odata.util.lib', 'Object.traverse');
@@ -35,7 +35,7 @@ function DeltaTokenPostProcessor(request, metadataClient) {
 	if(!request) throw 'Missing required attribute request\nat: ' + new Error().stack;
 	if(!metadataClient) throw 'Missing required attribute metadataClient\nat: ' + new Error().stack;
 	
-	Processor.call(this, request, metadataClient);
+	DeltaTokenProcessor.call(this, request, metadataClient);
 	
 	Object.defineProperties(this, {
 		"deltaPropertyName": {
@@ -56,14 +56,23 @@ function DeltaTokenPostProcessor(request, metadataClient) {
 	});
 }
 
-DeltaTokenPostProcessor.prototype = new Processor();
+DeltaTokenPostProcessor.prototype = new DeltaTokenProcessor();
 DeltaTokenPostProcessor.prototype.constructor = DeltaTokenPostProcessor;
+
+/*
+ * @see lib.decorator.processing.DeltaTokenProcessor.isActive
+ */
+DeltaTokenPostProcessor.prototype.isActive = function() {
+	return DeltaTokenProcessor.prototype.isActive.call(this) &&
+	(this.stripDeltaFields ||
+			this.request.isDeltaRequest() && this.replaceDeletedEntities);
+};
 
 /*
  * @see lib.decorator.processing.Processor.apply
  */
 DeltaTokenPostProcessor.prototype.apply = function(response) {
-	if(!response.json) return;
+	if(!response.json) return; // TODO move to isActive
 	
 	var data = response.data.d;
 	

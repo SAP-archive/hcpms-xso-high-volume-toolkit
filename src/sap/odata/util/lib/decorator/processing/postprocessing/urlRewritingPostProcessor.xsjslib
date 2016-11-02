@@ -1,4 +1,4 @@
-var Processor = $.import('sap.odata.util.lib.decorator.processing', 'processor').Processor;
+var UrlRewritingProcessor = $.import('sap.odata.util.lib.decorator.processing', 'urlRewritingProcessor').UrlRewritingProcessor;
 
 /**
  * Postprocessor that rewrites URLs in response bodies. The body is deep-inspected
@@ -25,7 +25,7 @@ function UrlRewritingPostProcessor(request, metadataClient) {
 	if(!request) throw 'Missing required attribute request\nat: ' + new Error().stack;
 	if(!metadataClient) throw 'Missing required attribute metadataClient\nat: ' + new Error().stack;
 	
-	Processor.call(this, request, metadataClient);
+	UrlRewritingProcessor.call(this, request, metadataClient);
 	
 	Object.defineProperties(this, {
 		'replacementRegex': {
@@ -34,7 +34,7 @@ function UrlRewritingPostProcessor(request, metadataClient) {
 	});
 }
 
-UrlRewritingPostProcessor.prototype = new Processor();
+UrlRewritingPostProcessor.prototype = new UrlRewritingProcessor();
 UrlRewritingPostProcessor.prototype.constructor = UrlRewritingPostProcessor;
 
 /*
