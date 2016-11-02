@@ -22,21 +22,6 @@ function DeltaTokenPreProcessor(request, metadataClient) {
 	if(!metadataClient) throw 'Missing required attribute metadataClient\nat: ' + new Error().stack;
 	
 	DeltaTokenProcessor.call(this, request, metadataClient);
-	
-	Object.defineProperties(this, {
-		"deltaPropertyName": {
-			value: this.getConfiguredValue('deltatoken.deltaPropertyName'),
-			writable: false
-		},
-		"deletedPropertyName": {
-			value: this.getConfiguredValue('deltatoken.deletedPropertyName'),
-			writable: false
-		},
-		"deletedPropertyYesValue": {
-			value: this.getConfiguredValue('deltatoken.deletedPropertyYesValue'),
-			writable: false
-		}
-	});
 }
 
 DeltaTokenPreProcessor.prototype = new DeltaTokenProcessor();

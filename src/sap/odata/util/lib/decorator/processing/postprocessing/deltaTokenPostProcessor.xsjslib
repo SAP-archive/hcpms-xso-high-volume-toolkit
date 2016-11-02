@@ -38,20 +38,11 @@ function DeltaTokenPostProcessor(request, metadataClient) {
 	DeltaTokenProcessor.call(this, request, metadataClient);
 	
 	Object.defineProperties(this, {
-		"deltaPropertyName": {
-			value: this.getConfiguredValue('deltatoken.deltaPropertyName')
-		},
-		"deletedPropertyName": {
-			value: this.getConfiguredValue('deltatoken.deletedPropertyName')
-		},
-		"deletedPropertyYesValue": {
-			value: this.getConfiguredValue('deltatoken.deletedPropertyYesValue')
-		},
 		"stripDeltaFields": {
-			value: this.getConfiguredValue('deltatoken.stripDeltaFields')
+			value: this.getConfiguredValue('deltatoken.stripDeltaFields') === 'Y'
 		},
 		"replaceDeletedEntities": {
-			value: this.getConfiguredValue('deltatoken.replaceDeletedEntities')
+			value: this.getConfiguredValue('deltatoken.replaceDeletedEntities') === 'Y'
 		}
 	});
 }

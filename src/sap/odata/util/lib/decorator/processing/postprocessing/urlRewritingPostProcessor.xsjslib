@@ -30,6 +30,9 @@ function UrlRewritingPostProcessor(request, metadataClient) {
 	Object.defineProperties(this, {
 		'replacementRegex': {
 			value: new RegExp('(.*:\\/\\/[^/]+)(\\/.*' + request.getServiceName() + '\\.xsodata)(.*)')
+		},
+		'replacementPath': {
+			value: this.request.getServicePath()
 		}
 	});
 }
@@ -40,22 +43,6 @@ UrlRewritingPostProcessor.prototype.constructor = UrlRewritingPostProcessor;
 /*
  * @see lib.decorator.processor.Processor.apply
  */
-UrlRewritingPostProcessor.prototype.apply = function (response) {
-	var location = response.headers.get('location');
-	if(location) response.headers.set('location', this.replace(location));
-};
-
-UrlRewritingPostProcessor.prototype.visit = function(object, parent, name) {
-	if(object && ~['uri', 'id', '__delta', '__next'].indexOf(name)) {
-		parent[name] = this.replace(object);
-	}
-}
-
-/**
- * Returns a rewritten version of the specified absolute url string in which the
- * reference to the upstream XSOData service is replaced with a reference to the
- * current wrapper XSJS service.
- */
-UrlRewritingPostProcessor.prototype.replace = function (url) {
-	return url.replace(this.replacementRegex, '$1' + this.request.getServicePath() + '$3');
+UrlRewritingPostProcessor.prototype.apply = function(response) {
+	this.replaceLocation(response);
 };

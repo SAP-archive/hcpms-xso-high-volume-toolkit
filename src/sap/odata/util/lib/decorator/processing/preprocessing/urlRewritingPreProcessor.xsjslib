@@ -30,6 +30,9 @@ function UrlRewritingPreProcessor(request, metadataClient) {
 	Object.defineProperties(this, {
 		'replacementRegex': {
 			value: new RegExp('(.*:\\/\\/[^/]+)(\\/.*' + request.getServiceName() + '\\.xsjs)(.*)')
+		},
+		'replacementPath': {
+			value: this.request.getTargetServicePath()
 		}
 	});
 }
@@ -41,24 +44,5 @@ UrlRewritingPreProcessor.prototype.constructor = UrlRewritingPreProcessor;
  * @see lib.decorator.processor.Processor.apply
  */
 UrlRewritingPreProcessor.prototype.apply = function () {
-	if(!this.request.json) return;
-	
-	var data = this.request.body;
-	data.traverse(function(object, parent, name) {
-		if(object && ~['uri', 'id', '__delta', '__next'].indexOf(name)) {
-			parent[name] = this.replace(object);
-		}
-	}.bind(this));
-	
-	var location = this.request.headers.get('location');
-	if(location) this.request.headers.set('location', this.replace(location));
-};
-
-/**
- * Returns a rewritten version of the specified absolute url string in which the
- * reference to the upstream XSOData service is replaced with a reference to the
- * current wrapper XSJS service.
- */
-UrlRewritingPreProcessor.prototype.replace = function (url) {
-	return url.replace(this.replacementRegex, '$1' + this.request.getTargetServicePath() + '$3');
+	this.replaceLocation(this.request);
 };
