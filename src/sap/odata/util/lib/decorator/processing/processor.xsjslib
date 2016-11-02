@@ -12,12 +12,24 @@ function Processor(request, metadataClient) {
 		},
 		'metadataClient': {
 			value: metadataClient
-		}
+		} 
 	});
 }
 
 /**
- * Loads the most specific* configuration value for the current request
+ * Tells if this processor should be applied to the current request.
+ * By default, this is is the case for
+ * - non-multipart GET requests
+ * - against collections or single entities
+ * - excluding $metadata and $count requests
+ */
+Processor.prototype.isActive = function() {
+	return !this.request.isMultipartRequest() &&
+		(this.request.isSingleEntityRequest() || this.request.isCollectionRequest()) &&
+		this.request.isGetRequest() &&
+		!this.request.isMetadataRequest() &&
+		!this.request.isCountRequest();
+};
  * based on the specified key.
  * 
  * Most specific based on granularity out of [global, service-level, collection-level].
