@@ -19,22 +19,8 @@ function UrlRewritingDecorator(request, metadataClient) {
 	
 	Decorator.call(this, request, metadataClient, UrlRewritingPreProcessor, UrlRewritingPostProcessor);
 	
-	Object.defineProperties(this, {
-		'visiting': {
-			value: true
-		}
-	});
-	
 	Performance.finishStep(traceTag);
 }
 
 UrlRewritingDecorator.prototype = new Decorator();
 UrlRewritingDecorator.prototype.constructor = UrlRewritingDecorator;
-
-/*
- * See Decorator.isActive
- */
-UrlRewritingDecorator.prototype.isActive = function(request) {
-	return !this.request.isMultipartRequest() &&
-		!this.request.isMetadataRequest(request);
-};
