@@ -24,11 +24,3 @@ function UrlRewritingDecorator(request, metadataClient) {
 
 UrlRewritingDecorator.prototype = new Decorator();
 UrlRewritingDecorator.prototype.constructor = UrlRewritingDecorator;
-
-/*
- * See Decorator.isActive
- */
-UrlRewritingDecorator.prototype.isActive = function(request) {
-	return !this.request.isMultipartRequest() &&
-		!this.request.isMetadataRequest(request);
-};

@@ -45,7 +45,10 @@ function WebRequest(webRequest, destination) {
 		'json': {
 			value: json && typeof body === 'object'
 		},
-		'body': {
+		'body': { // TODO refactor - remove
+			value: body
+		},
+		'data': { // Replacement for body in alignment with Response.data
 			value: body
 		}
 	});

@@ -1,4 +1,4 @@
-var Processor = $.import('sap.odata.util.lib.decorator.processing', 'processor').Processor;
+var DeltaTokenProcessor = $.import('sap.odata.util.lib.decorator.processing', 'deltaTokenProcessor').DeltaTokenProcessor;
 var SkipTokenPostProcessor = $.import('sap.odata.util.lib.decorator.processing.postprocessing', 'skipTokenPostProcessor').SkipTokenPostProcessor;
 $.import('sap.odata.util.lib', 'Date.latestSafeTimestamp');
 $.import('sap.odata.util.lib', 'Object.traverse');
@@ -35,65 +35,61 @@ function DeltaTokenPostProcessor(request, metadataClient) {
 	if(!request) throw 'Missing required attribute request\nat: ' + new Error().stack;
 	if(!metadataClient) throw 'Missing required attribute metadataClient\nat: ' + new Error().stack;
 	
-	Processor.call(this, request, metadataClient);
+	DeltaTokenProcessor.call(this, request, metadataClient);
 	
 	Object.defineProperties(this, {
-		"deltaPropertyName": {
-			value: this.getConfiguredValue('deltatoken.deltaPropertyName')
-		},
-		"deletedPropertyName": {
-			value: this.getConfiguredValue('deltatoken.deletedPropertyName')
-		},
-		"deletedPropertyYesValue": {
-			value: this.getConfiguredValue('deltatoken.deletedPropertyYesValue')
-		},
 		"stripDeltaFields": {
-			value: this.getConfiguredValue('deltatoken.stripDeltaFields')
+			value: this.getConfiguredValue('deltatoken.stripDeltaFields') === 'Y'
 		},
 		"replaceDeletedEntities": {
-			value: this.getConfiguredValue('deltatoken.replaceDeletedEntities')
+			value: this.getConfiguredValue('deltatoken.replaceDeletedEntities') === 'Y'
 		}
 	});
 }
 
-DeltaTokenPostProcessor.prototype = new Processor();
+DeltaTokenPostProcessor.prototype = new DeltaTokenProcessor();
 DeltaTokenPostProcessor.prototype.constructor = DeltaTokenPostProcessor;
+
+/*
+ * @see lib.decorator.processing.DeltaTokenProcessor.isActive
+ */
+DeltaTokenPostProcessor.prototype.isActive = function() {
+	return DeltaTokenProcessor.prototype.isActive.call(this) &&
+	(this.stripDeltaFields ||
+			this.request.isDeltaRequest() && this.replaceDeletedEntities);
+};
 
 /*
  * @see lib.decorator.processing.Processor.apply
  */
 DeltaTokenPostProcessor.prototype.apply = function(response) {
-	if(!response.json) return;
+	if(!response.json) return; // TODO move to isActive
 	
 	var data = response.data.d;
 	
 	if(response.webRequest.isCollectionRequest()) data.__delta = this.getDeltaUrl();
+};
+
+DeltaTokenPostProcessor.prototype.visit = function(object, parent, name) {
+	if(this.stripDeltaFields && this.isDeltaProperty(name)) delete parent[name];
+	else if(this.replaceDeletedEntities && this.isDeleted(object)) this.replaceWithDeletedEntity.call(this, object, parent);
+}
+
+DeltaTokenPostProcessor.prototype.isDeltaProperty = function(key) {
+	return ~[this.deltaPropertyName, this.deletedPropertyName].indexOf(key);
+};
+
+DeltaTokenPostProcessor.prototype.isDeleted = function(object) {
+	return object && object[this.deletedPropertyName] === this.deletedPropertyYesValue;
+};
+
+DeltaTokenPostProcessor.prototype.replaceWithDeletedEntity = function(object, parentArray) {
+	if(!parentArray) throw { "code": "410", "message": { "lang": "en-US", "value": "The requested resource no longer exists."}}
 	
-	if (!this.replaceDeletedEntities && !this.stripDeltaFields) {
-	    return data;
-	}
-	
-	var isDeltaProperty = function(key) {
-		return ~[this.deltaPropertyName, this.deletedPropertyName].indexOf(key);
-	}.bind(this);
-	
-	var isDeleted = function(object) {
-		return object && object[this.deletedPropertyName] === this.deletedPropertyYesValue;
-	}.bind(this);
-	
-	function replaceWithDeletedEntity(object, parentArray) {
-		if(!parentArray) throw { "code": "410", "message": { "lang": "en-US", "value": "The requested resource no longer exists."}}
-		
-		var id = object.__metadata.uri;
-		Object.getOwnPropertyNames(object).forEach(function(property) { delete object[property]; });
-		object['@odata.context'] = '$metadata#' + this.request.getCollectionName() + '/$deletedEntity';
-		object.id = id;
-	}
-	
-	data.traverse(function(object, parent, name) {
-		if(this.stripDeltaFields && isDeltaProperty(name)) delete parent[name];
-		else if(this.replaceDeletedEntities && isDeleted(object)) replaceWithDeletedEntity.call(this, object, parent);
-	}.bind(this));
+	var id = object.__metadata.uri;
+	Object.getOwnPropertyNames(object).forEach(function(property) { delete object[property]; });
+	object['@odata.context'] = '$metadata#' + this.request.getCollectionName() + '/$deletedEntity';
+	object.id = id;
 };
 
 /**

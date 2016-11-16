@@ -1,4 +1,5 @@
 var Configuration = $.import('sap.odata.util.lib.db', 'configuration').Configuration;
+var NullProcessor = $.import('sap.odata.util.lib.decorator.processing', 'nullProcessor').NullProcessor;
 
 /**
  * Decorator base class implementing the generic upstream request
@@ -20,16 +21,15 @@ function Decorator(request, metadataClient, preprocessorClass, postprocessorClas
 			value: metadataClient
 		}
 	});
-	if(request && this.isActive()) {
-		Object.defineProperties(this, {
-			'preprocessor': {
-				value: preprocessorClass ? new preprocessorClass(request, metadataClient) : function() {}
-			},
-			'postprocessor': {
-				value: postprocessorClass ? new postprocessorClass(request, metadataClient) : function() {}
-			}
-		});
-	}
+	
+	request && Object.defineProperties(this, {
+		'preprocessor': {
+			value: preprocessorClass && !request.isMultipartRequest() ? new preprocessorClass(request, metadataClient) : new NullProcessor()
+		},
+		'postprocessor': {
+			value: postprocessorClass && !request.isMultipartRequest() ? new postprocessorClass(request, metadataClient) : new NullProcessor()
+		}
+	});
 }
 
 /**
@@ -40,18 +40,18 @@ Decorator.prototype.toString = function() {
 };
 
 /**
- * Tells if this decorator should be applied to the current request.
- * By default, this is is the case for
- * - non-multipart GET requests
- * - against collections or single entities
- * - excluding $metadata and $count requests
+ * Tells if this preprocessor should be applied to the current request.
  */
-Decorator.prototype.isActive = function() {
-	return !this.request.isMultipartRequest() &&
-		(this.request.isSingleEntityRequest() || this.request.isCollectionRequest()) &&
-		this.request.isGetRequest() &&
-		!this.request.isMetadataRequest() &&
-		!this.request.isCountRequest();
+Decorator.prototype.preProcessorIsActive = function() {
+	return this.preprocessor && this.preprocessor.isActive();
+};
+
+/**
+ * Tells if this postprocessor should be applied to the current request.
+ */
+Decorator.prototype.postProcessorIsActive = function() {
+	if(this.postprocessor && !this.postprocessor.isActive) throw this.postprocessor.isActive;
+	return this.postprocessor && this.postprocessor.isActive();
 };
 
 /**
@@ -59,6 +59,10 @@ Decorator.prototype.isActive = function() {
  * the request parameters before it is sent.
  */
 Decorator.prototype.preRequest = function() { return this.preprocessor.apply(); };
+
+Decorator.prototype.visitPreRequest = function(object, parent, name) {
+	return this.preprocessor.visit(object, parent, name);
+};
 
 /**
  * Template method that allows inheriting classes to customize
@@ -74,6 +78,16 @@ Decorator.prototype.preRequest = function() { return this.preprocessor.apply(); 
 Decorator.prototype.postRequest = function(response) {
 	try {
 		return this.postprocessor.apply(response);
+	} catch(e) {
+		if(e && e.code) {
+			response.setPostProcessingError(e);
+		} else throw e;
+	}
+};
+
+Decorator.prototype.visitPostRequest = function(object, parent, name) {
+	try {
+		return this.postprocessor.visit(object, parent, name);
 	} catch(e) {
 		if(e && e.code) {
 			response.setPostProcessingError(e);

@@ -38,31 +38,3 @@ function SkipTokenDecorator(request, metadataClient) {
 
 SkipTokenDecorator.prototype = new Decorator();
 SkipTokenDecorator.prototype.constructor = SkipTokenDecorator;
-
-/*
- * @see lib.decorator.Decorator.isActive
- */
-SkipTokenDecorator.prototype.isActive = function() {
-	return !this.request.isMultipartRequest() &&
-		this.request.isGetRequest() &&
-		!this.request.isMetadataRequest() &&
-		!this.request.isCountRequest() &&
-		this.request.isCollectionRequest() &&
-		this.isNotClientDrivenPagingRequest() &&
-		this.isNotCustomOrderingRequest();
-};
-
-/**
- * Tells if this request does <b>not</b> use client-driven paging.
- */
-SkipTokenDecorator.prototype.isNotClientDrivenPagingRequest = function(request) {
-	return !this.request.originalParameters.contains('$skip') &&
-		!this.request.originalParameters.contains('$top');
-};
-
-/**
- * Tells if this request does <b>not</b> use $orderby.
- */
-SkipTokenDecorator.prototype.isNotCustomOrderingRequest = function(request) {
-	return !this.request.originalParameters.contains('$orderby');
-};

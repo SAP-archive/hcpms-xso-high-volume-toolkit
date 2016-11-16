@@ -12,12 +12,42 @@ function Processor(request, metadataClient) {
 		},
 		'metadataClient': {
 			value: metadataClient
-		}
+		} 
 	});
 }
 
 /**
- * Loads the most specific* configuration value for the current request
+ * Tells if this processor should be applied to the current request.
+ * By default, this is is the case for
+ * - non-multipart GET requests
+ * - against collections or single entities
+ * - excluding $metadata and $count requests
+ */
+Processor.prototype.isActive = function() {
+	return !this.request.isMultipartRequest() &&
+		(this.request.isSingleEntityRequest() || this.request.isCollectionRequest()) &&
+		this.request.isGetRequest() &&
+		!this.request.isMetadataRequest() &&
+		!this.request.isCountRequest();
+};
+
+/**
+ * Applies this processor to the current request or response.
+ * 
+ * @param {sap.odata.util.lib.transfer.response.Response|undefined} [responseOrUndefined]
+ * 	Preprocessors: Undefined
+ * 	Postprocessors: The response to apply to
+ */
+Processor.prototype.apply = function(responseOrUndefined) { }; // no-op
+
+/**
+ * Visits the specified node in the request or response object graph and applies
+ * a transformation, if applicable.
+ */
+Processor.prototype.visit = function(object, parent, name) { }; // no-op
+
+/**
+ * Loads the most specific configuration value for the current request
  * based on the specified key.
  * 
  * Most specific based on granularity out of [global, service-level, collection-level].
@@ -44,4 +74,18 @@ Processor.prototype.querify = function(parameters) {
 	return parameters.map(function(entry) {
 		return entry.key + '=' + escape(entry.value);
 	}).join('&');
+};
+
+/**
+ * Tells if the targeted collection has the required delta properties for delta
+ * queries to work.
+ */
+Processor.prototype.collectionSupportsDelta = function() {
+	var deltaPropertyName = this.getConfiguredValue('deltatoken.deltaPropertyName');
+	var deletedPropertyName = this.getConfiguredValue('deltatoken.deletedPropertyName');
+	
+	var deltaProperties = this.metadataClient.getMetadata().properties.filter(function(property) {
+		return ~[deltaPropertyName, deletedPropertyName].indexOf(property.name);
+	}.bind(this));
+	return deltaProperties && deltaProperties.length === 2;
 };

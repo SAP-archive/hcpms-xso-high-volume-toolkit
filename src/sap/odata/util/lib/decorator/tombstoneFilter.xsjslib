@@ -23,15 +23,3 @@ function TombstoneFilterDecorator(request, metadataClient) {
 
 TombstoneFilterDecorator.prototype = new Decorator();
 TombstoneFilterDecorator.prototype.constructor = TombstoneFilterDecorator;
-
-/*
- * See Decorator.isActive
- */
-TombstoneFilterDecorator.prototype.isActive = function(request) {
-	return this.request.isGetRequest() &&
-		!this.request.isServiceRootRequest() &&
-		!this.request.isMetadataRequest() &&
-		!this.request.isSingleEntityRequest() &&
-		!this.request.isDeltaRequest() &&
-		this.collectionSupportsDelta();
-};

@@ -30,11 +30,3 @@ function DeltaTokenDecorator(request, metadataClient) {
 
 DeltaTokenDecorator.prototype = new Decorator();
 DeltaTokenDecorator.prototype.constructor = DeltaTokenDecorator;
-
-/*
- * @see lib.decorator.Decorator.isActive
- */
-DeltaTokenDecorator.prototype.isActive = function() {
-	return Decorator.prototype.isActive.call(this) && this.collectionSupportsDelta();
-};
-

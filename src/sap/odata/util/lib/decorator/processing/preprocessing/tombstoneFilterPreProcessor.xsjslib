@@ -31,6 +31,18 @@ function TombstoneFilterPreProcessor(request, metadataClient) {
 TombstoneFilterPreProcessor.prototype = new Processor();
 TombstoneFilterPreProcessor.prototype.constructor = TombstoneFilterPreProcessor;
 
+/*
+ * @see lib.decorator.processing.DeltaTokenProcessor.isActive
+ */
+TombstoneFilterPreProcessor.prototype.isActive = function(request) {
+	return this.request.isGetRequest() &&
+		!this.request.isServiceRootRequest() &&
+		!this.request.isMetadataRequest() &&
+		!this.request.isSingleEntityRequest() &&
+		!this.request.isDeltaRequest() &&
+		this.collectionSupportsDelta();
+};
+
 /**
  * Returns a filter that will prevent tombstones from being retrieved from the
  * XSOData service.

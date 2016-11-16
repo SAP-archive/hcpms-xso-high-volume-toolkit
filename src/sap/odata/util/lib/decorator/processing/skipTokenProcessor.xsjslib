@@ -8,7 +8,7 @@ var Processor = $.import('sap.odata.util.lib.decorator.processing', 'processor')
 function SkipTokenProcessor(request, metadataClient) {
 	Processor.call(this, request, metadataClient);
 	
-	if(request) Object.defineProperties(this, {
+	request && Object.defineProperties(this, {
 		'skipTokenSeparator': {
 			value: '-'
 		},
@@ -20,6 +20,19 @@ function SkipTokenProcessor(request, metadataClient) {
 
 SkipTokenProcessor.prototype = new Processor();
 SkipTokenProcessor.prototype.constructor = SkipTokenProcessor;
+
+/*
+ * @see lib.decorator.processing.Processor.isActive
+ */
+SkipTokenProcessor.prototype.isActive = function() {
+	return !this.request.isMultipartRequest() &&
+		this.request.isGetRequest() &&
+		!this.request.isMetadataRequest() &&
+		!this.request.isCountRequest() &&
+		this.request.isCollectionRequest() &&
+		!this.request.isClientDrivenPagingRequest() &&
+		!this.request.isCustomOrderingRequest();
+};
 
 /**
  * Returns the decoded value of the current request <pre><code>$skiptoken

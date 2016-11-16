@@ -300,6 +300,20 @@ Request.prototype.isDeltaRequest = function() {
 	return this.originalParameters.contains('!deltatoken');
 };
 
+/**
+ * Tells if this request does <b>not</b> use client-driven paging.
+ */
+Request.prototype.isClientDrivenPagingRequest = function(request) {
+	return this.originalParameters.contains('$skip') ||
+		this.originalParameters.contains('$top');
+};
+
+/**
+ * Tells if this request does <b>not</b> use $orderby.
+ */
+Request.prototype.isCustomOrderingRequest = function(request) {
+	return this.originalParameters.contains('$orderby');
+};
 
 /**
  * Applies the current request parameters to the specified request.

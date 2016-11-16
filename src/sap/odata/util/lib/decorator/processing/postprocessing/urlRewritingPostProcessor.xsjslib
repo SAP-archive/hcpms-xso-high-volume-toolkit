@@ -1,4 +1,4 @@
-var Processor = $.import('sap.odata.util.lib.decorator.processing', 'processor').Processor;
+var UrlRewritingProcessor = $.import('sap.odata.util.lib.decorator.processing', 'urlRewritingProcessor').UrlRewritingProcessor;
 
 /**
  * Postprocessor that rewrites URLs in response bodies. The body is deep-inspected
@@ -25,43 +25,24 @@ function UrlRewritingPostProcessor(request, metadataClient) {
 	if(!request) throw 'Missing required attribute request\nat: ' + new Error().stack;
 	if(!metadataClient) throw 'Missing required attribute metadataClient\nat: ' + new Error().stack;
 	
-	Processor.call(this, request, metadataClient);
+	UrlRewritingProcessor.call(this, request, metadataClient);
 	
 	Object.defineProperties(this, {
 		'replacementRegex': {
 			value: new RegExp('(.*:\\/\\/[^/]+)(\\/.*' + request.getServiceName() + '\\.xsodata)(.*)')
+		},
+		'replacementPath': {
+			value: this.request.getServicePath()
 		}
 	});
 }
 
-UrlRewritingPostProcessor.prototype = new Processor();
+UrlRewritingPostProcessor.prototype = new UrlRewritingProcessor();
 UrlRewritingPostProcessor.prototype.constructor = UrlRewritingPostProcessor;
 
 /*
  * @see lib.decorator.processor.Processor.apply
  */
-UrlRewritingPostProcessor.prototype.apply = function (response) {
-	if(!response.json) return;
-	
-	var data = response.data.d;
-	
-	var servicePath = this.request.getServicePath();
-	
-	data.traverse(function(object, parent, name) {
-		if(object && ~['uri', 'id', '__delta', '__next'].indexOf(name)) {
-			parent[name] = this.replace(object);
-		}
-	}.bind(this));
-	
-	var location = response.headers.get('location');
-	if(location) response.headers.set('location', this.replace(location));
-};
-
-/**
- * Returns a rewritten version of the specified absolute url string in which the
- * reference to the upstream XSOData service is replaced with a reference to the
- * current wrapper XSJS service.
- */
-UrlRewritingPostProcessor.prototype.replace = function (url) {
-	return url.replace(this.replacementRegex, '$1' + this.request.getServicePath() + '$3');
+UrlRewritingPostProcessor.prototype.apply = function(response) {
+	this.replaceLocation(response);
 };
