@@ -110,7 +110,7 @@ Decorator.prototype.collectionSupportsDelta = function() {
 };
 
 /**
- * Loads the most specific* configuration value for the current request
+ * Loads the most specific configuration value for the current request
  * based on the specified key.
  * 
  * Most specific based on granularity out of [global, service-level, collection-level].
