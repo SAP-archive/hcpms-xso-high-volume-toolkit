@@ -243,7 +243,7 @@ Request.prototype.getCollectionName = function() {
  * Tells if the current requests is targeting an OData collection. 
  */
 Request.prototype.isCollectionRequest = function() {
-	return this.getQueryPath() && !this.isSingleEntityRequest() && !this.isMetadataRequest();
+	return this.getQueryPath() && !this.isSingleEntityRequest() && !this.isMetadataRequest() && !this.isMultipartRequest();
 };
 
 /**

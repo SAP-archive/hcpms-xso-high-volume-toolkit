@@ -1,3 +1,5 @@
+var Configuration = $.import('sap.odata.util.lib.db', 'configuration').Configuration;
+
 function Response(webRequest, webResponse) {
 	if(webRequest) {
 		Object.defineProperties(this, {
@@ -65,6 +67,26 @@ Response.prototype.getPostProcessingError = function() {
  */
 Response.prototype.setPostProcessingError = function(error) {
 	this.error = error;
+};
+
+/**
+ * Truncates this response so that its content length will not exceed the byte limit
+ * specified in the skiptoken.maxContentLength configuration parameter. This method
+ * does not apply to batch requests.
+ */
+Response.prototype.truncate = function() { };
+
+/**
+ * Loads the most specific configuration value for the current request
+ * based on the specified key.
+ * 
+ * Most specific based on granularity out of [global, service-level, collection-level].
+ * 
+ * @returns {string} The most specific configuration value
+ */
+Response.prototype.getConfiguredValue = function(key) {
+	return Configuration.getProperty(key, this.webRequest.getServicePath(),
+			this.webRequest.isCollectionRequest() ? this.webRequest.getCollectionName() : undefined);
 };
 
 /**

@@ -1,5 +1,6 @@
 SERVICE_ID,COLLECTION_NAME,KEY,VALUE
 ,,skiptoken.pageSize,10000
+,,skiptoken.maxContentLength,67108864
 ,,deltatoken.deltaPropertyName,DELTATOKEN
 ,,deltatoken.deletedPropertyName,IS_DELETED
 ,,deltatoken.deletedPropertyYesValue,Y
