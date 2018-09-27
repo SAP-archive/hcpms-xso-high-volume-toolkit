@@ -139,7 +139,7 @@ Request.prototype.getTarget = function() {};
 Request.prototype.getPath = notImplemented;
 
 /**
- * Returns the full request path, including the query path
+ * Returns the full target request path, including the query path
  * 
  * <pre><code>
  * 
@@ -148,11 +148,23 @@ Request.prototype.getPath = notImplemented;
  * </code></pre>
  */
 Request.prototype.getFullTargetServicePath = function() {
-	var fullPath = this.getPath().indexOf('http') === 0 ? this.getPath() :
+	return this.getFullWrapperServicePath().replace(/\.xsjs/, '.xsodata');
+};
+
+/**
+ * Returns the full wrapper request path, including the query path
+ *
+ * <pre><code>
+ *
+ * http://myhost:8000/my/service.xsjs/MyCollection
+ * ^---------------------------------------------^
+ * </code></pre>
+ */
+Request.prototype.getFullWrapperServicePath = function() {
+	return this.getPath().indexOf('http') === 0 ? this.getPath() :
 		$.request.headers.get('clientprotocol') + '://' +
 		$.request.headers.get('host') + this.getPath();
 	
-	return fullPath.replace(/\.xsjs/, '.xsodata');
 };
 
 /**

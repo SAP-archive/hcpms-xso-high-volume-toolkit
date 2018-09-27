@@ -8,10 +8,14 @@
 	 * http://scn.sap.com/community/hana-in-memory/blog/2014/02/19/you-got-the-time
 	 * the time zone for each server node has to be the same, should there be
 	 * multiple nodes.
+	 *
+	 * Note, the DELTA_TOKEN_QUERY is fetching a non-UTC value.
+	 * However resultSet.getTimestamp(1) is time-zone aware and interprets
+	 * this value as local time.  cachedTime.getTime() is already in UTC
+	 * without any explicit conversion needed.
 	 */
-	var DELTA_TOKEN_QUERY = 'SELECT LOCALTOUTC( ' +
-			'IFNULL( MIN(START_TIME), NOW() ), ' +
-			'IFNULL((SELECT VALUE from M_HOST_INFORMATION where upper(KEY) = \'TIMEZONE_NAME\' LIMIT 1), \'UTC\')) AS DELTATOKEN ' +
+
+	var DELTA_TOKEN_QUERY = 'SELECT IFNULL( MIN(START_TIME), NOW() ) AS DELTATOKEN ' +
 		'FROM M_TRANSACTIONS ' +
 		'WHERE UPPER( TRANSACTION_STATUS ) <> \'INACTIVE\' AND UPDATE_TRANSACTION_ID > 0';
 	
