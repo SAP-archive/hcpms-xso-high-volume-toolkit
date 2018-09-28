@@ -47,6 +47,10 @@ DeltaTokenPreProcessor.prototype.apply = function() {
 	if(this.request.isDeltaRequest()) {
 		parameters.set('$filter', filter + this.deltaPropertyName + ' ge datetime\'' +
 			new Date(this.getCurrentDeltaToken()).toODataV2String() + '\'');
+
+		// Calculate the next delta token before sending the request.
+		// Value will be cached and used during post processing.
+		Date.latestSafeTimestamp();
 	}
 };
 

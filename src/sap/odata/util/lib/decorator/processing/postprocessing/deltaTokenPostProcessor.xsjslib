@@ -66,8 +66,10 @@ DeltaTokenPostProcessor.prototype.apply = function(response) {
 	if(!response.json) return; // TODO move to isActive
 	
 	var data = response.data.d;
-	
-	if(response.webRequest.isCollectionRequest()) data.__delta = this.getDeltaUrl();
+
+	if( !data.hasOwnProperty('__next') && response.webRequest.isCollectionRequest() ) {
+		data.__delta = this.getDeltaUrl();
+	}
 };
 
 DeltaTokenPostProcessor.prototype.visit = function(object, parent, name) {

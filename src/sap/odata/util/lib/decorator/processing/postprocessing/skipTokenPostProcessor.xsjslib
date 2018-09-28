@@ -30,7 +30,6 @@ SkipTokenPostProcessor.prototype.apply = function(response) {
 	var data = response.data.d;
 	
 	this.applyNextPageLink(data);
-	this.removeInlineCount(data);
 };
 
 /**
@@ -39,11 +38,12 @@ SkipTokenPostProcessor.prototype.apply = function(response) {
  * (http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398310)
  * and adds it to the response.
  *
- * Link is only added if the response contains a __count value and if it is
- * greater than the configured page size.
+ * Link is only added if the response contains a full page with
+ * the same number of entities as the configured page size.
+ * The >= check is defensive and == should give the same result.
  */
 SkipTokenPostProcessor.prototype.applyNextPageLink = function(data) {
-	if(data.__count > this.pageSize) {
+	if(data.results.length >= this.pageSize) {
 		var lastObject = data.results[data.results.length - 1];
 		data.__next = this.getNextPageUrl(lastObject);
 	}
@@ -54,6 +54,14 @@ SkipTokenPostProcessor.prototype.applyNextPageLink = function(data) {
  */
 SkipTokenPostProcessor.prototype.getNextPageUrl = function(lastObject) {
 	return this.request.getFullTargetServicePath() + '?' + this.querify(this.getNextPageRequestParameters(lastObject));
+};
+
+/**
+ * Returns the URL to the next page, relative to the server base URL.
+ * This is meant for webResponse.truncate() which is run after re-writing.
+ */
+SkipTokenPostProcessor.prototype.getWrapperNextPageUrl = function(lastObject) {
+	return this.request.getFullWrapperServicePath() + '?' + this.querify(this.getNextPageRequestParameters(lastObject));
 };
 
 /**
@@ -82,7 +90,7 @@ SkipTokenPostProcessor.prototype.getNextSkipToken = function(lastObject) {
 	var currentToken = this.getCurrentSkipToken();
 	
 	var token = '' + (currentToken ? currentToken.timestamp :
-		this.request.originalParameters.get('!deltatoken') || Date.latestSafeTimestamp().getTime());
+		Date.latestSafeTimestamp().getTime());
 	
 	this.getMetadata().keys.forEach(function(key) {
 		token += '-' + encodeURIComponent('' + lastObject[key.name]);
@@ -91,9 +99,3 @@ SkipTokenPostProcessor.prototype.getNextSkipToken = function(lastObject) {
 	return token;
 };
 
-/**
- * Removes the <pre><code>__count</pre></code> property from the specified data.
- */
-SkipTokenPostProcessor.prototype.removeInlineCount = function(data) {
-	delete data.__count;
-};
