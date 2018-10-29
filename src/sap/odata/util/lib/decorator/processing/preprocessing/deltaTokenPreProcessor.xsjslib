@@ -41,12 +41,15 @@ DeltaTokenPreProcessor.prototype.apply = function() {
 	var parameters = this.request.parameters;
 	parameters.remove('!deltatoken');
 	
-	var filter = parameters.contains('$filter') ?
-			parameters.get('$filter') + ' and ' : '';
-	
 	if(this.request.isDeltaRequest()) {
-		parameters.set('$filter', filter + this.deltaPropertyName + ' ge datetime\'' +
-			new Date(this.getCurrentDeltaToken()).toODataV2String() + '\'');
+		var deltaFilter = this.deltaPropertyName + ' ge datetime\'' +
+			new Date(this.getCurrentDeltaToken()).toODataV2String() + '\'';
+		
+		if(parameters.contains('$filter')) {
+			parameters.set('$filter', '( ' + parameters.get('$filter') + ' ) and ( ' + deltaFilter + ' )');
+		} else {
+			parameters.set('$filter', deltaFilter );
+		}		
 
 		// Calculate the next delta token before sending the request.
 		// Value will be cached and used during post processing.

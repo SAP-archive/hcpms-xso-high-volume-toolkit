@@ -71,11 +71,13 @@ SkipTokenPreProcessor.prototype.apply = function() {
 	
 	parameters.remove('$skiptoken');
 	
-	var pageFilter = this.createFilter();
-	
+	var pageFilter = this.createFilter();	
 	if(pageFilter) {
-		parameters.set('$filter', (parameters.contains('$filter') ? parameters.get('$filter') + ' and ' : '') +
-			pageFilter);
+		if(parameters.contains('$filter')) {
+ 			parameters.set('$filter', '( ' + parameters.get('$filter') + ' ) and ( ' + pageFilter + ' )');
+		} else {
+			parameters.set('$filter', pageFilter);
+		}
 	}
 	parameters.set('$top', this.pageSize);
 };
