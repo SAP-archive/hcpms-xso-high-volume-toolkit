@@ -64,22 +64,22 @@ SkipTokenPreProcessor.prototype.constructor = SkipTokenPreProcessor;
  * Sets the request parameters for the request to the target service that
  * corresponds to the current request parameters. Removes $skiptoken from the
  * upstream request and adds a $filter expression that selects
- * the next chunk of entities. $inlinecount is also requested in order to know
- * if a __next link needs to be added to the downstream response later.
+ * the next chunk of entities.
  */
 SkipTokenPreProcessor.prototype.apply = function() {
 	var parameters = this.request.parameters;
 	
 	parameters.remove('$skiptoken');
 	
-	var pageFilter = this.createFilter();
-	
+	var pageFilter = this.createFilter();	
 	if(pageFilter) {
-		parameters.set('$filter', (parameters.contains('$filter') ? parameters.get('$filter') + ' and ' : '') +
-			pageFilter);
+		if(parameters.contains('$filter')) {
+ 			parameters.set('$filter', '( ' + parameters.get('$filter') + ' ) and ( ' + pageFilter + ' )');
+		} else {
+			parameters.set('$filter', pageFilter);
+		}
 	}
 	parameters.set('$top', this.pageSize);
-	parameters.set('$inlinecount', 'allpages');
 };
 
 /* 

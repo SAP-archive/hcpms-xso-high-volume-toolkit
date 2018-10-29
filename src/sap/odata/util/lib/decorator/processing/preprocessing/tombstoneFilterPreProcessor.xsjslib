@@ -53,9 +53,11 @@ TombstoneFilterPreProcessor.prototype.isActive = function(request) {
  */
 TombstoneFilterPreProcessor.prototype.apply = function() {
 	var parameters = this.request.parameters;
+	var tombstoneFilter = this.deletedPropertyName + ' ne \'' + this.deletedPropertyYesValue + '\''
 	
-	var filter = parameters.contains('$filter') ? parameters.get('$filter') + ' and ' : '';
-	
-	parameters.set('$filter',
-			filter + this.deletedPropertyName + ' ne \'' + this.deletedPropertyYesValue + '\'');
+	if(parameters.contains('$filter')) {
+		parameters.set('$filter', '( ' + parameters.get('$filter') + ' ) and ( ' + tombstoneFilter + ' )');
+	} else {
+		parameters.set('$filter', tombstoneFilter );
+	}	
 };
