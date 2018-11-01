@@ -72,7 +72,12 @@ Processor.prototype.getMetadata = function() {
  */
 Processor.prototype.querify = function(parameters) {
 	return parameters.map(function(entry) {
-		return entry.key + '=' + escape(entry.value);
+		var value = entry.value;
+		if(entry.key !== '$skiptoken') {
+			// $skiptoken has already been escaped
+			value = escape(value);
+		}
+		return entry.key + '=' + value;
 	}).join('&');
 };
 
