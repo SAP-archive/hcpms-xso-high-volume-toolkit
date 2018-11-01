@@ -93,9 +93,10 @@ SkipTokenPostProcessor.prototype.getNextSkipToken = function(lastObject) {
 		Date.latestSafeTimestamp().getTime());
 	
 	this.getMetadata().keys.forEach(function(key) {
-		token += '-' + encodeURIComponent('' + lastObject[key.name]);
+		// URI encode and also replace '~' with '~-' in the key values to avoid conflicts with
+		// the separator ~~. It will be converted back in skipTokenProcessor.getCurrentSkipToken()
+		token += '~~' + encodeURIComponent('' + lastObject[key.name]).replace(/~/g,'~-');
 	});
 	
 	return token;
 };
-

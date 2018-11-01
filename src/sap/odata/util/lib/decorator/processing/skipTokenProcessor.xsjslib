@@ -10,7 +10,7 @@ function SkipTokenProcessor(request, metadataClient) {
 	
 	request && Object.defineProperties(this, {
 		'skipTokenSeparator': {
-			value: '-'
+			value: '~~'
 		},
 		'pageSize': {
 			value: parseInt(this.getConfiguredValue('skiptoken.pageSize'), 10)
@@ -39,7 +39,7 @@ SkipTokenProcessor.prototype.isActive = function() {
  * </code></pre> parameter or null, if there is none.
  *
  * A skip token is constructed as follows:
- * $skiptoken = timestamp-key[-key]*
+ * $skiptoken = timestamp~~key[~~key]*
  * 
  * The timestamp is the latest known safe point in time in terms of
  * snapshot isolation before the pagination started, and is carried over
@@ -61,7 +61,7 @@ SkipTokenProcessor.prototype.getCurrentSkipToken = function(request) {
 	return {
 		timestamp: parseInt(components[0], 10),
 		keys: components.splice(1, components.length - 1).map(function(encodedKey) {
-			return decodeURIComponent(encodedKey);
+			return decodeURIComponent(encodedKey).replace(/~-/g, '~');
 		}),
 		meta: this.getMetadata(),
 		raw: encodedToken
