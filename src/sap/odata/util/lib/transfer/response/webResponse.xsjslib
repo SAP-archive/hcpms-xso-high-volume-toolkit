@@ -103,7 +103,8 @@ WebResponse.prototype.truncate = function(outboundBody) {
     
     if(droppedBytes) {
         $.trace.info("Dropped " + droppedBytes + " bytes in " + (originalArrayLength - sliceIndex) + " entites.");
-        this.data.d.__next = this.getSkipTokenPostprocessor().getNextPageUrl(this.data.d.results[this.data.d.results.length - 1]);
+        this.data.d.__next = this.getSkipTokenPostprocessor().getWrapperNextPageUrl(this.data.d.results[this.data.d.results.length - 1]);
+        delete this.data.d.__delta; // Only the final page should have a delta token
         return true;
     }
     return false;
