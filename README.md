@@ -1,3 +1,9 @@
+![](https://img.shields.io/badge/STATUS-NOT%20CURRENTLY%20MAINTAINED-red.svg?longCache=true&style=flat)
+
+# Important Notice
+We have decided to stop the maintenance of this public GitHub repository.
+
+
 # SAP HCPms XS OData High Volume Toolkit
 
 This toolkit provides a simple API that lets you enhance your XS OData services with delta query and server-driven pagination support. In high-volume scenarios [delta tokens help you reduce the network load between your server and its clients](http://scn.sap.com/blogs/pault/2014/03/08/delta-queries-part-1). [Skip tokens provide a way to enforce server-side pagination](http://scn.sap.com/community/developer-center/mobility-platform/blog/2015/06/04/implementing-a-skip-token-odata-query-option-skiptoken-for-soap-data-using-integration-gateway), and therefore help you break down large result sets over multiple smaller requests. Both mechanisms can be leveraged to optimize the network load between your SAP Mobile Platform 3.0/HCP Mobile Services for Development & Operations.
